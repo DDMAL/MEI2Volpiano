@@ -26,7 +26,9 @@ class MEItoVolpiano:
 
         return mei_line_array
 
-    def create_volpiano(parsed_mei):
+    def find_clef(parsed_mei):
+
+        # Find the clef shape and line location from body
         clef = []
         for line in parsed_mei:
             if "staffDef" in line:
@@ -34,6 +36,7 @@ class MEItoVolpiano:
                 clef.append(curr[-1])
                 clef.append(curr[-2])
                 break
+
         for char in clef[0]:
             if char >= "A" and char <= "Z":
                 clef[0] = char
@@ -53,8 +56,8 @@ def main():
     # for line in clean_mei:
     #    print(line)
 
-    volpiano = MEItoVolpiano.create_volpiano(clean_mei)
-    print(volpiano)
+    clef = MEItoVolpiano.find_clef(clean_mei)
+    print(clef)
 
 
 if __name__ == "__main__":
