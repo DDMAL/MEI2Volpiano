@@ -26,7 +26,7 @@ class MEItoVolpiano:
 
         return mei_line_array
 
-    def create_volpaino(parsed_mei):
+    def create_volpiano(parsed_mei):
         pass
 
     def export_volpiano(volpiano_file):
