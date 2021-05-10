@@ -21,13 +21,26 @@ class MEItoVolpiano:
             if "</body" in line:
                 bodyEndFlag = True
             if bodyFlag and not bodyEndFlag:
-                #print(line.strip())
+                # print(line.strip())
                 mei_line_array.append(line.strip())
-        
+
         return mei_line_array
 
-    def create_volpaino(parsed_mei):
-        pass
+    def create_volpiano(parsed_mei):
+        clef = []
+        for line in parsed_mei:
+            if "staffDef" in line:
+                curr = line.split()
+                clef.append(curr[-1])
+                clef.append(curr[-2])
+                break
+        for char in clef[0]:
+            if char >= "A" and char <= "Z":
+                clef[0] = char
+        for char in clef[1]:
+            if char.isdigit():
+                clef[1] = int(char)
+        return clef
 
     def export_volpiano(volpiano_file):
         pass
@@ -37,8 +50,11 @@ def main():
     f = open(sys.argv[1], "r")
     clean_mei = MEItoVolpiano.import_mei(f)
 
-    for line in clean_mei:
-        print(line)
+    # for line in clean_mei:
+    #    print(line)
+
+    volpiano = MEItoVolpiano.create_volpiano(clean_mei)
+    print(volpiano)
 
 
 if __name__ == "__main__":
