@@ -5,6 +5,7 @@
 # 4. Match the words and the neumes at the end of the body loop
 # 5. Convert output dict into string and export
 # Process is one pass with O(x) for x = length of lines in body. Roughly
+import sys
 
 
 class MEItoVolpiano:
@@ -24,7 +25,7 @@ class MEItoVolpiano:
 def main():
     bodyFlag = False
     bodyEndFlag = False
-    f = open("CF-005.mei", "r")
+    f = open(sys.argv[1], "r")
     for line in f:
         if "<body" in line:
             bodyFlag = True
