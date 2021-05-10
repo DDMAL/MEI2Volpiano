@@ -11,6 +11,8 @@ import sys
 class MEItoVolpiano:
     def import_mei(mei_file):
 
+        # The two flags find the start and end of the body tag, printing lines between them.
+
         bodyFlag = bodyEndFlag = False
         for line in mei_file:
             if "<body" in line:
