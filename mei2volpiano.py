@@ -22,6 +22,9 @@ class MEItoVolpiano:
 
 
 def main():
+    f = open("CF-005.mei", "r")
+    for line in f:
+        print(line.strip())
     
     
 
