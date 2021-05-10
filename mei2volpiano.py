@@ -6,9 +6,12 @@
 # 5. Convert output dict into string and export
 # Process is one pass with O(x) for x = length of lines in body. Roughly
 import sys
+import argparse
+
 
 
 class MEItoVolpiano:
+<<<<<<< HEAD
     def import_mei(self, mei_file):
         pass
 
@@ -17,8 +20,12 @@ class MEItoVolpiano:
 
     def create_volpaino(self, parsed_mei):
     
+=======
+>>>>>>> 1f3ad559f685d780ca3e2f2420d133334993ad9c
     def import_mei(mei_file):
 
+        # The two flags find the start and end of the body tag, printing lines between them.
+        mei_line_array = []
         bodyFlag = bodyEndFlag = False
         for line in mei_file:
             if "<body" in line:
@@ -26,12 +33,11 @@ class MEItoVolpiano:
             if "</body" in line:
                 bodyEndFlag = True
             if bodyFlag and not bodyEndFlag:
-                print(line.strip())
-       
-     
+                #print(line.strip())
+                mei_line_array.append(line.strip())
+        
+        return mei_line_array
 
-
-    
     def create_volpaino(parsed_mei):
         pass
 
@@ -41,6 +47,7 @@ class MEItoVolpiano:
 
 def main():
     f = open(sys.argv[1], "r")
+<<<<<<< HEAD
     for line in f:
         if "<body" in line:
             bodyFlag = True
@@ -52,6 +59,13 @@ def main():
     MEItoVolpiano.import_mei(f)
     
     
+=======
+    clean_mei = MEItoVolpiano.import_mei(f)
+
+    for line in clean_mei:
+        print(line)
+
+>>>>>>> 1f3ad559f685d780ca3e2f2420d133334993ad9c
 
 if __name__ == "__main__":
     main()
