@@ -31,8 +31,8 @@ class MEItoVolpiano:
         # Find the clef shape and line location from body
         clef = []
         for line in parsed_mei:
-            if "staffDef" in line:
-                curr = line.split()
+            if "staffDef" in line: # This assumes exact information location 
+                curr = line.split() # TODO Secure this for manual locations 
                 clef.append(curr[-1])
                 clef.append(curr[-2])
                 break
