@@ -9,19 +9,7 @@ import sys
 import argparse
 
 
-
 class MEItoVolpiano:
-<<<<<<< HEAD
-    def import_mei(self, mei_file):
-        pass
-
-    def parse_mei(self, mei_body):
-        pass
-
-    def create_volpaino(self, parsed_mei):
-    
-=======
->>>>>>> 1f3ad559f685d780ca3e2f2420d133334993ad9c
     def import_mei(mei_file):
 
         # The two flags find the start and end of the body tag, printing lines between them.
@@ -33,9 +21,9 @@ class MEItoVolpiano:
             if "</body" in line:
                 bodyEndFlag = True
             if bodyFlag and not bodyEndFlag:
-                #print(line.strip())
+                # print(line.strip())
                 mei_line_array.append(line.strip())
-        
+
         return mei_line_array
 
     def create_volpaino(parsed_mei):
@@ -47,25 +35,11 @@ class MEItoVolpiano:
 
 def main():
     f = open(sys.argv[1], "r")
-<<<<<<< HEAD
-    for line in f:
-        if "<body" in line:
-            bodyFlag = True
-        if "</body" in line:
-            bodyEndFlag = True
-        if bodyFlag and not bodyEndFlag:
-            print(line.strip())
-
-    MEItoVolpiano.import_mei(f)
-    
-    
-=======
     clean_mei = MEItoVolpiano.import_mei(f)
 
     for line in clean_mei:
         print(line)
 
->>>>>>> 1f3ad559f685d780ca3e2f2420d133334993ad9c
 
 if __name__ == "__main__":
     main()
