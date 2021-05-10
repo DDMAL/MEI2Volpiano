@@ -16,15 +16,30 @@ class MEItoVolpiano:
         pass
 
     def create_volpaino(self, parsed_mei):
+    
+    def import_mei(mei_file):
+
+        bodyFlag = bodyEndFlag = False
+        for line in mei_file:
+            if "<body" in line:
+                bodyFlag = True
+            if "</body" in line:
+                bodyEndFlag = True
+            if bodyFlag and not bodyEndFlag:
+                print(line.strip())
+       
+     
+
+
+    
+    def create_volpaino(parsed_mei):
         pass
 
-    def export_volpiano(self, volpiano_file):
+    def export_volpiano(volpiano_file):
         pass
 
 
 def main():
-    bodyFlag = False
-    bodyEndFlag = False
     f = open(sys.argv[1], "r")
     for line in f:
         if "<body" in line:
@@ -34,6 +49,9 @@ def main():
         if bodyFlag and not bodyEndFlag:
             print(line.strip())
 
+    MEItoVolpiano.import_mei(f)
+    
+    
 
 if __name__ == "__main__":
     main()
