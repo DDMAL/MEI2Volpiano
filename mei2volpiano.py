@@ -9,7 +9,7 @@
 class MEItoVolpiano:
     
     def import_mei(self, mei_file):
-        print(mei_file)
+        pass
 
     def parse_mei(self, mei_body):
         pass
@@ -22,8 +22,8 @@ class MEItoVolpiano:
 
 
 def main():
-    a = MEItoVolpiano()
-    a.import_mei(2)
+    
+    
 
 if __name__ == "__main__":
     main()
