@@ -22,9 +22,16 @@ class MEItoVolpiano:
 
 
 def main():
+    bodyFlag = False
+    bodyEndFlag = False
     f = open("CF-005.mei", "r")
     for line in f:
-        print(line.strip())
+        if "<body" in line:
+            bodyFlag = True
+        if "</body" in line:
+            bodyEndFlag = True
+        if bodyFlag and not bodyEndFlag:
+            print(line.strip())
     
     
 
