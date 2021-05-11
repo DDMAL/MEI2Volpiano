@@ -41,6 +41,15 @@ class MEItoVolpiano:
 
         return notes
 
+    def map_sylb(elements):
+        # syl_note = {}
+        # currClef = [] #stack
+        # for element in elements:
+        # get nc, process based on stack, map
+        #    pass
+        # return syl_note
+        pass
+
     def export_volpiano(volpiano_file):
         pass
 
