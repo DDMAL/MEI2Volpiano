@@ -49,7 +49,7 @@ class MEItoVolpiano:
             if element.tag == "{http://www.music-encoding.org/ns/mei}syl":
                 if element.text:
                     cur = ''.join(f"{dbase_bias}")
-                    cur = cur.join(element.text)
+                    cur += element.text
                     syl_note[cur] = ''
                     dbase_bias += 1
                 else:
