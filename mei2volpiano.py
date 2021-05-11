@@ -47,17 +47,22 @@ class MEItoVolpiano:
         # currClef = [] #stack
         for i, element in enumerate(elements):
             if element.tag == "{http://www.music-encoding.org/ns/mei}syl":
-                if element.text:
-                    cur = ''.join(f"{dbase_bias}_")
-                    cur += element.text
-                    syl_note[cur] = ''
-                    dbase_bias += 1
-                else:
-                    cur = ''.join(f"{dbase_bias}")
-                    syl_note[cur] = ''
-                    dbase_bias += 1
+                key = MEItoVolpiano.get_syl_key(element, dbase_bias)
+                syl_note[key] = ''
+                dbase_bias += 1
 
         return syl_note
+    
+    def get_syl_key(element, bias):
+        key = -1
+        if element.text:
+            key = ''.join(f"{bias}_")
+            key += element.text
+        else:
+            key = ''.join(f"{bias}")
+        return key
+            
+
 
     def convertNote(clef, note):
         # convert note to volpiano
