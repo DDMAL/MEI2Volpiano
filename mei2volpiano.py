@@ -46,6 +46,8 @@ class MEItoVolpiano:
 
         return notes
 
+    # error in the code because the syl is not always considered first
+    # it affect the final result
     def map_sylb(elements):  # WARNING the idiomatic code is not complete yet
         syl_note = {"0": ""}
         dbase_bias = 0
