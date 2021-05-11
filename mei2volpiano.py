@@ -13,9 +13,12 @@ import xml.etree.ElementTree as ET
 
 class MEItoVolpiano:
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 344bff99832e9cc3dbd38c3191408018a6511007
+=======
+>>>>>>> e770f2452a8b9f8bbfd1b7deb0769d270d5b2776
     def get_mei_attrs(filename):
         tree = ET.parse(filename)
         root = tree.getroot()
@@ -24,7 +27,11 @@ class MEItoVolpiano:
         for i in a:
             if "clef.shape" in i.keys() or "pname" in i.keys():
                 atribs.append(i.attrib)
-        return atribs
+        clefs = [0]
+        for element in atribs:
+            if "clef.line" in element:
+                clefs[0] = element["clef.shape"]  # always have 1 clef
+        return clefs
 
     def find_clef(parsed_mei):
 
