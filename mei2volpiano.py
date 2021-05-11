@@ -73,7 +73,7 @@ class MEItoVolpiano:
         key = -1
         if element.text:
             key = "".join(f"{bias}_")
-            key += element.text
+            key = f"{key}{element.text}"
         else:
             key = "".join(f"{bias}")
         return key
