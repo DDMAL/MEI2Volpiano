@@ -42,27 +42,29 @@ class MEItoVolpiano:
         return notes
 
     def map_sylb(elements):
-        syl_note = {}
+        syl_note = {"0": ""}
         dbase_bias = 0
         # currClef = [] #stack
-        for i, element in enumerate(elements):
+        for element in elements:
+            last = list(syl_note)[-1]
             if element.tag == "{http://www.music-encoding.org/ns/mei}syl":
                 key = MEItoVolpiano.get_syl_key(element, dbase_bias)
-                syl_note[key] = ''
+                syl_note[key] = ""
                 dbase_bias += 1
+                last = key
+            if element.tag == "{http://www.music-encoding.org/ns/mei}nc":
+                syl_note[last] += element.attrib["pname"]
 
         return syl_note
-    
+
     def get_syl_key(element, bias):
         key = -1
         if element.text:
-            key = ''.join(f"{bias}_")
+            key = "".join(f"{bias}_")
             key += element.text
         else:
-            key = ''.join(f"{bias}")
+            key = "".join(f"{bias}")
         return key
-            
-
 
     def convertNote(clef, note):
         # convert note to volpiano
@@ -75,8 +77,7 @@ class MEItoVolpiano:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "mei_files", type=str, nargs="+",
-        help="Please enter one or multiple MEI files"
+        "mei_files", type=str, nargs="+", help="Please enter one or multiple MEI files"
     )
     args = vars(
         parser.parse_args()
@@ -91,8 +92,8 @@ def main():
             clefs = MEItoVolpiano.find_clefs(elements)
             notes = MEItoVolpiano.find_notes(elements)
             mapped = MEItoVolpiano.map_sylb(elements)
-            #print(clefs)
-            #print(notes)
+            # print(clefs)
+            # print(notes)
             print(mapped)
 
 
