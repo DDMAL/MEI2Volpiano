@@ -61,8 +61,7 @@ class MEItoVolpiano:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "mei_files", type=str, nargs="+",
-        help="Please enter one or multiple MEI files"
+        "mei_files", type=str, nargs="+", help="Please enter one or multiple MEI files"
     )
     args = vars(
         parser.parse_args()
