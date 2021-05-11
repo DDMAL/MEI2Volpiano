@@ -10,7 +10,7 @@
 TODO:
 - 
 """
-
+# Wringin this is not final JUST a draft
 
 import argparse
 import xml.etree.ElementTree as ET
