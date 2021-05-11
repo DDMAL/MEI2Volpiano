@@ -12,22 +12,7 @@ import xml.etree.ElementTree as ET
 
 
 class MEItoVolpiano:
-    def import_mei(mei_file):
-
-        # The two flags find the start and end of the body tag
-        mei_line_array = []
-        bodyFlag = bodyEndFlag = False
-        for line in mei_file:
-            if "<body" in line:
-                bodyFlag = True
-            if "</body" in line:
-                bodyEndFlag = True
-            if bodyFlag and not bodyEndFlag:
-                # print(line.strip())
-                mei_line_array.append(line.strip())
-
-        return mei_line_array
-
+    
     def get_mei_attrs(filename):
         tree = ET.parse(filename)
         root = tree.getroot()
