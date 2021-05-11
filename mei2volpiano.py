@@ -71,8 +71,9 @@ class MEItoVolpiano:
             key = "".join(f"{bias}")
         return key
 
-    def convertNote(clef, note):
+    def convertNote(clef, note, octave):
         # convert note to volpiano
+
         pass
 
     def export_volpiano(volpiano_file):
@@ -82,9 +83,7 @@ class MEItoVolpiano:
 def main():
     parser = argparse.ArgumentParser()
     error = "Please enter one or multiple MEI files"
-    parser.add_argument(
-        "mei_files", type=str, nargs="+", help=f"{error}"
-    )
+    parser.add_argument("mei_files", type=str, nargs="+", help=f"{error}")
     args = vars(
         parser.parse_args()
     )  # stores each positional input in dict, may want to check file validity
