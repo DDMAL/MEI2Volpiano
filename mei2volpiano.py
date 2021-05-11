@@ -5,9 +5,10 @@
 # 4. Match the words and the neumes at the end of the body loop
 # 5. Convert output dict into string and export
 # Process is one pass with O(x) for x = length of lines in body. Roughly
-import sys
-import argparse
 
+import re
+import argparse
+import xml.etree.ElementTree as ET
 
 class MEItoVolpiano:
     def import_mei(mei_file):
@@ -26,19 +27,36 @@ class MEItoVolpiano:
 
         return mei_line_array
 
+
+    def get_mei_attrs(filename):
+        tree = ET.parse(filename)
+        root = tree.getroot()
+        a = root.findall('.//')
+        return [i.attrib for i in a]
+        
+
     def find_clef(parsed_mei):
 
         # Find the clef shape and line location from body
         clef = []
         for line in parsed_mei:
+<<<<<<< HEAD
             if "staffDef" in line:  # This assumes exact information location
                 curr = line.split()  # TODO Secure this for manual locations
                 clef.append(curr[-1])
                 clef.append(curr[-2])
+=======
+            if "staffDef" in line: # This assumes exact information location 
+                
+                # playing around with some regex, may have found a good solution, can be used for other lines as well
+                mei_tag_attrs = dict(re.findall(r'(\w*)=(\".*?\"|\S*)', line))
+                clef.append(mei_tag_attrs['shape'])
+                clef.append(mei_tag_attrs['line'])
+>>>>>>> 4cb1a6eb64eff97e6a10d40ef42423ea47562603
                 break
 
         for char in clef[0]:
-            if char >= "A" and char <= "Z":
+            if "A" <= char <= "Z":
                 clef[0] = char
         for char in clef[1]:
             if char.isdigit():
@@ -50,14 +68,16 @@ class MEItoVolpiano:
 
 
 def main():
-    f = open(sys.argv[1], "r")
-    clean_mei = MEItoVolpiano.import_mei(f)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("mei_files", type=str, nargs='+', help="Please enter one or multiple MEI files")
+    args = vars(parser.parse_args())  # stores each positional input in dict, may want to check file validity
 
-    # for line in clean_mei:
-    #    print(line)
-
-    clef = MEItoVolpiano.find_clef(clean_mei)
-    print(clef)
+    for mei_file in args['mei_files']:
+        with open(mei_file, 'r') as f:
+            # clean_mei = MEItoVolpiano.import_mei(f)
+            # clef = MEItoVolpiano.find_clef(clean_mei)
+            # print(clef)
+            print(MEItoVolpiano.get_mei_attrs(f))
 
 
 if __name__ == "__main__":
