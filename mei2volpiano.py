@@ -5,10 +5,10 @@
 # 4. Match the words and the neumes at the end of the body loop
 # 5. Convert output dict into string and export
 # Process is one pass with O(x) for x = length of lines in body. Roughly
-import sys
+
 import re
 import argparse
-
+import xml.etree.ElementTree as ET
 
 class MEItoVolpiano:
     def import_mei(mei_file):
@@ -26,6 +26,14 @@ class MEItoVolpiano:
                 mei_line_array.append(line.strip())
 
         return mei_line_array
+
+
+    def get_mei_attrs(filename):
+        tree = ET.parse('CF-005.mei')
+        root = tree.getroot()
+        a = root.findall('.//')
+        return [i.attrib for i in a]
+        
 
     def find_clef(parsed_mei):
 
@@ -59,9 +67,10 @@ def main():
 
     for mei_file in args['mei_files']:
         with open(mei_file, 'r') as f:
-            clean_mei = MEItoVolpiano.import_mei(f)
-            clef = MEItoVolpiano.find_clef(clean_mei)
-            print(clef)
+            # clean_mei = MEItoVolpiano.import_mei(f)
+            # clef = MEItoVolpiano.find_clef(clean_mei)
+            # print(clef)
+            print(MEItoVolpiano.get_mei_attrs(f))
 
 
 if __name__ == "__main__":
