@@ -34,14 +34,14 @@ class MEItoVolpiano:
         for line in parsed_mei:
             if "staffDef" in line: # This assumes exact information location 
                 
-                # playing around with some regex, may have found a good solution
-                mei_tag_attrs = dict(re.findall(r'(\w*)=(\".*?\"|\S*)', line))  # may be slow
+                # playing around with some regex, may have found a good solution, can be used for other lines as well
+                mei_tag_attrs = dict(re.findall(r'(\w*)=(\".*?\"|\S*)', line))
                 clef.append(mei_tag_attrs['shape'])
                 clef.append(mei_tag_attrs['line'])
                 break
 
         for char in clef[0]:
-            if char >= "A" and char <= "Z":
+            if "A" <= char <= "Z":
                 clef[0] = char
         for char in clef[1]:
             if char.isdigit():
