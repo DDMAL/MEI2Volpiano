@@ -67,7 +67,7 @@ class MEItoVolpiano:
                 ] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
                 syl_flag = False
             if element.tag == f"{NAMESPACE}neume":
-                if syl_note[last] != "" and not flag:
+                if syl_note[last] != "" and not syl_flag:
                     syl_note[last] = f'{syl_note[last]}{"-"}'
                 syl_flag = False
 
