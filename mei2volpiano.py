@@ -66,6 +66,9 @@ class MEItoVolpiano:
             if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"-"}'
+            if element.tag == f"{NAMESPACE}syllable":
+                if syl_note[last] != "":
+                    syl_note[last] = f'{syl_note[last]}{"---"}'
 
         return syl_note
 
@@ -94,7 +97,10 @@ def main():
         with open(mei_file, "r") as f:
             elements = MEItoVolpiano.get_mei_elements(f)
             mapped = MEItoVolpiano.map_sylb(elements)
-            print(mapped)
+            # print(mapped)
+            values = list(mapped.values())
+            str1 = "".join(values)
+            print(str1)
 
 
 if __name__ == "__main__":
