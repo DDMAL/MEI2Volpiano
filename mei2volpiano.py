@@ -9,6 +9,12 @@
 # -- Needs to properly differentiate the words, syllables, neumes
 # to determine the number of hyphens
 
+'''
+TODO:
+- 
+'''
+
+
 import argparse
 import xml.etree.ElementTree as ET
 
@@ -55,7 +61,8 @@ class MEItoVolpiano:
                 dbase_bias += 1
                 last = key
             if element.tag == f"{NAMESPACE}nc":
-                syl_note[last] = f'{syl_note[last]}{element.attrib["pname"]}'
+                offset = (int(element.attrib['oct']) - 1) * 8   # offset to calculate volpiano in higher octaves
+                syl_note[last] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
             if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"-"}'
@@ -76,8 +83,7 @@ class MEItoVolpiano:
 
         pass
 
-    def export_volpiano(volpiano_file):
-        pass
+    def export_volpiano(volpiano_dict):
 
 
 def main():
