@@ -42,13 +42,29 @@ class MEItoVolpiano:
         return notes
 
     def map_sylb(elements):
-        # syl_note = {}
+        syl_note = {}
+        dbase_bias = 0
         # currClef = [] #stack
-        # for element in elements:
-        # get nc, process based on stack, map
-        #    pass
-        # return syl_note
-        pass
+        for i, element in enumerate(elements):
+            if element.tag == "{http://www.music-encoding.org/ns/mei}syllable":
+                cur = None
+                if element[i + 1].tag == "{http://www.music-encoding.org/ns/mei}syl":
+                    sound = element[i + 1].text
+                    sound += f"{dbase_bias}"
+                    syl_note[sound] = ''
+                    cur = sound
+                    dbase_bias += 1
+                else:
+                    syl_note[dbase_bias] = ''
+                    cur = dbase_bias
+                    dbase_bias += 1
+                while element.tag != "{http://www.music-encoding.org/ns/mei}syllable":
+                    if element.tag == "{http://www.music-encoding.org/ns/mei}neume":
+                        syl_note[cur] += '-'
+                    elif element.tag == "{http://www.music-encoding.org/ns/mei}nc":
+                        syl_note[cur] += element.attrib["pname"]
+
+        return syl_note
 
     def convertNote(clef, note):
         # convert note to volpiano
@@ -76,8 +92,10 @@ def main():
             elements = MEItoVolpiano.get_mei_elements(f)
             clefs = MEItoVolpiano.find_clefs(elements)
             notes = MEItoVolpiano.find_notes(elements)
-            print(clefs)
-            print(notes)
+            mapped = MEItoVolpiano.map_sylb(elements)
+            #print(clefs)
+            #print(notes)
+            print(mapped)
 
 
 if __name__ == "__main__":
