@@ -12,6 +12,7 @@
 import argparse
 import xml.etree.ElementTree as ET
 
+NAMESPACE = '{http://www.music-encoding.org/ns/mei}'    # namespace for MEI tags
 
 class MEItoVolpiano:
     def get_mei_elements(filename):
@@ -27,16 +28,16 @@ class MEItoVolpiano:
         # Finds all clefs in a given file.
         clefs = []
         for element in elements:
-            if element.tag == "{http://www.music-encoding.org/ns/mei}staffDef":
+            if element.tag == f"{NAMESPACE}staffDef":
                 clefs.append(element.attrib["clef.shape"])
-            elif element.tag == "{http://www.music-encoding.org/ns/mei}clef":
+            elif element.tag == f"{NAMESPACE}clef":
                 clefs.append(element.attrib["shape"])
         return clefs
 
     def find_notes(elements):
         notes = []
         for element in elements:
-            if element.tag == "{http://www.music-encoding.org/ns/mei}nc":
+            if element.tag == f"{NAMESPACE}nc":
                 notes.append(element.attrib["pname"])
 
         return notes
@@ -47,14 +48,14 @@ class MEItoVolpiano:
         # currClef = [] #stack
         for element in elements:
             last = list(syl_note)[-1]
-            if element.tag == "{http://www.music-encoding.org/ns/mei}syl":
+            if element.tag == f"{NAMESPACE}syl":
                 key = MEItoVolpiano.get_syl_key(element, dbase_bias)
                 syl_note[key] = ""
                 dbase_bias += 1
                 last = key
-            if element.tag == "{http://www.music-encoding.org/ns/mei}nc":
+            if element.tag == f"{NAMESPACE}nc":
                 syl_note[last] += element.attrib["pname"]
-            if element.tag == "{http://www.music-encoding.org/ns/mei}neume":
+            if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "":
                     syl_note[last] += "-"  # <= BAD, MAKE IT FASTER
 
