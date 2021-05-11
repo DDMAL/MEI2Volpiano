@@ -29,7 +29,7 @@ class MEItoVolpiano:
 
 
     def get_mei_attrs(filename):
-        tree = ET.parse('CF-005.mei')
+        tree = ET.parse(filename)
         root = tree.getroot()
         a = root.findall('.//')
         return [i.attrib for i in a]
