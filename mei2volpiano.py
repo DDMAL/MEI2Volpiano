@@ -41,8 +41,8 @@ class MEItoVolpiano:
 
         return notes
 
-    def map_sylb(elements):
-        syl_note = {"0": ""}
+    def map_sylb(elements): #DISCLAIMER: += FOR STIRNGS IS SLOW!!!!
+        syl_note = {"0": ""} # TODO CHANGE IT TO SMT MORE EFFICIENT!!!
         dbase_bias = 0
         # currClef = [] #stack
         for element in elements:
@@ -56,7 +56,7 @@ class MEItoVolpiano:
                 syl_note[last] += element.attrib["pname"]
             if element.tag == "{http://www.music-encoding.org/ns/mei}neume":
                 if syl_note[last] != '':
-                    syl_note[last] += '-'
+                    syl_note[last] += '-' # <= BAD, MAKE IT FASTER 
 
         return syl_note
 
