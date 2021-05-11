@@ -46,23 +46,16 @@ class MEItoVolpiano:
         dbase_bias = 0
         # currClef = [] #stack
         for i, element in enumerate(elements):
-            if element.tag == "{http://www.music-encoding.org/ns/mei}syllable":
-                cur = None
-                if element[i + 1].tag == "{http://www.music-encoding.org/ns/mei}syl":
-                    sound = element[i + 1].text
-                    sound += f"{dbase_bias}"
-                    syl_note[sound] = ''
-                    cur = sound
+            if element.tag == "{http://www.music-encoding.org/ns/mei}syl":
+                if element.text:
+                    cur = ''.join(f"{dbase_bias}")
+                    cur = cur.join(element.text)
+                    syl_note[cur] = ''
                     dbase_bias += 1
                 else:
-                    syl_note[dbase_bias] = ''
-                    cur = dbase_bias
+                    cur = ''.join(f"{dbase_bias}")
+                    syl_note[cur] = ''
                     dbase_bias += 1
-                while element.tag != "{http://www.music-encoding.org/ns/mei}syllable":
-                    if element.tag == "{http://www.music-encoding.org/ns/mei}neume":
-                        syl_note[cur] += '-'
-                    elif element.tag == "{http://www.music-encoding.org/ns/mei}nc":
-                        syl_note[cur] += element.attrib["pname"]
 
         return syl_note
 
