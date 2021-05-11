@@ -50,6 +50,10 @@ class MEItoVolpiano:
         # return syl_note
         pass
 
+    def convertNote(clef, note):
+        # convert note to volpiano
+        pass
+
     def export_volpiano(volpiano_file):
         pass
 
