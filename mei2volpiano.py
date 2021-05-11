@@ -46,9 +46,10 @@ class MEItoVolpiano:
 
         return notes
 
-    def map_sylb(elements):
+    def map_sylb(elements):  # WARNING the idiomatic code is not complete yet
         syl_note = {"0": ""}
         dbase_bias = 0
+        flag = False
         for element in elements:
             last = list(syl_note)[-1]
             if element.tag == f"{NAMESPACE}syl":
@@ -56,6 +57,7 @@ class MEItoVolpiano:
                 syl_note[key] = ""
                 dbase_bias += 1
                 last = key
+                flag = False
             if element.tag == f"{NAMESPACE}nc":
                 offset = (
                     int(element.attrib["oct"]) - 1
@@ -63,12 +65,17 @@ class MEItoVolpiano:
                 syl_note[
                     last
                 ] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
+                flag = False
             if element.tag == f"{NAMESPACE}neume":
-                if syl_note[last] != "":
+                if syl_note[last] != "" and not flag:
                     syl_note[last] = f'{syl_note[last]}{"-"}'
+                flag = False
+
+            # may have errors
             elif element.tag == f"{NAMESPACE}syllable":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
+                    flag = True
 
         return syl_note
 
