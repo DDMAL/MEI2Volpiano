@@ -5,41 +5,99 @@
 # 4. Match the words and the neumes at the end of the body loop
 # 5. Convert output dict into string and export
 # Process is one pass with O(x) for x = length of lines in body. Roughly
-import sys
+
+"""
+TODO:
+- 
+"""
+
+
+import argparse
+import xml.etree.ElementTree as ET
+
+NAMESPACE = "{http://www.music-encoding.org/ns/mei}"  # namespace for MEI tags
 
 
 class MEItoVolpiano:
-    def import_mei(mei_file):
+    def get_mei_elements(filename):
+        tree = ET.parse(filename)
+        root = tree.getroot()
+        a = root.findall(".//")
+        elements = []
+        for i in a:
+            elements.append(i)  # append each to list
+        return elements
 
-        # The two flags find the start and end of the body tag, printing lines between them.
+    def find_clefs(elements):
+        # Finds all clefs in a given file.
+        clefs = []
+        for element in elements:
+            if element.tag == f"{NAMESPACE}staffDef":
+                clefs.append(element.attrib["clef.shape"])
+            elif element.tag == f"{NAMESPACE}clef":
+                clefs.append(element.attrib["shape"])
+        return clefs
 
-        bodyFlag = bodyEndFlag = False
-        for line in mei_file:
-            if "<body" in line:
-                bodyFlag = True
-            if "</body" in line:
-                bodyEndFlag = True
-            if bodyFlag and not bodyEndFlag:
-                print(line.strip())
+    def find_notes(elements):
+        notes = []
+        for element in elements:
+            if element.tag == f"{NAMESPACE}nc":
+                notes.append(element.attrib["pname"])
 
-    def create_volpaino(parsed_mei):
-        pass
+        return notes
 
-    def export_volpiano(volpiano_file):
+    def map_sylb(elements):
+        syl_note = {"0": ""}
+        dbase_bias = 0
+        for element in elements:
+            last = list(syl_note)[-1]
+            if element.tag == f"{NAMESPACE}syl":
+                key = MEItoVolpiano.get_syl_key(element, dbase_bias)
+                syl_note[key] = ""
+                dbase_bias += 1
+                last = key
+            if element.tag == f"{NAMESPACE}nc":
+                offset = (
+                    int(element.attrib["oct"]) - 1
+                ) * 8  # offset to calculate volpiano in higher octaves
+                syl_note[
+                    last
+                ] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
+            if element.tag == f"{NAMESPACE}neume":
+                if syl_note[last] != "":
+                    syl_note[last] = f'{syl_note[last]}{"-"}'
+            if element.tag == f"{NAMESPACE}/syllable":
+                if syl_note[last] != "":
+                    syl_note[last] = f'{syl_note[last]}{"-"}'
+
+        return syl_note
+
+    def get_syl_key(element, bias):
+        key = -1
+        if element.text:
+            key = "".join(f"{bias}_")
+            key = f"{key}{element.text}"
+        else:
+            key = "".join(f"{bias}")
+        return key
+
+    def export_volpiano(volpiano_dict):
         pass
 
 
 def main():
-    f = open(sys.argv[1], "r")
-    for line in f:
-        if "<body" in line:
-            bodyFlag = True
-        if "</body" in line:
-            bodyEndFlag = True
-        if bodyFlag and not bodyEndFlag:
-            print(line.strip())
+    parser = argparse.ArgumentParser()
+    error = "Please enter one or multiple MEI files"
+    parser.add_argument("mei_files", type=str, nargs="+", help=f"{error}")
+    args = vars(
+        parser.parse_args()
+    )  # stores each positional input in dict, may want to check file validity
 
-    MEItoVolpiano.import_mei(f)
+    for mei_file in args["mei_files"]:
+        with open(mei_file, "r") as f:
+            elements = MEItoVolpiano.get_mei_elements(f)
+            mapped = MEItoVolpiano.map_sylb(elements)
+            print(mapped)
 
 
 if __name__ == "__main__":
