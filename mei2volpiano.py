@@ -41,22 +41,22 @@ class MEItoVolpiano:
 
         return notes
 
-    def map_sylb(elements): #DISCLAIMER: += FOR STIRNGS IS SLOW!!!!
-        syl_note = {"0": ""} # TODO CHANGE IT TO SMT MORE EFFICIENT!!!
+    def map_sylb(elements):  # DISCLAIMER: += FOR STIRNGS IS SLOW!!!!
+        syl_note = {"0": ""}  # TODO CHANGE IT TO SMT MORE EFFICIENT!!!
         dbase_bias = 0
         # currClef = [] #stack
         for element in elements:
             last = list(syl_note)[-1]
             if element.tag == "{http://www.music-encoding.org/ns/mei}syl":
                 key = MEItoVolpiano.get_syl_key(element, dbase_bias)
-                syl_note[key] = ''
+                syl_note[key] = ""
                 dbase_bias += 1
                 last = key
             if element.tag == "{http://www.music-encoding.org/ns/mei}nc":
                 syl_note[last] += element.attrib["pname"]
             if element.tag == "{http://www.music-encoding.org/ns/mei}neume":
-                if syl_note[last] != '':
-                    syl_note[last] += '-' # <= BAD, MAKE IT FASTER 
+                if syl_note[last] != "":
+                    syl_note[last] += "-"  # <= BAD, MAKE IT FASTER
 
         return syl_note
 
@@ -92,8 +92,8 @@ def main():
             # clef = MEItoVolpiano.find_clef(clean_mei)
             # print(clef)
             elements = MEItoVolpiano.get_mei_elements(f)
-            clefs = MEItoVolpiano.find_clefs(elements)
-            notes = MEItoVolpiano.find_notes(elements)
+            # clefs = MEItoVolpiano.find_clefs(elements)
+            # notes = MEItoVolpiano.find_notes(elements)
             mapped = MEItoVolpiano.map_sylb(elements)
             # print(clefs)
             # print(notes)
