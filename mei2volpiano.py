@@ -6,13 +6,10 @@
 # 5. Convert output dict into string and export
 # Process is one pass with O(x) for x = length of lines in body. Roughly
 
-# -- Needs to properly differentiate the words, syllables, neumes
-# to determine the number of hyphens
-
-'''
+"""
 TODO:
 - 
-'''
+"""
 
 
 import argparse
@@ -52,7 +49,6 @@ class MEItoVolpiano:
     def map_sylb(elements):
         syl_note = {"0": ""}
         dbase_bias = 0
-        # currClef = [] #stack
         for element in elements:
             last = list(syl_note)[-1]
             if element.tag == f"{NAMESPACE}syl":
@@ -61,8 +57,12 @@ class MEItoVolpiano:
                 dbase_bias += 1
                 last = key
             if element.tag == f"{NAMESPACE}nc":
-                offset = (int(element.attrib['oct']) - 1) * 8   # offset to calculate volpiano in higher octaves
-                syl_note[last] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
+                offset = (
+                    int(element.attrib["oct"]) - 1
+                ) * 8  # offset to calculate volpiano in higher octaves
+                syl_note[
+                    last
+                ] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
             if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"-"}'
@@ -78,12 +78,8 @@ class MEItoVolpiano:
             key = "".join(f"{bias}")
         return key
 
-    def convertNote(clef, note, octave):
-        # convert note to volpiano
-
-        pass
-
     def export_volpiano(volpiano_dict):
+        pass
 
 
 def main():
@@ -96,15 +92,8 @@ def main():
 
     for mei_file in args["mei_files"]:
         with open(mei_file, "r") as f:
-            # clean_mei = MEItoVolpiano.import_mei(f)
-            # clef = MEItoVolpiano.find_clef(clean_mei)
-            # print(clef)
             elements = MEItoVolpiano.get_mei_elements(f)
-            # clefs = MEItoVolpiano.find_clefs(elements)
-            # notes = MEItoVolpiano.find_notes(elements)
             mapped = MEItoVolpiano.map_sylb(elements)
-            # print(clefs)
-            # print(notes)
             print(mapped)
 
 
