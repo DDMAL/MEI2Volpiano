@@ -66,7 +66,7 @@ class MEItoVolpiano:
             if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"-"}'
-            if element.tag == f"{NAMESPACE}syllable":
+            elif element.tag == f"{NAMESPACE}syllable":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
 
