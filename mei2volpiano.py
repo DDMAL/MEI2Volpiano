@@ -23,8 +23,10 @@ class MEItoVolpiano:
     def find_clef(mei_atrrs):
 
         for element in mei_atrrs:
-            if 'clef.shape' in element.attrib:
-                print(element.attrib['clef.shape'])
+            if element.tag == "{http://www.music-encoding.org/ns/mei}staffDef":
+                print(element.attrib["clef.shape"])
+            elif element.tag == "{http://www.music-encoding.org/ns/mei}clef":
+                print(element.attrib["shape"])
 
     def export_volpiano(volpiano_file):
         pass
