@@ -14,7 +14,7 @@ import xml.etree.ElementTree as ET
 class MEItoVolpiano:
     def import_mei(mei_file):
 
-        # The two flags find the start and end of the body tag, printing lines between them.
+        # The two flags find the start and end of the body tag
         mei_line_array = []
         bodyFlag = bodyEndFlag = False
         for line in mei_file:
@@ -41,7 +41,8 @@ class MEItoVolpiano:
         for line in parsed_mei:
             if "staffDef" in line:  # This assumes exact information location
 
-                # playing around with some regex, may have found a good solution, can be used for other lines as well
+                # playing around with some regex
+                # can be used for other lines as well
                 mei_tag_attrs = dict(re.findall(r"(\w*)=(\".*?\"|\S*)", line))
                 clef.append(mei_tag_attrs["shape"])
                 clef.append(mei_tag_attrs["line"])
@@ -62,7 +63,8 @@ class MEItoVolpiano:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "mei_files", type=str, nargs="+", help="Please enter one or multiple MEI files"
+        "mei_files", type=str, nargs="+",
+        help="Please enter one or multiple MEI files"
     )
     args = vars(
         parser.parse_args()
