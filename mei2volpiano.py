@@ -14,28 +14,28 @@ import xml.etree.ElementTree as ET
 
 
 class MEItoVolpiano:
-    def get_mei_attrs(filename):
+    def get_mei_elements(filename):
         tree = ET.parse(filename)
         root = tree.getroot()
         a = root.findall(".//")
-        atribs = []
+        elements = []
         for i in a:
-            atribs.append(i)  # append each to list
-        return atribs
+            elements.append(i)  # append each to list
+        return elements
 
-    def find_clefs(mei_attrs):
+    def find_clefs(elements):
         # Finds all clefs in a given file.
         clefs = []
-        for element in mei_attrs:
+        for element in elements:
             if element.tag == "{http://www.music-encoding.org/ns/mei}staffDef":
                 clefs.append(element.attrib["clef.shape"])
             elif element.tag == "{http://www.music-encoding.org/ns/mei}clef":
                 clefs.append(element.attrib["shape"])
         return clefs
 
-    def find_notes(mei_attrs):
+    def find_notes(elements):
         notes = []
-        for element in mei_attrs:
+        for element in elements:
             if element.tag == "{http://www.music-encoding.org/ns/mei}nc":
                 notes.append(element.attrib["pname"])
 
@@ -60,9 +60,9 @@ def main():
             # clean_mei = MEItoVolpiano.import_mei(f)
             # clef = MEItoVolpiano.find_clef(clean_mei)
             # print(clef)
-            atr = MEItoVolpiano.get_mei_attrs(f)
-            clefs = MEItoVolpiano.find_clefs(atr)
-            notes = MEItoVolpiano.find_notes(atr)
+            elements = MEItoVolpiano.get_mei_elements(f)
+            clefs = MEItoVolpiano.find_clefs(elements)
+            notes = MEItoVolpiano.find_notes(elements)
             print(clefs)
             print(notes)
 
