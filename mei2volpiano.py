@@ -17,12 +17,13 @@ class MEItoVolpiano:
         a = root.findall(".//")
         atribs = []
         for i in a:
-            atribs.append(type(i))    # append each to list
+            atribs.append(i)  # append each to list
         return atribs
 
-    def find_clef(parsed_mei):
+    def find_clef(mei_atrrs):
 
-        pass
+        for element in mei_atrrs:
+            print(element)
 
     def export_volpiano(volpiano_file):
         pass
@@ -31,8 +32,7 @@ class MEItoVolpiano:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "mei_files", type=str, nargs="+",
-        help="Please enter one or multiple MEI files"
+        "mei_files", type=str, nargs="+", help="Please enter one or multiple MEI files"
     )
     args = vars(
         parser.parse_args()
@@ -43,7 +43,8 @@ def main():
             # clean_mei = MEItoVolpiano.import_mei(f)
             # clef = MEItoVolpiano.find_clef(clean_mei)
             # print(clef)
-            print(MEItoVolpiano.get_mei_attrs(f))
+            atr = MEItoVolpiano.get_mei_attrs(f)
+            MEItoVolpiano.find_clef(atr)
 
 
 if __name__ == "__main__":
