@@ -23,7 +23,8 @@ class MEItoVolpiano:
     def find_clef(mei_atrrs):
 
         for element in mei_atrrs:
-            print(element)
+            if 'clef.shape' in element.attrib:
+                print(element.attrib['clef.shape'])
 
     def export_volpiano(volpiano_file):
         pass
