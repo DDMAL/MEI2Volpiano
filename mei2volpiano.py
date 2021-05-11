@@ -49,11 +49,14 @@ class MEItoVolpiano:
             last = list(syl_note)[-1]
             if element.tag == "{http://www.music-encoding.org/ns/mei}syl":
                 key = MEItoVolpiano.get_syl_key(element, dbase_bias)
-                syl_note[key] = ""
+                syl_note[key] = ''
                 dbase_bias += 1
                 last = key
             if element.tag == "{http://www.music-encoding.org/ns/mei}nc":
                 syl_note[last] += element.attrib["pname"]
+            if element.tag == "{http://www.music-encoding.org/ns/mei}neume":
+                if syl_note[last] != '':
+                    syl_note[last] += '_'
 
         return syl_note
 
