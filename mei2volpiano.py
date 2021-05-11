@@ -12,11 +12,19 @@ import xml.etree.ElementTree as ET
 
 
 class MEItoVolpiano:
+<<<<<<< HEAD
+=======
+
+>>>>>>> 344bff99832e9cc3dbd38c3191408018a6511007
     def get_mei_attrs(filename):
         tree = ET.parse(filename)
         root = tree.getroot()
         a = root.findall(".//")
-        return [i.attrib for i in a]
+        atribs = []
+        for i in a:
+            if "clef.shape" in i.keys() or "pname" in i.keys():
+                atribs.append(i.attrib)
+        return atribs
 
     def find_clef(parsed_mei):
 
