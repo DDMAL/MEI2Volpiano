@@ -12,13 +12,6 @@ import xml.etree.ElementTree as ET
 
 
 class MEItoVolpiano:
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 344bff99832e9cc3dbd38c3191408018a6511007
-=======
->>>>>>> e770f2452a8b9f8bbfd1b7deb0769d270d5b2776
     def get_mei_attrs(filename):
         tree = ET.parse(filename)
         root = tree.getroot()
@@ -62,8 +55,7 @@ class MEItoVolpiano:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "mei_files", type=str, nargs="+",
-        help="Please enter one or multiple MEI files"
+        "mei_files", type=str, nargs="+", help="Please enter one or multiple MEI files"
     )
     args = vars(
         parser.parse_args()
