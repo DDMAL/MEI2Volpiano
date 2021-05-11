@@ -18,13 +18,8 @@ class MEItoVolpiano:
         a = root.findall(".//")
         atribs = []
         for i in a:
-            if "clef.shape" in i.keys() or "pname" in i.keys():
-                atribs.append(i.attrib)
-        clefs = [0]
-        for element in atribs:
-            if "clef.line" in element:
-                clefs[0] = element["clef.shape"]  # always have 1 clef
-        return clefs
+            atribs.append(type(i))    # append each to list
+        return atribs
 
     def find_clef(parsed_mei):
 
