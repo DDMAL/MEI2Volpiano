@@ -21,7 +21,7 @@ class MEItoVolpiano:
         return atribs
 
     def find_clefs(mei_atrrs):
-
+        # Finds all clefs in a given file.
         clefs = []
         for element in mei_atrrs:
             if element.tag == "{http://www.music-encoding.org/ns/mei}staffDef":
