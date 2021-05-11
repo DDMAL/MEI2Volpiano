@@ -56,7 +56,7 @@ class MEItoVolpiano:
                 syl_note[last] += element.attrib["pname"]
             if element.tag == "{http://www.music-encoding.org/ns/mei}neume":
                 if syl_note[last] != '':
-                    syl_note[last] += '_'
+                    syl_note[last] += '-'
 
         return syl_note
 
