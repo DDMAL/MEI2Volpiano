@@ -6,6 +6,9 @@
 # 5. Convert output dict into string and export
 # Process is one pass with O(x) for x = length of lines in body. Roughly
 
+# -- Needs to properly differentiate the words, syllables, neumes
+# to determine the number of hyphens
+
 import argparse
 import xml.etree.ElementTree as ET
 
