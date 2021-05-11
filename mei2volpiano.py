@@ -46,9 +46,10 @@ class MEItoVolpiano:
 
         return notes
 
-    def map_sylb(elements):
+    def map_sylb(elements):  # WARNING the idiomatic code is not complete yet
         syl_note = {"0": ""}
         dbase_bias = 0
+        syl_flag = False
         for element in elements:
             last = list(syl_note)[-1]
             if element.tag == f"{NAMESPACE}syl":
@@ -56,6 +57,7 @@ class MEItoVolpiano:
                 syl_note[key] = ""
                 dbase_bias += 1
                 last = key
+                syl_flag = False
             if element.tag == f"{NAMESPACE}nc":
                 offset = (
                     int(element.attrib["oct"]) - 1
@@ -63,9 +65,17 @@ class MEItoVolpiano:
                 syl_note[
                     last
                 ] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
+                syl_flag = False
             if element.tag == f"{NAMESPACE}neume":
-                if syl_note[last] != "":
+                if syl_note[last] != "" and not syl_flag:
                     syl_note[last] = f'{syl_note[last]}{"-"}'
+                syl_flag = False
+
+            # may have errors
+            elif element.tag == f"{NAMESPACE}syllable":
+                if syl_note[last] != "":
+                    syl_note[last] = f'{syl_note[last]}{"---"}'
+                    syl_flag = True
 
         return syl_note
 
@@ -94,7 +104,10 @@ def main():
         with open(mei_file, "r") as f:
             elements = MEItoVolpiano.get_mei_elements(f)
             mapped = MEItoVolpiano.map_sylb(elements)
-            print(mapped)
+            # print(mapped)
+            values = list(mapped.values())
+            str1 = "".join(values)
+            print(str1)
 
 
 if __name__ == "__main__":
