@@ -20,13 +20,15 @@ class MEItoVolpiano:
             atribs.append(i)  # append each to list
         return atribs
 
-    def find_clef(mei_atrrs):
+    def find_clefs(mei_atrrs):
 
+        clefs = []
         for element in mei_atrrs:
             if element.tag == "{http://www.music-encoding.org/ns/mei}staffDef":
-                print(element.attrib["clef.shape"])
+                clefs.append(element.attrib["clef.shape"])
             elif element.tag == "{http://www.music-encoding.org/ns/mei}clef":
-                print(element.attrib["shape"])
+                clefs.append(element.attrib["shape"])
+        return clefs
 
     def export_volpiano(volpiano_file):
         pass
@@ -47,7 +49,8 @@ def main():
             # clef = MEItoVolpiano.find_clef(clean_mei)
             # print(clef)
             atr = MEItoVolpiano.get_mei_attrs(f)
-            MEItoVolpiano.find_clef(atr)
+            clefs = MEItoVolpiano.find_clefs(atr)
+            print(clefs)
 
 
 if __name__ == "__main__":
