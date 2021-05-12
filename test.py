@@ -33,7 +33,7 @@ class TestVolpiano(unittest.TestCase):
                 elements = lib.get_mei_elements(f)
                 mapped = lib.map_sylb(elements)
                 final_string = lib.export_volpiano(mapped)
-                self.assertEqual(final_string, listCorrectOutputs[ind])
+                self.assertEqual(final_string, listCorrectOutputs[ind - 1])
             ind += 1
 
     # these tests may not be necessary
