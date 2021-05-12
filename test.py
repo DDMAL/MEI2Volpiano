@@ -28,7 +28,7 @@ class TestVolpiano(unittest.TestCase):
     def test_volpiano_output_many(self):
         ind = 1
         lib = mei2volpiano.MEItoVolpiano()
-        for mei_file in sys.argv:
+        for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
                 elements = lib.get_mei_elements(f)
                 mapped = lib.map_sylb(elements)
