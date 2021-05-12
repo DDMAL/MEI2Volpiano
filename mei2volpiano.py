@@ -120,8 +120,11 @@ class MEItoVolpiano:
             key = "".join(f"{bias}")
         return key
 
-    def export_volpiano(self, volpiano_dict):
-        pass
+    def export_volpiano(self, mapping_dictionary):
+        values = list(mapping_dictionary.values())
+        clef = '1---'
+        vol_string = ''.join(values)
+        return f'{clef}{vol_string}'
 
 
 def main():
@@ -137,10 +140,7 @@ def main():
             lib = MEItoVolpiano()
             elements = lib.get_mei_elements(f)
             mapped = lib.map_sylb(elements)
-            # print(mapped)
-            values = list(mapped.values())
-            str1 = "".join(values)
-            print(str1)
+            print(lib.export_volpiano(mapped))
 
 
 if __name__ == "__main__":
