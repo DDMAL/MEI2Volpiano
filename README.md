@@ -11,7 +11,7 @@ MEI2Volpiano requires at least Python 3.
 * Enter the script directory (mei2volpiano.py)
 * For ease of use with CLI, you can put your MEI files in the same directory as the script, otherwise you will have to specify the path to file in the next steps below
 
-To output the MEI file(s) volpiano string to the terminal, run
+To output the MEI file's volpiano string to the terminal, run
 
 `python mei2volpiano filename.mei`
 
