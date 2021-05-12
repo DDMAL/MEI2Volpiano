@@ -88,22 +88,22 @@ class MEItoVolpiano:
         oct3 = {"c": "k", "d": "l", "e": "m", "f": "n", "g": "o", "a": "p", "b": "q"}
         oct4 = {"c": "r", "d": "s"}
 
-        if ocv == 1:
+        if ocv == "1":
             if note in oct1:
                 return oct1[note]
             else:
                 return "NOTE_NOT_IN_OCTAVE"
-        elif ocv == 2:
+        elif ocv == "2":
             if note in oct2:
                 return oct2[note]
             else:
                 return "NOTE_NOT_IN_OCTAVE"
-        elif ocv == 3:
+        elif ocv == "3":
             if note in oct3:
                 return oct3[note]
             else:
                 return "NOTE_NOT_IN_OCTAVE"
-        elif ocv == 4:
+        elif ocv == "4":
             if note in oct4:
                 return oct4[note]
             else:
