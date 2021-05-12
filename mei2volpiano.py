@@ -126,8 +126,8 @@ def main():
 
     start = timer()
     parser = argparse.ArgumentParser()
-    error = "Please enter one or multiple MEI files"
-    parser.add_argument("mei_files", type=str, nargs="+", help=f"{error}")
+    msg = "An MEI encoded music file"
+    parser.add_argument("mei_files", type=str, nargs="+", help=msg)
     args = vars(parser.parse_args())  # stores each positional input in dict
 
     # TODO: set up argparse as follows:
