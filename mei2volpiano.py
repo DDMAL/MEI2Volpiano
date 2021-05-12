@@ -73,7 +73,7 @@ class MEItoVolpiano:
                     syl_note[last] = f'{syl_note[last]}{"7"}'
                     syl_flag = False
 
-            elif element.tag == f"{NAMESPACE}syllable":
+            if element.tag == f"{NAMESPACE}syllable":
                 syl_note["dummy"] = ""
                 
                 if syl_note[last] != "":
