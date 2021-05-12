@@ -153,6 +153,7 @@ def main():
     # to specified txt file
 
     lib = MEItoVolpiano()
+    ind = 1
     for mei_file in args["mei_files"]:
         with open(mei_file, "r") as f:
             print(f"The corresponding Volpiano string for {mei_file} is:")
@@ -161,9 +162,10 @@ def main():
             final_string = lib.export_volpiano(mapped)
             print(final_string + "\n")
         if "e" in args.keys():
-            with open(args["e"], "a") as out:
+            with open(f'{ind}_{args["e"]}', "a") as out:
                 out.write(mei_file + "\n")
                 out.write(final_string + "\n")
+        ind += 1
 
     # testing time
     elapsed_time = timer() - start
