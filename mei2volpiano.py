@@ -19,7 +19,7 @@ NAMESPACE = "{http://www.music-encoding.org/ns/mei}"  # namespace for MEI tags
 
 
 class MEItoVolpiano:
-    def get_mei_elements(filename):
+    def get_mei_elements(self, filename):
         tree = ET.parse(filename)
         root = tree.getroot()
         a = root.findall(".//")
@@ -28,7 +28,7 @@ class MEItoVolpiano:
             elements.append(i)  # append each to list
         return elements
 
-    def find_clefs(elements):
+    def find_clefs(self, elements):
         # Finds all clefs in a given file.
         clefs = []
         for element in elements:
@@ -38,7 +38,7 @@ class MEItoVolpiano:
                 clefs.append(element.attrib["shape"])
         return clefs
 
-    def find_notes(elements):
+    def find_notes(self, elements):
         notes = []
         for element in elements:
             if element.tag == f"{NAMESPACE}nc":
@@ -48,14 +48,14 @@ class MEItoVolpiano:
 
     # error in the code because the syl is not always considered first
     # it affect the final result
-    def map_sylb(elements):  # WARNING the idiomatic code is not complete yet
+    def map_sylb(self, elements):  # WARNING the idiomatic code is not complete yet
         syl_note = {"0": ""}
         dbase_bias = 0
         syl_flag = False
         for element in elements:
             last = list(syl_note)[-1]
             if element.tag == f"{NAMESPACE}syl":
-                key = MEItoVolpiano.get_syl_key(element, dbase_bias)
+                key = self.get_syl_key(element, dbase_bias)
                 syl_note[key] = ""
                 dbase_bias += 1
                 last = key
@@ -63,7 +63,7 @@ class MEItoVolpiano:
             if element.tag == f"{NAMESPACE}nc":
                 note = element.attrib["pname"]
                 ocv = element.attrib["oct"]
-                volpiano = MEItoVolpiano.getVolpiano(note, ocv)
+                volpiano = self.getVolpiano(note, ocv)
                 syl_note[last] = f"{syl_note[last]}{volpiano}"
                 syl_flag = False
             if element.tag == f"{NAMESPACE}neume":
@@ -82,7 +82,7 @@ class MEItoVolpiano:
 
         return syl_note
 
-    def getVolpiano(note, ocv):
+    def getVolpiano(self, note, ocv):
         oct1 = {"g": "9", "a": "a", "b": "b"}
         oct2 = {"c": "c", "d": "d", "e": "e", "f": "f", "g": "g", "a": "h", "b": "j"}
         oct3 = {"c": "k", "d": "l", "e": "m", "f": "n", "g": "o", "a": "p", "b": "q"}
@@ -111,7 +111,7 @@ class MEItoVolpiano:
         else:
             return "ERROR_OCTAVE"
 
-    def get_syl_key(element, bias):
+    def get_syl_key(self, element, bias):
         key = -1
         if element.text:
             key = "".join(f"{bias}_")
@@ -120,7 +120,7 @@ class MEItoVolpiano:
             key = "".join(f"{bias}")
         return key
 
-    def export_volpiano(volpiano_dict):
+    def export_volpiano(self, volpiano_dict):
         pass
 
 
@@ -134,8 +134,9 @@ def main():
 
     for mei_file in args["mei_files"]:
         with open(mei_file, "r") as f:
-            elements = MEItoVolpiano.get_mei_elements(f)
-            mapped = MEItoVolpiano.map_sylb(elements)
+            lib = MEItoVolpiano()
+            elements = lib.get_mei_elements(f)
+            mapped = lib.map_sylb(elements)
             # print(mapped)
             values = list(mapped.values())
             str1 = "".join(values)
