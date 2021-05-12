@@ -83,6 +83,20 @@ class MEItoVolpiano:
                     syl_flag = True
 
         return syl_note
+    
+    def getVolpiano(note, ocv):
+        oct1 = {}
+        oct2 = {}
+        oct3 = {}
+
+        if ocv == 1:
+            return oct1[note]
+        elif ocv == 2:
+            return oct2[note]
+        elif ocv == 3:
+            return oct3[note]
+        else:
+            return "ERROR_OCTAVE"
 
     def get_syl_key(element, bias):
         key = -1
