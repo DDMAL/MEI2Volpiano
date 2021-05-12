@@ -63,7 +63,8 @@ class MEItoVolpiano:
                 syl_note[last] = f"{syl_note[last]}{volpiano}"
            
             if element.tag == f"{NAMESPACE}neume":
-                syl_note[last] = f'{syl_note[last]}{"-"}'
+                if syl_note[last] != "":
+                    syl_note[last] = f'{syl_note[last]}{"-"}'
       
             # may have errors
             if element.tag == f"{NAMESPACE}sb":
@@ -143,6 +144,7 @@ def main():
             lib = MEItoVolpiano()
             elements = lib.get_mei_elements(f)
             mapped = lib.map_sylb(elements)
+            #print(mapped)
             print(lib.export_volpiano(mapped))
     elapsed_time = timer() - start
     print(f'Script took {elapsed_time} seconds to execute')
