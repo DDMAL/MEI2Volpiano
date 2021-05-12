@@ -23,7 +23,8 @@ import os.path
 import xml.etree.ElementTree as ET
 from timeit import default_timer as timer
 
-NAMESPACE = "{http://www.music-encoding.org/ns/mei}"  # namespace for MEI tags
+# namespace for MEI tags
+NAMESPACE = "{http://www.music-encoding.org/ns/mei}"
 
 
 class MEItoVolpiano:
@@ -42,7 +43,7 @@ class MEItoVolpiano:
         mei_element_objects = root.findall(".//")
         elements = []
         for mei_element in mei_element_objects:
-            elements.append(mei_element)  # append each to list
+            elements.append(mei_element)
         return elements
 
     def find_clefs(self, elements):
@@ -80,8 +81,6 @@ class MEItoVolpiano:
 
         return notes
 
-    # error in the code because the syl is not always considered first
-    # it affect the final result
     def map_sylb(self, elements):
         """
         Creates a dictionary of syllables and their respective neuemes.
@@ -116,7 +115,6 @@ class MEItoVolpiano:
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"-"}'
 
-            # may have errors
             if element.tag == f"{NAMESPACE}sb":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"7"}'
@@ -240,11 +238,6 @@ def main():
         "--e", type=str, nargs="?", help="A text file to hold output volpiano strings"
     )
     args = vars(parser.parse_args())  # stores each positional input in dict
-
-    # TODO: set up argparse as follows:
-    # mei2volpiano.py [filename of mei] will output volpiano to terminal
-    # mei2volpiano.py [filename(s) of mei] --e [filename of output] will output
-    # to specified txt file
 
     lib = MEItoVolpiano()
     ind = 1
