@@ -64,7 +64,7 @@ class MEItoVolpiano:
                 note = element.attrib["pname"]
                 ocv = element.attrib["oct"]
                 volpiano = MEItoVolpiano.getVolpiano(note, ocv)
-                
+                syl_note[last] = f"{syl_note[last]}{volpiano}"
                 syl_flag = False
             if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "" and not syl_flag:
@@ -81,12 +81,12 @@ class MEItoVolpiano:
                     syl_flag = True
 
         return syl_note
-    
+
     def getVolpiano(note, ocv):
-        oct1 = {'g': '9', 'a': 'a', 'b': 'b'}
-        oct2 = {'c': 'c', 'd': 'd', 'e': 'e', 'f': 'f', 'g': 'g', 'a': 'h', 'b': 'j'}
-        oct3 = {'c': 'k', 'd': 'l', 'e': 'm', 'f': 'n', 'g': 'o', 'a': 'p', 'b': 'q'}
-        oct4 = {'c': 'r', 'd': 's'}
+        oct1 = {"g": "9", "a": "a", "b": "b"}
+        oct2 = {"c": "c", "d": "d", "e": "e", "f": "f", "g": "g", "a": "h", "b": "j"}
+        oct3 = {"c": "k", "d": "l", "e": "m", "f": "n", "g": "o", "a": "p", "b": "q"}
+        oct4 = {"c": "r", "d": "s"}
 
         if ocv == 1:
             if note in oct1:
