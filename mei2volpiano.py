@@ -7,6 +7,7 @@
 # Process is one pass with O(x) for x = length of lines in body. Roughly
 
 import argparse
+import os.path
 import xml.etree.ElementTree as ET
 from timeit import default_timer as timer
 
@@ -44,38 +45,51 @@ class MEItoVolpiano:
     # error in the code because the syl is not always considered first
     # it affect the final result
     def map_sylb(self, elements):
-        syl_note = {"0": ""}
+        syl_note = {"dummy": ""}
         dbase_bias = 0
-        syl_flag = False
+        last = "dummy"
         for element in elements:
-            last = list(syl_note)[-1]
+
             if element.tag == f"{NAMESPACE}syl":
                 key = self.get_syl_key(element, dbase_bias)
-                syl_note[key] = ""
+                syl_note[key] = syl_note[last]
                 dbase_bias += 1
+                syl_note["dummy"] = ""
                 last = key
-                syl_flag = False
+                
             if element.tag == f"{NAMESPACE}nc":
                 note = element.attrib["pname"]
                 ocv = element.attrib["oct"]
                 volpiano = self.getVolpiano(note, ocv)
                 syl_note[last] = f"{syl_note[last]}{volpiano}"
-                syl_flag = False
+           
             if element.tag == f"{NAMESPACE}neume":
-                if syl_note[last] != "" and not syl_flag:
+                if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"-"}'
-                syl_flag = False
+      
             # may have errors
             if element.tag == f"{NAMESPACE}sb":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"7"}'
-                    syl_flag = False
-            elif element.tag == f"{NAMESPACE}syllable":
+                 
+
+            if element.tag == f"{NAMESPACE}syllable":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
-                    syl_flag = True
+                last = "dummy"
+                  
+                
 
         return syl_note
+    
+    def get_syl_key(self, element, bias):
+        key = -1
+        if element.text:
+            key = "".join(f"{bias}_")
+            key = f"{key}{element.text}"
+        else:
+            key = "".join(f"{bias}")
+        return key
 
     def getVolpiano(self, note, ocv):
         oct1 = {"g": "9", "a": "a", "b": "b"}
@@ -106,15 +120,6 @@ class MEItoVolpiano:
         else:
             return "ERROR_OCTAVE"
 
-    def get_syl_key(self, element, bias):
-        key = -1
-        if element.text:
-            key = "".join(f"{bias}_")
-            key = f"{key}{element.text}"
-        else:
-            key = "".join(f"{bias}")
-        return key
-
     def export_volpiano(self, mapping_dictionary):
         values = list(mapping_dictionary.values())
         clef = "1---"
@@ -122,27 +127,53 @@ class MEItoVolpiano:
         return f"{clef}{vol_string}"
 
 
+# driver code for CLI program
 def main():
-
     start = timer()
     parser = argparse.ArgumentParser()
-    msg = "An MEI encoded music file"
-    parser.add_argument("mei_files", type=str, nargs="+", help=msg)
+
+    # check the validity of file(s) being passed into program
+    def check_file_validity(fname):
+        ext = os.path.splitext(fname)[1][1:]
+        if ext != "mei":
+            parser.error('Must be a valid mei file with an ".mei" extension')
+        return fname
+
+    parser.add_argument(
+        "mei_files",
+        type=lambda fname: check_file_validity(fname),
+        nargs="+",
+        help="An MEI encoded music file",
+    )
+
+    parser.add_argument(
+        "--e", type=str, nargs="?", help="A text file to hold output volpiano strings"
+    )
     args = vars(parser.parse_args())  # stores each positional input in dict
 
     # TODO: set up argparse as follows:
     # mei2volpiano.py [filename of mei] will output volpiano to terminal
-    # mei2volpiano.py [filename of mei] [filename of output] -e will output
+    # mei2volpiano.py [filename(s) of mei] --e [filename of output] will output
     # to specified txt file
 
+    lib = MEItoVolpiano()
+    ind = 1
     for mei_file in args["mei_files"]:
         with open(mei_file, "r") as f:
-            lib = MEItoVolpiano()
+            print(f"The corresponding Volpiano string for {mei_file} is:")
             elements = lib.get_mei_elements(f)
             mapped = lib.map_sylb(elements)
-            print(lib.export_volpiano(mapped))
+            final_string = lib.export_volpiano(mapped)
+            print(final_string + "\n")
+        if "e" in args.keys():
+            with open(f'{ind}_{args["e"]}', "a") as out:
+                out.write(mei_file + "\n")
+                out.write(final_string + "\n")
+        ind += 1
+
+    # testing time
     elapsed_time = timer() - start
-    print(f'Script took {elapsed_time} seconds to execute')
+    print(f"Script took {elapsed_time} seconds to execute")
 
 
 if __name__ == "__main__":
