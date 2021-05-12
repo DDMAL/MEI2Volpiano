@@ -51,15 +51,27 @@ class MEItoVolpiano:
     def map_sylb(elements):  # WARNING the idiomatic code is not complete yet
         syl_note = {"0": ""}
         dbase_bias = 0
+        currClef = "C"
+        currClefLine = "3"
         syl_flag = False
         for element in elements:
             last = list(syl_note)[-1]
+
+            if element.tag == f"{NAMESPACE}staffDef":
+                currClef = element.attrib["clef.shape"]
+                currClefLine = element.attrib["clef.line"]
+
+            if element.tag == f"{NAMESPACE}clef":
+                currClef = element.attrib["shape"]
+                currClefLine = element.attrib["line"]
+
             if element.tag == f"{NAMESPACE}syl":
                 key = MEItoVolpiano.get_syl_key(element, dbase_bias)
                 syl_note[key] = ""
                 dbase_bias += 1
                 last = key
                 syl_flag = False
+
             if element.tag == f"{NAMESPACE}nc":
                 offset = (
                     int(element.attrib["oct"]) - 1
@@ -68,18 +80,22 @@ class MEItoVolpiano:
                     last
                 ] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
                 syl_flag = False
+
             if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "" and not syl_flag:
                     syl_note[last] = f'{syl_note[last]}{"-"}'
                 syl_flag = False
-
             # may have errors
             elif element.tag == f"{NAMESPACE}syllable":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
                     syl_flag = True
+     
         del syl_note["0"]
         return syl_note
+
+    def toVolpiano(clef, clefLoc, note, oct):
+        pass
 
     def get_syl_key(element, bias):
         key = -1
