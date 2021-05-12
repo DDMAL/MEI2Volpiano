@@ -46,7 +46,7 @@ class MEItoVolpiano:
     def map_sylb(self, elements):
         syl_note = {"dummy": ""}
         dbase_bias = 0
-        syl_flag = False
+        
         for element in elements:
             last = "dummy"
 
@@ -56,28 +56,27 @@ class MEItoVolpiano:
                 dbase_bias += 1
                 syl_note["dummy"] = ""
                 last = key
-                syl_flag = False
+                
 
             if element.tag == f"{NAMESPACE}nc":
                 note = element.attrib["pname"]
                 ocv = element.attrib["oct"]
                 volpiano = self.getVolpiano(note, ocv)
                 syl_note[last] = f"{syl_note[last]}{volpiano}"
-                syl_flag = False
+           
             if element.tag == f"{NAMESPACE}neume":
-                if syl_note[last] != "" and not syl_flag:
-                    syl_note[last] = f'{syl_note[last]}{"-"}'
-                syl_flag = False
+                syl_note[last] = f'{syl_note[last]}{"-"}'
+      
             # may have errors
             if element.tag == f"{NAMESPACE}sb":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"7"}'
-                    syl_flag = False
+                 
 
             if element.tag == f"{NAMESPACE}syllable":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
-                    syl_flag = True
+                  
                 last = "dummy"
 
         return syl_note
