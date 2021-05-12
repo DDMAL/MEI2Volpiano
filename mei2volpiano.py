@@ -7,6 +7,7 @@
 # Process is one pass with O(x) for x = length of lines in body. Roughly
 
 import argparse
+import os.path
 import xml.etree.ElementTree as ET
 from timeit import default_timer as timer
 
@@ -126,28 +127,53 @@ class MEItoVolpiano:
         return f"{clef}{vol_string}"
 
 
+# driver code for CLI program
 def main():
-
     start = timer()
     parser = argparse.ArgumentParser()
-    msg = "An MEI encoded music file"
-    parser.add_argument("mei_files", type=str, nargs="+", help=msg)
+
+    # check the validity of file(s) being passed into program
+    def check_file_validity(fname):
+        ext = os.path.splitext(fname)[1][1:]
+        if ext != "mei":
+            parser.error('Must be a valid mei file with an ".mei" extension')
+        return fname
+
+    parser.add_argument(
+        "mei_files",
+        type=lambda fname: check_file_validity(fname),
+        nargs="+",
+        help="An MEI encoded music file",
+    )
+
+    parser.add_argument(
+        "--e", type=str, nargs="?", help="A text file to hold output volpiano strings"
+    )
     args = vars(parser.parse_args())  # stores each positional input in dict
 
     # TODO: set up argparse as follows:
     # mei2volpiano.py [filename of mei] will output volpiano to terminal
-    # mei2volpiano.py [filename of mei] [filename of output] -e will output
+    # mei2volpiano.py [filename(s) of mei] --e [filename of output] will output
     # to specified txt file
 
+    lib = MEItoVolpiano()
+    ind = 1
     for mei_file in args["mei_files"]:
         with open(mei_file, "r") as f:
-            lib = MEItoVolpiano()
+            print(f"The corresponding Volpiano string for {mei_file} is:")
             elements = lib.get_mei_elements(f)
             mapped = lib.map_sylb(elements)
-            #print(mapped)
-            print(lib.export_volpiano(mapped))
+            final_string = lib.export_volpiano(mapped)
+            print(final_string + "\n")
+        if "e" in args.keys():
+            with open(f'{ind}_{args["e"]}', "a") as out:
+                out.write(mei_file + "\n")
+                out.write(final_string + "\n")
+        ind += 1
+
+    # testing time
     elapsed_time = timer() - start
-    print(f'Script took {elapsed_time} seconds to execute')
+    print(f"Script took {elapsed_time} seconds to execute")
 
 
 if __name__ == "__main__":
