@@ -142,7 +142,9 @@ def main():
         help="An MEI encoded music file",
     )
 
-    parser.add_argument("--e", type=str, nargs='?', help='A text file to output the volpiano strings to')
+    parser.add_argument(
+        "--e", type=str, nargs="?", help="A text file to hold output volpiano strings"
+    )
     args = vars(parser.parse_args())  # stores each positional input in dict
 
     # TODO: set up argparse as follows:
@@ -153,16 +155,15 @@ def main():
     lib = MEItoVolpiano()
     for mei_file in args["mei_files"]:
         with open(mei_file, "r") as f:
-            print(f'The corresponding Volpiano string for {mei_file} is:')
+            print(f"The corresponding Volpiano string for {mei_file} is:")
             elements = lib.get_mei_elements(f)
             mapped = lib.map_sylb(elements)
             final_string = lib.export_volpiano(mapped)
-            print(final_string + '\n')
+            print(final_string + "\n")
         if "e" in args.keys():
-            with open(args['e'], 'a') as out:
-                out.write(mei_file + '\n')
-                out.write(final_string + '\n')
-
+            with open(args["e"], "a") as out:
+                out.write(mei_file + "\n")
+                out.write(final_string + "\n")
 
     # testing time
     elapsed_time = timer() - start
