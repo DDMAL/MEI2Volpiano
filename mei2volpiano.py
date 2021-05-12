@@ -61,12 +61,10 @@ class MEItoVolpiano:
                 last = key
                 syl_flag = False
             if element.tag == f"{NAMESPACE}nc":
-                offset = (
-                    int(element.attrib["oct"]) - 1
-                ) * 8  # offset to calculate volpiano in higher octaves
-                syl_note[
-                    last
-                ] = f'{syl_note[last]}{chr(ord(element.attrib["pname"]) + offset)}'
+                note = element.attrib["pname"]
+                ocv = element.attrib["oct"]
+                volpiano = MEItoVolpiano.getVolpiano(note, ocv)
+                
                 syl_flag = False
             if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "" and not syl_flag:
