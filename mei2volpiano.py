@@ -78,7 +78,7 @@ class MEItoVolpiano:
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
                     syl_flag = True
-
+        del syl_note["0"]
         return syl_note
 
     def get_syl_key(element, bias):
@@ -106,10 +106,10 @@ def main():
         with open(mei_file, "r") as f:
             elements = MEItoVolpiano.get_mei_elements(f)
             mapped = MEItoVolpiano.map_sylb(elements)
-            # print(mapped)
+            print(mapped)
             values = list(mapped.values())
             str1 = "".join(values)
-            print(str1)
+            # print(str1)
 
 
 if __name__ == "__main__":
