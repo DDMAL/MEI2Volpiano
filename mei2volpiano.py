@@ -165,7 +165,7 @@ def main():
             mapped = lib.map_sylb(elements)
             final_string = lib.export_volpiano(mapped)
             print(final_string + "\n")
-        if "e" in args.keys():
+        if args['e'] is not None:
             with open(f'{ind}_{args["e"]}', "a") as out:
                 out.write(mei_file + "\n")
                 out.write(final_string + "\n")
