@@ -85,10 +85,10 @@ class MEItoVolpiano:
         return syl_note
     
     def getVolpiano(note, ocv):
-        oct1 = {}
-        oct2 = {}
-        oct3 = {}
-        oct4 = {}
+        oct1 = {'g': '9', 'a': 'a', 'b': 'b'}
+        oct2 = {'c': 'c', 'd': 'd', 'e': 'e', 'f': 'f', 'g': 'g', 'a': 'h', 'b': 'j'}
+        oct3 = {'c': 'k', 'd': 'l', 'e': 'm', 'f': 'n', 'g': 'o', 'a': 'p', 'b': 'q'}
+        oct4 = {'c': 'r', 'd': 's'}
 
         if ocv == 1:
             return oct1[note]
