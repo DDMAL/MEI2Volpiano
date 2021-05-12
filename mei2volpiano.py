@@ -44,16 +44,17 @@ class MEItoVolpiano:
     # error in the code because the syl is not always considered first
     # it affect the final result
     def map_sylb(self, elements):
-        syl_note = {"0": ""}
+        syl_note = {"dummy": ""}
         dbase_bias = 0
         syl_flag = False
         for element in elements:
-            last = list(syl_note)[-1]
+            last = "dummy"
 
             if element.tag == f"{NAMESPACE}syl":
                 key = self.get_syl_key(element, dbase_bias)
                 syl_note[key] = syl_note[last]
                 dbase_bias += 1
+                syl_note["dummy"] = ""
                 last = key
                 syl_flag = False
 
@@ -74,12 +75,9 @@ class MEItoVolpiano:
                     syl_flag = False
 
             if element.tag == f"{NAMESPACE}syllable":
-                syl_note["dummy"] = ""
-                
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
                     syl_flag = True
-                
                 last = "dummy"
 
         return syl_note
