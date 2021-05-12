@@ -88,6 +88,7 @@ class MEItoVolpiano:
         oct1 = {}
         oct2 = {}
         oct3 = {}
+        oct4 = {}
 
         if ocv == 1:
             return oct1[note]
@@ -95,6 +96,8 @@ class MEItoVolpiano:
             return oct2[note]
         elif ocv == 3:
             return oct3[note]
+        elif ocv == 4:
+            return oct4[note]
         else:
             return "ERROR_OCTAVE"
 
