@@ -6,14 +6,9 @@
 # 5. Convert output dict into string and export
 # Process is one pass with O(x) for x = length of lines in body. Roughly
 
-"""
-TODO:
-- 
-"""
-# Warning this is not final JUST a draft
-
 import argparse
 import xml.etree.ElementTree as ET
+from timeit import default_timer as timer
 
 NAMESPACE = "{http://www.music-encoding.org/ns/mei}"  # namespace for MEI tags
 
@@ -22,10 +17,10 @@ class MEItoVolpiano:
     def get_mei_elements(self, filename):
         tree = ET.parse(filename)
         root = tree.getroot()
-        a = root.findall(".//")
+        mei_element_objects = root.findall(".//")
         elements = []
-        for i in a:
-            elements.append(i)  # append each to list
+        for mei_element in mei_element_objects:
+            elements.append(mei_element)  # append each to list
         return elements
 
     def find_clefs(self, elements):
@@ -48,7 +43,7 @@ class MEItoVolpiano:
 
     # error in the code because the syl is not always considered first
     # it affect the final result
-    def map_sylb(self, elements):  # WARNING the idiomatic code is not complete yet
+    def map_sylb(self, elements):
         syl_note = {"0": ""}
         dbase_bias = 0
         syl_flag = False
@@ -122,18 +117,23 @@ class MEItoVolpiano:
 
     def export_volpiano(self, mapping_dictionary):
         values = list(mapping_dictionary.values())
-        clef = '1---'
-        vol_string = ''.join(values)
-        return f'{clef}{vol_string}'
+        clef = "1---"
+        vol_string = "".join(values)
+        return f"{clef}{vol_string}"
 
 
 def main():
+
+    start = timer()
     parser = argparse.ArgumentParser()
     error = "Please enter one or multiple MEI files"
     parser.add_argument("mei_files", type=str, nargs="+", help=f"{error}")
-    args = vars(
-        parser.parse_args()
-    )  # stores each positional input in dict, may want to check file validity
+    args = vars(parser.parse_args())  # stores each positional input in dict
+
+    # TODO: set up argparse as follows:
+    # mei2volpiano.py [filename of mei] will output volpiano to terminal
+    # mei2volpiano.py [filename of mei] [filename of output] -e will output
+    # to specified txt file
 
     for mei_file in args["mei_files"]:
         with open(mei_file, "r") as f:
@@ -141,6 +141,8 @@ def main():
             elements = lib.get_mei_elements(f)
             mapped = lib.map_sylb(elements)
             print(lib.export_volpiano(mapped))
+    elapsed_time = timer() - start
+    print(f'Script took {elapsed_time} seconds to execute')
 
 
 if __name__ == "__main__":
