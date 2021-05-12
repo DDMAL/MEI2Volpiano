@@ -23,6 +23,6 @@ To output the volpiano string(s) to a text file, use the `--e` flag as such
 
 `python mei2volpiano filename1.mei --e output_file.txt`
 
-If multiple MEI files are passed in and the `--e` flag is used, each volpiano string will be outputted to its own text file, with the file name being appended with an index representing the position in which its respective MEI file was passed into the program.
+If multiple MEI files are passed in and the `--e` flag is used, each volpiano string will be outputted to its own text file, with the file name being appended with an index representing the position in which its respective MEI file was passed into the program (ex. `1_output_file.txt`).
 
 Currently, the program works as a CLI program, proper library usage will be added soon.
