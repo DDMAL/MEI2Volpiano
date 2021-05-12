@@ -45,38 +45,51 @@ class MEItoVolpiano:
     # error in the code because the syl is not always considered first
     # it affect the final result
     def map_sylb(self, elements):
-        syl_note = {"0": ""}
+        syl_note = {"dummy": ""}
         dbase_bias = 0
-        syl_flag = False
+        last = "dummy"
         for element in elements:
-            last = list(syl_note)[-1]
+
             if element.tag == f"{NAMESPACE}syl":
                 key = self.get_syl_key(element, dbase_bias)
-                syl_note[key] = ""
+                syl_note[key] = syl_note[last]
                 dbase_bias += 1
+                syl_note["dummy"] = ""
                 last = key
-                syl_flag = False
+                
             if element.tag == f"{NAMESPACE}nc":
                 note = element.attrib["pname"]
                 ocv = element.attrib["oct"]
                 volpiano = self.getVolpiano(note, ocv)
                 syl_note[last] = f"{syl_note[last]}{volpiano}"
-                syl_flag = False
+           
             if element.tag == f"{NAMESPACE}neume":
-                if syl_note[last] != "" and not syl_flag:
+                if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"-"}'
-                syl_flag = False
+      
             # may have errors
             if element.tag == f"{NAMESPACE}sb":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"7"}'
-                    syl_flag = False
-            elif element.tag == f"{NAMESPACE}syllable":
+                 
+
+            if element.tag == f"{NAMESPACE}syllable":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
-                    syl_flag = True
+                last = "dummy"
+                  
+                
 
         return syl_note
+    
+    def get_syl_key(self, element, bias):
+        key = -1
+        if element.text:
+            key = "".join(f"{bias}_")
+            key = f"{key}{element.text}"
+        else:
+            key = "".join(f"{bias}")
+        return key
 
     def getVolpiano(self, note, ocv):
         oct1 = {"g": "9", "a": "a", "b": "b"}
@@ -106,15 +119,6 @@ class MEItoVolpiano:
                 return "NOTE_NOT_IN_OCTAVE"
         else:
             return "ERROR_OCTAVE"
-
-    def get_syl_key(self, element, bias):
-        key = -1
-        if element.text:
-            key = "".join(f"{bias}_")
-            key = f"{key}{element.text}"
-        else:
-            key = "".join(f"{bias}")
-        return key
 
     def export_volpiano(self, mapping_dictionary):
         values = list(mapping_dictionary.values())
