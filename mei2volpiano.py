@@ -125,7 +125,7 @@ def main():
             print(mapped)
             values = list(mapped.values())
             str1 = "".join(values)
-            # print(str1)
+            print(str1)
 
 
 if __name__ == "__main__":
