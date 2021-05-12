@@ -56,32 +56,29 @@ class MEItoVolpiano:
                 dbase_bias += 1
                 syl_note["dummy"] = ""
                 last = key
-                
+
             if element.tag == f"{NAMESPACE}nc":
                 note = element.attrib["pname"]
                 ocv = element.attrib["oct"]
                 volpiano = self.getVolpiano(note, ocv)
                 syl_note[last] = f"{syl_note[last]}{volpiano}"
-           
+
             if element.tag == f"{NAMESPACE}neume":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"-"}'
-      
+
             # may have errors
             if element.tag == f"{NAMESPACE}sb":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"7"}'
-                 
 
             if element.tag == f"{NAMESPACE}syllable":
                 if syl_note[last] != "":
                     syl_note[last] = f'{syl_note[last]}{"---"}'
                 last = "dummy"
-                  
-                
 
         return syl_note
-    
+
     def get_syl_key(self, element, bias):
         key = -1
         if element.text:
