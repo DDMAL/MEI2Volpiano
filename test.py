@@ -969,7 +969,14 @@ class TestVolpiano(unittest.TestCase):
             ind += 1
 
     def test_find_notes(self):
-        pass
+        lib = mei2volpiano.MEItoVolpiano()
+        ind = 1
+        for mei_file in sys.argv[ind:]:
+            with open(mei_file, "r") as f:
+                elements = self.lib.get_mei_elements(mei_file)
+                listN = self.lib.find_notes(elements)
+                self.assertEqual(listN, listNotes[ind - 1])
+            ind += 1
 
     def test_find_syls(self):
         lib = mei2volpiano.MEItoVolpiano()
