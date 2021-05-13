@@ -296,6 +296,8 @@ listSyls_003r = []
 # CDN-Hsmu_M2149.L4_003v.mei
 listSyls_003v = []
 
+listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v]
+
 
 class TestVolpiano(unittest.TestCase):
     # tests the output of a correct volpiano file vs
@@ -333,7 +335,14 @@ class TestVolpiano(unittest.TestCase):
         pass
 
     def test_find_syls(self):
-        pass
+        ind = 1
+        lib = mei2volpiano.MEItoVolpiano()
+        for mei_file in sys.argv[ind:]:
+            with open(mei_file, "r") as f:
+                elements = lib.get_mei_elements(mei_file)
+                listS = lib.find_syls(elements)
+                self.assertEqual(listC, listCorrectSyls[ind - 1])
+            ind += 1
 
     def test_getVolpiano(self):
         pass
