@@ -8,16 +8,24 @@ Class: MEItoVolpiano
 
 Fucntions:
 
-    get_mei_elements(file) -> list[MEI elements]
-    find_clefs(list[elements]) -> list[char]
-    find_notes(list[elements]) -> list[char]
-    find_syls(list[elements]) -> list[string]
-    sylb_note_map(list[elements]) -> dict{string: string}
-    sylb_volpiano_map(list[elements]) -> dict{string: string}
-    get_syl_key(element, integer) -> string
-    get_volpiano(char, char) -> char
-    export_volpiano(dict{syllables: notes}) -> string
-    convert_mei_volpiano(file) -> string
+    [Main]:
+        get_mei_elements(file) -> list[MEI elements]
+        sylb_volpiano_map(list[elements]) -> dict{string: string}
+        get_syl_key(element, integer) -> string
+        get_volpiano(char, char) -> char
+        export_volpiano(dict{syllables: notes}) -> string
+        convert_mei_volpiano(file) -> string 
+
+        ^ convert_mei_volpiano handles all methods in main
+    
+    [Debugging]:
+        find_clefs(list[elements]) -> list[char]
+        find_notes(list[elements]) -> list[char]
+        find_syls(list[elements]) -> list[string]
+        sylb_note_map(list[elements]) -> dict{string: string}
+
+        ^ useful for MEI parsing and testing outputs.
+
 """
 import xml.etree.ElementTree as ET
 
