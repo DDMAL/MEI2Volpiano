@@ -19,7 +19,7 @@ Multiple files can be passed in at once
 
 `python driver.py -mei filename1.mei filename2.mei`
 
-To output the volpiano string(s) to a text file, use the `--e` flag as such
+To output the volpiano string(s) to a text file, use the `-export` flag as such
 
 `python driver.py -mei filename1.mei -export`
 
@@ -33,4 +33,4 @@ where the ".txt" file being passed in must hold the name/relative path of the re
 
 
 
-The `-export` tag can be used on any valid input to the program.
+The `-export` tag can be used on any valid input to the program. `-mei` or `-txt` are required flags for the program to identify the file(s) you are attempting to input.
