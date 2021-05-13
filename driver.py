@@ -14,7 +14,7 @@ def main():
     def check_file_validity(fname, valid_ext):
         ext = os.path.splitext(fname)[1][1:]
         if ext != valid_ext:
-            parser.error('Must be a valid mei file with an ".mei" extension')
+            parser.error(f'Unexpected file type for the specified flag\nInput Type: {ext} \nExpected Type: {valid_ext}')
         return fname
 
     option.add_argument(
