@@ -1,3 +1,8 @@
+'''
+A driver for the CLI program implementation of the MEI2Volpiano library  
+'''
+
+
 import os.path
 import argparse
 import mei2volpiano
