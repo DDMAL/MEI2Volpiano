@@ -84,8 +84,9 @@ co3 = (
 listCorrectOutputs = [correctOutput, co, co3]
 
 # CDN-Hsmu_M2149.L4_003r.mei
-listClefs_003r = [C, F, F, F, C, C, C, C, C, C, C, C, C, C, C, C, C]
-
+listClefs_003r = ['C', 'F', 'F','F', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']
+# CDN-Hsmu_M2149.L4_003v.mei
+listClefs_003v = ['C','C','C','C','C','C','C','C','C','C','C','C','C','C','F']
 
 class TestVolpiano(unittest.TestCase):
     # tests the output of a correct volpiano file vs
