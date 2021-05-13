@@ -84,6 +84,7 @@ co3 = (
 listCorrectOutputs = [correctOutput, co, co3]
 
 # CDN-Hsmu_M2149.L4_003r.mei
+listClefs_016r = ['C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']
 listClefs_003r = [C, F, F, F, C, C, C, C, C, C, C, C, C, C, C, C, C]
 
 
