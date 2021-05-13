@@ -16,7 +16,7 @@ Fucntions:
         export_volpiano(dict{syllables: notes}) -> string
         convert_mei_volpiano(file) -> string 
 
-        ^ convert_mei_volpiano handles all methods in main
+        ^ convert_mei_volpiano handles all methods in main.
     
     [Debugging]:
         find_clefs(list[elements]) -> list[char]
