@@ -11,7 +11,9 @@ Fucntions:
     get_mei_elements(file) -> list[MEI elements]
     find_clefs(list[elements]) -> list[char]
     find_notes(list[elements]) -> list[char]
-    map_sylb(list[elements]) -> dict{syllable: notes}
+    find_syls(list[elements]) -> list[string]
+    sylb_note_map(list[elements]) -> dict{string: string}
+    sylb_volpiano_map(list[elements]) -> dict{string: string}
     get_syl_key(element, integer) -> string
     get_volpiano(char, char) -> char
     export_volpiano(dict{syllables: notes}) -> string
@@ -59,7 +61,7 @@ class MEItoVolpiano:
         return clefs
 
     def find_notes(self, elements):
-        """Finds all notes in a given elements list 
+        """Finds all notes in a given elements list
 
         Args:
             elements (list): List of elements
@@ -73,13 +75,13 @@ class MEItoVolpiano:
                 notes.append(element.attrib["pname"])
 
         return notes
-    
+
     def find_syls(self, elements):
         """Finds all syllables in a given elements list
 
         Args:
             elements (list): List of elements
-        
+
         Returns:
             syls (list): string list of all syllables found, in order.
         """
@@ -90,8 +92,48 @@ class MEItoVolpiano:
                     syls.append(element.text)
         return syls
 
-    def map_sylb(self, elements):
-        """Creates a dictionary of syllables and their respective neuemes.
+    def sylb_note_map(self, elements):
+        """Creates a dictionary map of syllables and their notes (with octaves).
+
+        Args:
+            elements (list): List of elements
+
+        Returns:
+            syl_dict (dict): Dictionary {identifier: notes} of syllables and
+            their unique data base numbers as keys and notes (with octaves) as values.
+        """
+
+        syl_dict = {"dummy": ""}
+        dbase_bias = 0
+        last = "dummy"
+
+        for element in elements:
+
+            if element.tag == f"{NAMESPACE}syl":
+                key = self.get_syl_key(element, dbase_bias)
+                syl_dict[key] = syl_dict[last]
+                dbase_bias += 1
+                syl_dict["dummy"] = ""
+                last = key
+
+            if element.tag == f"{NAMESPACE}nc":
+                note = element.attrib["pname"]
+                ocv = element.attrib["oct"]
+                finNote = f"{note}{ocv}"
+                syl_dict[last] = f"{syl_dict[last]}{finNote}"
+
+            if element.tag == f"{NAMESPACE}neume":
+                if syl_dict[last] != "":
+                    syl_dict[last] = f'{syl_dict[last]}{"-"}'
+
+            if element.tag == f"{NAMESPACE}syllable":
+                last = "dummy"
+
+        del syl_dict["dummy"]
+        return syl_dict
+
+    def sylb_volpiano_map(self, elements):
+        """Creates a dictionary of syllables and their volpiano values.
 
         Args:
             elements (list): List of elements
@@ -229,6 +271,6 @@ class MEItoVolpiano:
             volpiano (string): Valid volpiano string representation of the input.
         """
         elements = self.get_mei_elements(filename)
-        mapped_values = self.map_sylb(elements)
+        mapped_values = self.sylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
         return volpiano
