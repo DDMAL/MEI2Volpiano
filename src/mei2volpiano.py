@@ -49,7 +49,6 @@ class MEItoVolpiano:
         elements = []
         for mei_element in mei_element_objects:
             elements.append(mei_element)
-        print(elements)
         return elements
 
     def find_clefs(self, elements):
