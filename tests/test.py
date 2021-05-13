@@ -84,7 +84,7 @@ co3 = (
 listCorrectOutputs = [correctOutput, co, co3]
 
 # CDN-Hsmu_M2149.L4_003r.mei
-listClefs = [C, F, F, F, C, C, C, C, C]
+listClefs_003r = [C, F, F, F, C, C, C, C, C, C, C, C, C, C, C, C, C]
 
 
 class TestVolpiano(unittest.TestCase):
@@ -110,7 +110,11 @@ class TestVolpiano(unittest.TestCase):
     # they may be used later on for further testing
 
     def test_find_clefs(self):
-        pass
+        lib = mei2volpiano.MEItoVolpiano()
+         with open(sys.argv[-1], "r") as f:
+            elements = lib.get_mei_elements(filename):
+            listC = lib.find_clefs(elements)
+            self.assertEqual(listC, listClefs_003r)
 
     def test_find_notes(self):
         pass
