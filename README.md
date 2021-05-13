@@ -37,6 +37,6 @@ The `-export` tag can be used on any valid input to the program. `-mei` or `-txt
 
 # Tests
 
-To run the current test suite, `cd` into "/tests/" and run
+To run the current test suite, `cd` into /tests/ and run
 `python3 test.py ../resources/016r_reviewed.mei ../resources/CDN-Hsmu_M2149.L4_003r.mei ../resources/CDN-Hsmu_M2149.L4_003v.mei` to compare the output to human generated
 ground truth.
