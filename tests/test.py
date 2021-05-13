@@ -11,7 +11,6 @@ sys.path.insert(0, parent_dir)
 import src.mei2volpiano as mei2volpiano
 
 
-
 # import doctest
 
 # either we have a correct file already in
@@ -157,7 +156,7 @@ listSyls_016r = [
     "ga",
     "bun",
     "tur",
-    "mi",
+    "Mi",
     "se",
     "re",
     "bi",
@@ -219,6 +218,7 @@ listSyls_016r = [
     "e",
     "bus",
     "e",
+    "ius",
     "ius",
     "ti",
     "ci",
@@ -392,7 +392,8 @@ listSyls_003r = [
     "ma",
     "ri",
     "a",
-    "in" "ve",
+    "in",
+    "ve",
     "nis",
     "ti",
     "gra",
@@ -927,7 +928,6 @@ listNotes_016r = [
     "c",
     "d",
     "b",
-    "c",
 ]
 
 # CDN-Hsmu_M2149.L4_003r.mei
@@ -1660,6 +1660,7 @@ listNotes_003v = [
     "a",
 ]
 
+list2 = ["f", "f", "d", "f", "c", "d", "f","c", "d", "c", "d", "f", ‘g’, "f", ‘g’, ‘b’, ‘g’, ‘a’, "c", ‘b’, "c", ‘a’, ‘b’, ‘a’, ‘g’, ‘b’, ‘b’, ‘g’, ‘b’, ‘g’, ‘b’, ‘g’, "f", "f", ‘g’, ‘a’, ‘g’, ‘a’, ‘g’,"f", ‘e’, "d", "f", ‘g’, "f", ‘g’, ‘a’, ‘g’, ‘a’, ‘g’, "f", ‘g’, ‘a’, ‘g’, "f", ‘g’, ‘g’, "f", "f","f", ‘g’, ‘b’, ‘b’, ‘a’, ‘b’, ‘a’, ‘g’, ‘a’, ‘g’, ‘a’, ‘b’,"c", "d","c", "c", "c","c", "c", "c", "d", "c", "c", "c", ‘b’, ‘a’, ‘b’, ‘g’, ‘a’, ‘g’, "f", ‘e’, ‘g’, ‘a’, ‘g’, "f", ‘c’, "d", "f", "f", ‘g’, "f","f", ‘g’, ‘a’, "f", "f", ‘e’, "f", ‘g’, ‘b’, ‘b’, ‘g’, ‘a’, ‘b’, ‘a’, ‘g’, ‘g’, ‘a’, ‘g’, "f", ‘g’,"f", "f", ‘g’, ‘a’, ‘g’, ‘a’, ‘g’, ‘a’, ‘g’, ‘g’, ‘g’, ‘a’, ‘g’, ‘g’, ‘c’, ‘a’, ‘c’, "d", ‘c’, ‘c’, ‘b’, ‘c’,"d", ‘e’, "d", ‘e’, ‘e’, "d", ‘c’, ‘b’, ‘c’, "d", "d", ‘b’, ‘c’, "d", ‘c’, "d", "d", ‘c’, ‘c’, ‘b’, ‘b’, ‘a’, ‘g’, ‘g’, ‘a’, ‘c’, ‘g’, ‘a’, ‘g’, ‘g’, "f", ‘a’, ‘c’, ‘c’, ‘b’, ‘c’, ‘a’, ‘g’, "f", ‘g’, ‘a’, ‘g’, "f", ‘g’, ‘g’, ‘a’, ‘g’, ‘g’, ‘g’, ‘a’, ‘g’, ‘g’, ‘g’, "d", ‘g’, "d", ‘c’, "d", "f", "d", ‘e’, "d", ‘c’, "d", ‘c’, "d", "d", "f", ‘e’, "f", ‘g’, ‘g’, ‘b’, "d", ‘f’, ‘e’, "d", ‘g’, ‘g’, "f", ‘e’, "d", ‘e’, "d", ‘c’, "d", "d", ‘e’, "d", "d", ‘b’, ‘c’, ‘b’, ‘b’, ‘c’, "d", ‘e’, "d", ‘e’, "f", ‘e’, ‘"d", ‘c’, ‘c’, ‘b’, ‘a’, ‘g’, ‘g’, ‘a’, ‘c’, ‘a’, ‘b’, ‘a’, ‘g’, ‘g’, ‘g’, ‘a’, ‘g’, ‘a’, ‘g’, "f", ‘g’, ‘c’, ‘a’, ‘c’, ‘b’, ‘c’, ‘a’, ‘a’, ‘g’, ‘a’, ‘b’, ‘a’, ‘b’, ‘b’, ‘a’,"d", ‘c’, ‘b’, "d", ‘e’,"d", ‘e’, ‘c’, "d", "d", ‘b’,"d", ‘c’, ‘b’, ‘c’, "d", ‘a’, ‘g’, ‘g’, ‘a’, ‘c’, ‘g’, ‘a’, ‘g’, ‘g’, ‘f’, ‘f’, ‘a’, ‘c’, ‘c’, ‘b’, "d", ‘c’, ‘c’, ‘b’, ‘a’, ‘c’, "d", ‘e’, ‘f’, ‘e’, ‘f’, ‘e’, "d", ‘e’, "d","d", ‘c’, "d", "d", ‘c’, "d", ‘a’, ‘c’, ‘b’, ‘c’, "d", ‘c’, ‘b’, ‘a’, ‘b’, ‘c’, ‘b’, ‘a’, ‘g’, ‘g’, ‘a’, ‘b’, ‘a’, ‘g’, ‘a’, ‘a’, ‘g’,"d", ‘e’, ‘f’, ‘e’, "d"]
 
 listNotes = [listNotes_016r, listNotes_003r, listNotes_003v]
 
