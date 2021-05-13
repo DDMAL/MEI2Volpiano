@@ -158,11 +158,14 @@ listSyls_016r = [
     "se",
     "re",
     "bi",
+    "tur",
+    "do",
+    "mi",
 ]
 # CDN-Hsmu_M2149.L4_003r.mei
 listSyls_003r = []
-# CDN-Hsmu_M2149.L4_003r.mei
-listSyls_003r = []
+# CDN-Hsmu_M2149.L4_003v.mei
+listSyls_003v = []
 
 
 class TestVolpiano(unittest.TestCase):
