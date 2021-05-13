@@ -939,18 +939,19 @@ listNotes = [listNotes_016r, listNotes_003r, listNotes_003v]
 class TestVolpiano(unittest.TestCase):
     # tests the output of a correct volpiano file vs
     # a generated volpiano sequence
-    lib = mei2volpiano.MEItoVolpiano()
 
     def test_volpiano_output_1(self):
+        lib = mei2volpiano.MEItoVolpiano()
         with open(sys.argv[-1], "r") as f:
-            final_string = lib.convert_mei_volpiano(f)
+            final_string = self.lib.convert_mei_volpiano(f)
             self.assertEqual(final_string, listCorrectOutputs[-1])
 
     def test_volpiano_output_many(self):
+        lib = mei2volpiano.MEItoVolpiano()
         ind = 1
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                final_string = lib.convert_mei_volpiano(mei_file)
+                final_string = self.lib.convert_mei_volpiano(mei_file)
                 self.assertEqual(final_string, listCorrectOutputs[ind - 1])
             ind += 1
 
@@ -958,11 +959,12 @@ class TestVolpiano(unittest.TestCase):
     # they may be used later on for further testing
 
     def test_find_clefs(self):
+        lib = mei2volpiano.MEItoVolpiano()
         ind = 1
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                elements = lib.get_mei_elements(mei_file)
-                listC = lib.find_clefs(elements)
+                elements = self.lib.get_mei_elements(mei_file)
+                listC = self.lib.find_clefs(elements)
                 self.assertEqual(listC, listCorrectClef[ind - 1])
             ind += 1
 
@@ -970,11 +972,12 @@ class TestVolpiano(unittest.TestCase):
         pass
 
     def test_find_syls(self):
+        lib = mei2volpiano.MEItoVolpiano()
         ind = 1
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                elements = lib.get_mei_elements(mei_file)
-                listS = lib.find_syls(elements)
+                elements = self.lib.get_mei_elements(mei_file)
+                listS = self.lib.find_syls(elements)
                 self.assertEqual(listS, listCorrectSyls[ind - 1])
             ind += 1
 
