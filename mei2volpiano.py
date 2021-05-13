@@ -209,3 +209,18 @@ class MEItoVolpiano:
         clef = "1---"
         vol_string = "".join(values)
         return f"{clef}{vol_string}"
+    
+    def convert_mei_volpiano(self, filename):
+        '''
+        All-in-one method for converting MEI file to valid volpiano string.
+
+            Parameter:
+                filename (file): Open MEI file you want the volpiano of. 
+            
+            Returns:
+                volpiano (string): Valid volpiano string representation of the input. 
+        '''
+        elements = self.get_mei_elements(filename)
+        mapped_values = self.map_sylb(elements)
+        volpiano = self.export_volpiano(mapped_values)
+        return volpiano
