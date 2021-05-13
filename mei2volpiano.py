@@ -17,11 +17,7 @@ Fucntions:
     get_volpiano(char, char) -> char
     export_volpiano(dict{syllables: notes}) -> string
 """
-
-import argparse
-import os.path
 import xml.etree.ElementTree as ET
-from timeit import default_timer as timer
 
 # namespace for MEI tags
 NAMESPACE = "{http://www.music-encoding.org/ns/mei}"
