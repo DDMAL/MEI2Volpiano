@@ -1,6 +1,7 @@
-'''
-A driver for the CLI program implementation of the MEI2Volpiano library  
-'''
+"""CLI program implementation of the MEI2Volpiano library  
+
+    See README for details.
+"""
 
 
 import os.path

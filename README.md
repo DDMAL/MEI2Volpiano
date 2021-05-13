@@ -6,23 +6,31 @@ MEI2Volpiano is released under the MIT license.
 
 # Setup and Usage
 
-MEI2Volpiano requires at least Python 3.
+MEI2Volpiano requires at least Python 3.6.
 * Clone project `https://github.com/DDMAL/MEI2Volpiano.git`
-* Enter the script directory (mei2volpiano.py)
+* Enter the script directory (src)
 * For ease of use with CLI, you can put your MEI files in the same directory as the script, otherwise you will have to specify the path to file in the next steps below
 
 To output the MEI file's volpiano string to the terminal, run
 
-`python mei2volpiano filename.mei`
+`python driver.py -mei filename1.mei`
 
 Multiple files can be passed in at once
 
-`python mei2volpiano filename1.mei filename2.mei`
+`python driver.py -mei filename1.mei filename2.mei`
 
-To output the volpiano string(s) to a text file, use the `--e` flag as such
+To output the volpiano string(s) to a text file, use the `-export` flag as such
 
-`python mei2volpiano filename1.mei --e output_file.txt`
+`python driver.py -mei filename1.mei -export`
 
-If multiple MEI files are passed in and the `--e` flag is used, each volpiano string will be outputted to its own text file, with the file name being appended with an index representing the position in which its respective MEI file was passed into the program (ex. `1_output_file.txt`).
+and the program will output each mei file's volpiano to a similarly named file as its input.
 
-Currently, the program works as a CLI program, proper library usage will be added soon.
+To make it easier to pass in multiple MEI files, the `-txt` file can be used
+
+`python driver.py -txt filename1.txt`
+
+where the ".txt" file being passed in must hold the name/relative path of the required MEI files on distinct lines.
+
+
+
+The `-export` tag can be used on any valid input to the program. `-mei` or `-txt` are required flags for the program to identify the file(s) you are attempting to input.

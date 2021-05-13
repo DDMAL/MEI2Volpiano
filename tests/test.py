@@ -1,3 +1,12 @@
+"""Runs tests for mei2volpiano.py
+
+    Run it with:
+    `python3 test.py ../resources/016r_reviewed.mei ../resources/CDN-Hsmu_M2149.L4_003r.mei ../resources/CDN-Hsmu_M2149.L4_003v.mei`
+    
+"""
+
+
+
 import unittest
 import argparse
 import sys
@@ -80,8 +89,6 @@ co3 = (
     "--oprr---r---rrq---p---prrq---orpqpqroomnm---mnp---p"
 )
 
-# input like this:
-# python3 test.py ./resources/016r_reviewed.mei ./resources/CDN-Hsmu_M2149.L4_003r.mei ./resources/CDN-Hsmu_M2149.L4_003v.mei
 listCorrectOutputs = [correctOutput, co, co3]
 
 # 016r.mei
