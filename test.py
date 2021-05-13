@@ -988,9 +988,6 @@ class TestVolpiano(unittest.TestCase):
                 self.assertEqual(listS, listCorrectSyls[ind - 1])
             ind += 1
 
-    def test_getVolpiano(self):
-        pass
-
 
 if __name__ == "__main__":
     unittest.main(argv=["first-arg-is-ignored"], exit=False)
