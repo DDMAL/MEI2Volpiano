@@ -33,9 +33,7 @@ def main():
     for mei_file in args["mei_files"]:
         with open(mei_file, "r") as f:
             print("\n" + f"The corresponding Volpiano string for {mei_file} is:")
-            elements = lib.get_mei_elements(f)
-            mapped = lib.map_sylb(elements)
-            final_string = lib.export_volpiano(mapped)
+            final_string = lib.convert_mei_volpiano(f)
             print("\n" + final_string + "\n")
         if args["e"] is not None:
             with open(f'{ind}_{args["e"]}', "a") as out:
