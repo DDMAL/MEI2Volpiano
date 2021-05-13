@@ -389,8 +389,7 @@ listSyls_003r = [
     "ma",
     "ri",
     "a",
-    "in"
-    "ve",
+    "in" "ve",
     "nis",
     "ti",
     "gra",
@@ -423,7 +422,7 @@ listSyls_003r = [
     "fi",
     "li",
     "us",
-    "A"
+    "A",
 ]
 # CDN-Hsmu_M2149.L4_003v.mei
 listSyls_003v = []
@@ -434,16 +433,15 @@ listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v]
 class TestVolpiano(unittest.TestCase):
     # tests the output of a correct volpiano file vs
     # a generated volpiano sequence
+    lib = mei2volpiano.MEItoVolpiano()
 
     def test_volpiano_output_1(self):
-        lib = mei2volpiano.MEItoVolpiano()
         with open(sys.argv[-1], "r") as f:
             final_string = lib.convert_mei_volpiano(f)
             self.assertEqual(final_string, listCorrectOutputs[-1])
 
     def test_volpiano_output_many(self):
         ind = 1
-        lib = mei2volpiano.MEItoVolpiano()
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
                 final_string = lib.convert_mei_volpiano(mei_file)
@@ -455,7 +453,6 @@ class TestVolpiano(unittest.TestCase):
 
     def test_find_clefs(self):
         ind = 1
-        lib = mei2volpiano.MEItoVolpiano()
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
                 elements = lib.get_mei_elements(mei_file)
@@ -468,7 +465,6 @@ class TestVolpiano(unittest.TestCase):
 
     def test_find_syls(self):
         ind = 1
-        lib = mei2volpiano.MEItoVolpiano()
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
                 elements = lib.get_mei_elements(mei_file)
