@@ -17,6 +17,8 @@ import mei2volpiano
 
 # i know this is nasty will refactor later
 # or add in seperate file
+
+# 016r_reviewed
 correctOutput = (
     "1---g---fg---f---f---f---fffd---"
     + "f---gf---ef---d---e---gh---gkhjk---k7---k---jk"
@@ -37,6 +39,7 @@ correctOutput = (
     + "hklkjklkl---lk7---k---k---jklkjh-hkjh---hjghgh7-"
     + "--hg---l---lmnml---klkkj---k---lj"
 )
+# CDN-Hsmu_M2149.L4_003r.mei
 co = (
     "1---nnln-kln---kl---kl---no---n---o-qo-pr--"
     + "-q---r---pqpo---q7---q---o-qo-q---on---nopop-o-"
@@ -56,8 +59,32 @@ co = (
     + "-l-m-l---lk---l-lkl---hk---j-klkjh-jkjh---g---ghjh-"
     + "gh---hg---l-m-n-m-l"
 )
-# correctElements = []
-listCorrectOutputs = [correctOutput, co]
+# CDN-Hsmu_M2149.L4_003v.mei
+co3 = (
+    "1---k-l-k-k-j---k---kl---k---lj---k-l---k-"
+    "l---l-m-nm---ml---mlmlk---kj---kl-ml-m-n-m7---"
+    "lklml-m---lkj-kj---l-k7---g-h---hg-hggf---f-h---"
+    "hklkj-kl7-jl---lk---k---k---j-k-l---k-j---lkjkj-j-"
+    "h-g-hg---kk---kh---jklkj-h-jkjh---gh7---j-h-g-h---"
+    "h-g---g---g---lg---lk---lnlmlklk---l---nm-n-o--"
+    "-o-p---l7---lnnm---n-o-n---mnm-l-ml-ljkj---jk---"
+    "lmlm-n-m---kh---klm---lk---j---ljkj-kjh-g-hg7---g-"
+    "--gl---lk-lkh---k---jlkk---k-j---g---g-h---hgggf-h--"
+    "-f---hk7---kj---lk-kjh---kl-m-nm-nmlml---l---lk-kh"
+    "---k---kjkl---h-g---ghkg-hggf7---kk---hk---jklkjh-"
+    "jkjh---ghjhgh---h-g7---l-mnml---kj---klkkj---k---k7"
+    "---k-l---k---k---k---k---k---lj---kl---kl---lmnm---"
+    "m-l7---klkkj---kl---lm---l---l---l---mlmlk---kj---"
+    "k-lmlm-n-m---l-j-l-nl-m7---l-kjkj-g-g-lg7---o---o-"
+    "--oprr---r---rrq---p---prrq---orpqpqroomnm---mnp---p"
+)
+
+# input like this:
+# python3 ./tests/test.py ./resources/016r_reviewed.mei ./resources/CDN-Hsmu_M2149.L4_003r.mei ./resources/CDN-Hsmu_M2149.L4_003v.mei
+listCorrectOutputs = [correctOutput, co, co3]
+
+# CDN-Hsmu_M2149.L4_003r.mei
+listClefs = [C, F, F, F, C, C, C, C, C]
 
 
 class TestVolpiano(unittest.TestCase):
@@ -82,25 +109,16 @@ class TestVolpiano(unittest.TestCase):
     # these tests may not be necessary
     # they may be used later on for further testing
 
-    def test_get_mei_elements(self):
-        pass
-
     def test_find_clefs(self):
         pass
 
     def test_find_notes(self):
         pass
 
-    def test_map_sylb(self):
-        pass
-
     def test_get_syl_key(self):
         pass
 
     def test_getVolpiano(self):
-        pass
-
-    def test_export_volpiano(self):
         pass
 
 
