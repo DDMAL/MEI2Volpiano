@@ -67,9 +67,7 @@ class TestVolpiano(unittest.TestCase):
     def test_volpiano_output_1(self):
         lib = mei2volpiano.MEItoVolpiano()
         with open(sys.argv[-1], "r") as f:
-            elements = lib.get_mei_elements(f)
-            mapped = lib.map_sylb(elements)
-            final_string = lib.export_volpiano(mapped)
+            final_string = lib.convert_mei_volpiano(f)
             self.assertEqual(final_string, listCorrectOutputs[-1])
 
     def test_volpiano_output_many(self):
@@ -77,9 +75,7 @@ class TestVolpiano(unittest.TestCase):
         lib = mei2volpiano.MEItoVolpiano()
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                elements = lib.get_mei_elements(f)
-                mapped = lib.map_sylb(elements)
-                final_string = lib.export_volpiano(mapped)
+                final_string = lib.convert_mei_volpiano(mei_file)
                 self.assertEqual(final_string, listCorrectOutputs[ind - 1])
             ind += 1
 
