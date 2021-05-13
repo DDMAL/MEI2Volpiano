@@ -83,11 +83,64 @@ co3 = (
 listCorrectOutputs = [correctOutput, co, co3]
 
 # 016r.mei
-listClefs_016r = ['C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']
+listClefs_016r = [
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+]
 # CDN-Hsmu_M2149.L4_003r.mei
-listClefs_003r = ['C', 'F', 'F','F', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']
+listClefs_003r = [
+    "C",
+    "F",
+    "F",
+    "F",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+]
 # CDN-Hsmu_M2149.L4_003v.mei
-listClefs_003v = ['C','C','C','C','C','C','C','C','C','C','C','C','C','C','F']
+listClefs_003v = [
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "F",
+]
+
 
 class TestVolpiano(unittest.TestCase):
     # tests the output of a correct volpiano file vs
@@ -113,8 +166,8 @@ class TestVolpiano(unittest.TestCase):
 
     def test_find_clefs(self):
         lib = mei2volpiano.MEItoVolpiano()
-         with open(sys.argv[-1], "r") as f:
-            elements = lib.get_mei_elements(filename):
+        with open(sys.argv[-1], "r") as f:
+            elements = lib.get_mei_elements(filename)
             listC = lib.find_clefs(elements)
             self.assertEqual(listC, listClefs_003r)
 
