@@ -1,8 +1,5 @@
 import unittest
 import argparse
-import sys
-
-
 import os, sys, inspect
 
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -84,13 +81,87 @@ co3 = (
 listCorrectOutputs = [correctOutput, co, co3]
 
 # 016r.mei
-listClefs_016r = ['C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']
+listClefs_016r = [
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+]
 # CDN-Hsmu_M2149.L4_003r.mei
-listClefs_003r = ['C', 'F', 'F','F', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']
+listClefs_003r = [
+    "C",
+    "F",
+    "F",
+    "F",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+]
 # CDN-Hsmu_M2149.L4_003v.mei
-listClefs_003v = ['C','C','C','C','C','C','C','C','C','C','C','C','C','C','F']
+listClefs_003v = [
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "C",
+    "F",
+]
 
-listCorrectClef = [listClefs_003r,listClefs_003v]
+listCorrectClef = [listClefs_016r, listClefs_003r, listClefs_003v]
+
+# 016r.mei
+listSyls_016r = [
+    "es",
+    "e",
+    "ius",
+    "non",
+    "e",
+    "lon",
+    "ga",
+    "bun",
+    "tur",
+    "mi",
+    "se",
+    "re",
+    "bi",
+]
+# CDN-Hsmu_M2149.L4_003r.mei
+listSyls_003r = []
+# CDN-Hsmu_M2149.L4_003r.mei
+listSyls_003r = []
+
 
 class TestVolpiano(unittest.TestCase):
     # tests the output of a correct volpiano file vs
@@ -119,7 +190,7 @@ class TestVolpiano(unittest.TestCase):
         lib = mei2volpiano.MEItoVolpiano()
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                elements = lib.get_mei_elements(mei_file):
+                elements = lib.get_mei_elements(mei_file)
                 listC = lib.find_clefs(elements)
                 self.assertEqual(listC, listCorrectClef[ind - 1])
             ind += 1
@@ -127,7 +198,7 @@ class TestVolpiano(unittest.TestCase):
     def test_find_notes(self):
         pass
 
-    def test_get_syl_key(self):
+    def test_find_syls(self):
         pass
 
     def test_getVolpiano(self):
