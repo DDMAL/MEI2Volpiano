@@ -34,3 +34,9 @@ where the ".txt" file being passed in must hold the name/relative path of the re
 
 
 The `-export` tag can be used on any valid input to the program. `-mei` or `-txt` are required flags for the program to identify the file(s) you are attempting to input.
+
+# Tests
+
+To run the current test suite, `cd` into "/tests/" and run
+`python3 test.py ../resources/016r_reviewed.mei ../resources/CDN-Hsmu_M2149.L4_003r.mei ../resources/CDN-Hsmu_M2149.L4_003v.mei` to compare the output to human generated
+ground truth.
