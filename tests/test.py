@@ -341,7 +341,7 @@ class TestVolpiano(unittest.TestCase):
             with open(mei_file, "r") as f:
                 elements = lib.get_mei_elements(mei_file)
                 listS = lib.find_syls(elements)
-                self.assertEqual(listC, listCorrectSyls[ind - 1])
+                self.assertEqual(lists, listCorrectSyls[ind - 1])
             ind += 1
 
     def test_getVolpiano(self):
