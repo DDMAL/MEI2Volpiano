@@ -1668,7 +1668,7 @@ class TestVolpiano(unittest.TestCase):
     def test_volpiano_output_1(self):
         lib = mei2volpiano.MEItoVolpiano()
         with open(sys.argv[-1], "r") as f:
-            final_string = self.lib.convert_mei_volpiano(f)
+            final_string = lib.convert_mei_volpiano(f)
             self.assertEqual(final_string, listCorrectOutputs[-1])
 
     def test_volpiano_output_many(self):
@@ -1676,7 +1676,7 @@ class TestVolpiano(unittest.TestCase):
         ind = 1
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                final_string = self.lib.convert_mei_volpiano(mei_file)
+                final_string = lib.convert_mei_volpiano(mei_file)
                 self.assertEqual(final_string, listCorrectOutputs[ind - 1])
             ind += 1
 
@@ -1688,8 +1688,8 @@ class TestVolpiano(unittest.TestCase):
         ind = 1
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                elements = self.lib.get_mei_elements(mei_file)
-                listC = self.lib.find_clefs(elements)
+                elements = lib.get_mei_elements(mei_file)
+                listC = lib.find_clefs(elements)
                 self.assertEqual(listC, listCorrectClef[ind - 1])
             ind += 1
 
@@ -1698,8 +1698,8 @@ class TestVolpiano(unittest.TestCase):
         ind = 1
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                elements = self.lib.get_mei_elements(mei_file)
-                listN = self.lib.find_notes(elements)
+                elements = lib.get_mei_elements(mei_file)
+                listN = lib.find_notes(elements)
                 self.assertEqual(listN, listNotes[ind - 1])
             ind += 1
 
@@ -1708,8 +1708,8 @@ class TestVolpiano(unittest.TestCase):
         ind = 1
         for mei_file in sys.argv[ind:]:
             with open(mei_file, "r") as f:
-                elements = self.lib.get_mei_elements(mei_file)
-                listS = self.lib.find_syls(elements)
+                elements = lib.get_mei_elements(mei_file)
+                listS = lib.find_syls(elements)
                 self.assertEqual(listS, listCorrectSyls[ind - 1])
             ind += 1
 
