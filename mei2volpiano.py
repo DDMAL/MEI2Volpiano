@@ -59,7 +59,7 @@ class MEItoVolpiano:
         return clefs
 
     def find_notes(self, elements):
-        """Finds all notes in a given elements list (from an MEI file)
+        """Finds all notes in a given elements list 
 
         Args:
             elements (list): List of elements
@@ -73,6 +73,22 @@ class MEItoVolpiano:
                 notes.append(element.attrib["pname"])
 
         return notes
+    
+    def find_syls(self, elements):
+        """Finds all syllables in a given elements list
+
+        Args:
+            elements (list): List of elements
+        
+        Returns:
+            syls (list): string list of all syllables found, in order.
+        """
+        syls = []
+        for element in elements:
+            if element.tag == f"{NAMESPACE}syl":
+                if element.text:
+                    syls.append(element.text)
+        return syls
 
     def map_sylb(self, elements):
         """Creates a dictionary of syllables and their respective neuemes.
