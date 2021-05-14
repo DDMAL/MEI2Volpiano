@@ -1679,10 +1679,17 @@ class TestVolpiano(unittest.TestCase):
     # a generated volpiano sequence
 
     def test_volpiano_output_1(self):
+        f1 = "./resources/016r_reviewed.mei"
+        f2 = "./resources/CDN-Hsmu_M2149.L4_003r.mei"
+        f3 = "./resources/CDN-Hsmu_M2149.L4_003v.mei"
+
+        files = [f1, f2, f3]
+
         lib = mei2volpiano.MEItoVolpiano()
-        with open(sys.argv[-1], "r") as f:
-            final_string = lib.convert_mei_volpiano(f)
-            self.assertEqual(final_string, listCorrectOutputs[-1])
+        for i, element in enumerate(files):
+            with open(element, "r") as f:
+                final_string = lib.convert_mei_volpiano(f)
+                self.assertEqual(final_string, listCorrectOutputs[i])
 
     def test_volpiano_output_many(self):
         lib = mei2volpiano.MEItoVolpiano()
