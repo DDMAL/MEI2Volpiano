@@ -1,29 +1,22 @@
-"""Runs tests for mei2volpiano.py
-
-    Run it with:
-    `python3 test.py ../resources/016r_reviewed.mei ../resources/CDN-Hsmu_M2149.L4_003r.mei ../resources/CDN-Hsmu_M2149.L4_003v.mei`
-    
-"""
-
-
-import unittest
-import argparse
-import sys
-import os
-import inspect
-
-sys.path.insert(0, '../src')
+# Run with pytest from project checkout.
+import re
 
 import mei2volpiano
 
 
-# import doctest
+def test_version():
+    """
+    Make sure the version in the TOML file and in the __init__.py file are the same.
+    """
+    with open("pyproject.toml") as f:
+        pattern = f'(?<=version = ")(.*?)(?=")'
+        assert mei2volpiano.__version__ == re.findall(pattern, f.read(), re.DOTALL)[0]
 
-# either we have a correct file already in
-# system or we also have it input the file in the command line
 
-# i know this is nasty will refactor later
-# or add in seperate file
+import unittest
+import sys
+
+sys.path.insert(0, "../src")
 
 # 016r_reviewed
 correctOutput = (
@@ -1672,22 +1665,17 @@ class TestVolpiano(unittest.TestCase):
     # a generated volpiano sequence
 
     def test_volpiano_output_1(self):
-        lib = mei2volpiano.MEItoVolpiano()
-        with open(sys.argv[-1], "r") as f:
-            final_string = lib.convert_mei_volpiano(f)
-            self.assertEqual(final_string, listCorrectOutputs[-1])
+        f1 = "./resources/016r_reviewed.mei"
+        f2 = "./resources/CDN-Hsmu_M2149.L4_003r.mei"
+        f3 = "./resources/CDN-Hsmu_M2149.L4_003v.mei"
 
-    def test_volpiano_output_many(self):
-        lib = mei2volpiano.MEItoVolpiano()
-        ind = 1
-        for mei_file in sys.argv[ind:]:
-            with open(mei_file, "r") as f:
-                final_string = lib.convert_mei_volpiano(mei_file)
-                self.assertEqual(final_string, listCorrectOutputs[ind - 1])
-            ind += 1
+        files = [f1, f2, f3]
 
-    # these tests may not be necessary
-    # they may be used later on for further testing
+        lib = mei2volpiano.MEItoVolpiano()
+        for i, element in enumerate(files):
+            with open(element, "r") as f:
+                final_string = lib.convert_mei_volpiano(f)
+                self.assertEqual(final_string, listCorrectOutputs[i])
 
     def test_find_clefs(self):
         lib = mei2volpiano.MEItoVolpiano()
