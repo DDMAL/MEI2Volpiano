@@ -18,10 +18,10 @@ class MEItoVolpiano:
 
         [Main]:
             get_mei_elements(file) -> list[MEI elements]
-            sylb_volpiano_map(list[elements]) -> dict{str: str}
+            sylb_volpiano_map(list[elements]) -> dict[str, str]
             get_syl_key(element, integer) -> str
             get_volpiano(str, str) -> str
-            export_volpiano(dict{syllables: notes}) -> str
+            export_volpiano(dict[str, str]) -> str
             convert_mei_volpiano(file) -> str
 
             ^ convert_mei_volpiano handles all methods in main.
@@ -30,7 +30,7 @@ class MEItoVolpiano:
             find_clefs(list[elements]) -> list[str]
             find_notes(list[elements]) -> list[str]
             find_syls(list[elements]) -> list[str]
-            sylb_note_map(list[elements]) -> dict{str: str}
+            sylb_note_map(list[elements]) -> dict[str, str]
 
             ^ useful for MEI parsing and testing outputs.
 
