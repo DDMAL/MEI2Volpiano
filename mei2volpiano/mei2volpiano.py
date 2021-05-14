@@ -20,15 +20,15 @@ class MEItoVolpiano:
             get_mei_elements(file) -> list[MEI elements]
             sylb_volpiano_map(list[elements]) -> dict{string: string}
             get_syl_key(element, integer) -> string
-            get_volpiano(char, char) -> char
+            get_volpiano(string, string) -> string
             export_volpiano(dict{syllables: notes}) -> string
             convert_mei_volpiano(file) -> string
 
             ^ convert_mei_volpiano handles all methods in main.
 
         [Debugging]:
-            find_clefs(list[elements]) -> list[char]
-            find_notes(list[elements]) -> list[char]
+            find_clefs(list[elements]) -> list[string]
+            find_notes(list[elements]) -> list[string]
             find_syls(list[elements]) -> list[string]
             sylb_note_map(list[elements]) -> dict{string: string}
 
@@ -205,7 +205,7 @@ class MEItoVolpiano:
             key = "".join(f"{bias}")
         return key
 
-    def get_volpiano(self, note: chr, ocv: chr) -> chr:
+    def get_volpiano(self, note: str, ocv: str) -> str:
         """Finds the volpiano representation of a note given its value and octave.
 
         Args:
