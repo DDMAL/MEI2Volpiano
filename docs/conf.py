@@ -32,6 +32,8 @@ release = "0.1.0"
 # ones.
 extensions = ["sphinx.ext.napoleon"]
 
+
+# will remove any extra blank pages
 latex_elements = {"extraclassoptions": "openany,oneside"}
 
 # Add any paths that contain templates here, relative to this directory.
