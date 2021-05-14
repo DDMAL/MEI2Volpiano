@@ -14,23 +14,9 @@ def test_version():
 
 
 import unittest
-# import argparse
 import sys
-# import os
-# import inspect
 
-sys.path.insert(0, '../src')
-
-# import mei2volpiano
-
-
-# import doctest
-
-# either we have a correct file already in
-# system or we also have it input the file in the command line
-
-# i know this is nasty will refactor later
-# or add in seperate file
+sys.path.insert(0, "../src")
 
 # 016r_reviewed
 correctOutput = (
@@ -1690,18 +1676,6 @@ class TestVolpiano(unittest.TestCase):
             with open(element, "r") as f:
                 final_string = lib.convert_mei_volpiano(f)
                 self.assertEqual(final_string, listCorrectOutputs[i])
-
-    def test_volpiano_output_many(self):
-        lib = mei2volpiano.MEItoVolpiano()
-        ind = 1
-        for mei_file in sys.argv[ind:]:
-            with open(mei_file, "r") as f:
-                final_string = lib.convert_mei_volpiano(mei_file)
-                self.assertEqual(final_string, listCorrectOutputs[ind - 1])
-            ind += 1
-
-    # these tests may not be necessary
-    # they may be used later on for further testing
 
     def test_find_clefs(self):
         lib = mei2volpiano.MEItoVolpiano()
