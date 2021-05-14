@@ -12,6 +12,12 @@ from timeit import default_timer as timer
 
 # driver code for CLI program
 def main():
+    """
+    This is the command line application MEI2Volpiano
+
+    usage: mei2vol [-h] (-mei MEI [MEI ...] | -txt [TXT]) [-export]
+    mei2vol: error: one of the arguments -mei -txt is required
+    """
     start = timer()
     parser = argparse.ArgumentParser()
     option = parser.add_mutually_exclusive_group(required=True)

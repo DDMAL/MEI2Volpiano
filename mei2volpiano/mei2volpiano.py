@@ -2,31 +2,8 @@
 
 Takes in one or more MEI files and outputs their volpiano representation.
 See README for flags and usage.
-
-
-Class: MEItoVolpiano
-
-Fucntions:
-
-    [Main]:
-        get_mei_elements(file) -> list[MEI elements]
-        sylb_volpiano_map(list[elements]) -> dict{string: string}
-        get_syl_key(element, integer) -> string
-        get_volpiano(char, char) -> char
-        export_volpiano(dict{syllables: notes}) -> string
-        convert_mei_volpiano(file) -> string 
-
-        ^ convert_mei_volpiano handles all methods in main.
-    
-    [Debugging]:
-        find_clefs(list[elements]) -> list[char]
-        find_notes(list[elements]) -> list[char]
-        find_syls(list[elements]) -> list[string]
-        sylb_note_map(list[elements]) -> dict{string: string}
-
-        ^ useful for MEI parsing and testing outputs.
-
 """
+
 import xml.etree.ElementTree as ET
 
 # namespace for MEI tags
@@ -34,11 +11,35 @@ NAMESPACE = "{http://www.music-encoding.org/ns/mei}"
 
 
 class MEItoVolpiano:
-    def get_mei_elements(self, filename):
+    """
+    Class: MEItoVolpiano
+
+    Methods:
+
+        [Main]:
+            get_mei_elements(file) -> list[MEI elements]
+            sylb_volpiano_map(list[elements]) -> dict{string: string}
+            get_syl_key(element, integer) -> string
+            get_volpiano(char, char) -> char
+            export_volpiano(dict{syllables: notes}) -> string
+            convert_mei_volpiano(file) -> string 
+
+            ^ convert_mei_volpiano handles all methods in main.
+        
+        [Debugging]:
+            find_clefs(list[elements]) -> list[char]
+            find_notes(list[elements]) -> list[char]
+            find_syls(list[elements]) -> list[string]
+            sylb_note_map(list[elements]) -> dict{string: string}
+
+            ^ useful for MEI parsing and testing outputs.
+
+    """
+    def get_mei_elements(self, filename:str) -> list:
         """Returns a list of all elements in the MEI file.
 
         Args:
-            filename (file): An open MEI file.
+            filename (string): An open MEI file.
 
         Returns:
             elements (list): List of all elements found.
@@ -51,7 +52,7 @@ class MEItoVolpiano:
             elements.append(mei_element)
         return elements
 
-    def find_clefs(self, elements):
+    def find_clefs(self, elements: list) -> list:
         """Finds all clefs in a given elements list
 
         Args:
