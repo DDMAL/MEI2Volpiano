@@ -69,7 +69,7 @@ class MEItoVolpiano:
                 clefs.append(element.attrib["shape"])
         return clefs
 
-    def find_notes(self, elements):
+    def find_notes(self, elements) -> list:
         """Finds all notes in a given elements list
 
         Args:
@@ -85,7 +85,7 @@ class MEItoVolpiano:
 
         return notes
 
-    def find_syls(self, elements):
+    def find_syls(self, elements) -> list:
         """Finds all syllables in a given elements list
 
         Args:
@@ -101,7 +101,7 @@ class MEItoVolpiano:
                     syls.append(element.text)
         return syls
 
-    def sylb_note_map(self, elements):
+    def sylb_note_map(self, elements) -> dict:
         """Creates a dictionary map of syllables and their notes (with octaves).
 
         Args:
@@ -141,7 +141,7 @@ class MEItoVolpiano:
         del syl_dict["dummy"]
         return syl_dict
 
-    def sylb_volpiano_map(self, elements):
+    def sylb_volpiano_map(self, elements) -> dict:
         """Creates a dictionary of syllables and their volpiano values.
 
         Args:
@@ -185,7 +185,7 @@ class MEItoVolpiano:
 
         return syl_note
 
-    def get_syl_key(self, element, bias):
+    def get_syl_key(self, element, bias) -> str:
         """Finds the dictionary key of a syllable from their 'syl' and database
         identifier.
 
@@ -204,7 +204,7 @@ class MEItoVolpiano:
             key = "".join(f"{bias}")
         return key
 
-    def get_volpiano(self, note, ocv):
+    def get_volpiano(self, note, ocv) -> chr:
         """Finds the volpiano representation of a note given its value and octave.
 
         Args:
@@ -255,7 +255,7 @@ class MEItoVolpiano:
         else:
             return error
 
-    def export_volpiano(self, mapping_dictionary):
+    def export_volpiano(self, mapping_dictionary) -> str:
         """Creates volpiano string with clef attached.
 
         Args:
@@ -270,7 +270,7 @@ class MEItoVolpiano:
         vol_string = "".join(values)
         return f"{clef}{vol_string}"
 
-    def convert_mei_volpiano(self, filename):
+    def convert_mei_volpiano(self, filename) -> str:
         """All-in-one method for converting MEI file to valid volpiano string.
 
         Args:
