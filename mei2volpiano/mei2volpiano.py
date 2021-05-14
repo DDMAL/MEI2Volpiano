@@ -40,7 +40,7 @@ class MEItoVolpiano:
         """Returns a list of all elements in the MEI file.
 
         Args:
-            filename (string): An open MEI file.
+            filename (str): An open MEI file.
 
         Returns:
             elements (list): List of all elements found.
@@ -195,7 +195,7 @@ class MEItoVolpiano:
             bias (int): The database identifier.
 
         Returns:
-            key (string): The dictionary key for the given syllable.
+            key (str): The dictionary key for the given syllable.
         """
         key = -1
         if element.text:
@@ -209,16 +209,16 @@ class MEItoVolpiano:
         """Finds the volpiano representation of a note given its value and octave.
 
         Args:
-            note (char): Note value taken from an element ('c', 'd', 'e' etc.)
-            ocv (char): Octave of a given note ('1', '2', '3', or '4')
+            note (str): Note value taken from an element ('c', 'd', 'e' etc.)
+            ocv (str): Octave of a given note ('1', '2', '3', or '4')
 
         Returns:
-            oct{x}[note] (char): Volpiano character corresponding to
+            oct{x}[note] (str): Volpiano character corresponding to
             input note and octave
 
             or
 
-            error (string): Error if octave is out of range or note not in
+            error (str): Error if octave is out of range or note not in
             octave.
 
         """
@@ -264,7 +264,7 @@ class MEItoVolpiano:
             corresponding volpiano notes.
 
         Returns:
-            (string): Final, valid volpiano with the clef attached in a single line.
+            (str): Final, valid volpiano with the clef attached in a single line.
         """
         values = list(mapping_dictionary.values())
         clef = "1---"
@@ -278,7 +278,7 @@ class MEItoVolpiano:
             filename (file): Open MEI file you want the volpiano of.
 
         Returns:
-            volpiano (string): Valid volpiano string representation of the input.
+            volpiano (str): Valid volpiano string representation of the input.
         """
         elements = self.get_mei_elements(filename)
         mapped_values = self.sylb_volpiano_map(elements)
