@@ -1,13 +1,16 @@
-# TODO: Move from argparse to Click to take advantage of 
-# the `CliRunner` to test cli. Don't use sys.argv for tests.
-
 # Run with pytest from project checkout.
+import re
 
-from mei2volpiano import __version__
+import mei2volpiano
 
 
 def test_version():
-    assert __version__ == '0.1.0'
+    """
+    Make sure the version in the TOML file and in the __init__.py file are the same.
+    """
+    with open("pyproject.toml") as f:
+        pattern = f'(?<=version = ")(.*?)(?=")'
+        assert mei2volpiano.__version__ == re.findall(pattern, f.read(), re.DOTALL)[0]
 
 
 # import unittest
