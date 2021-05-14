@@ -22,10 +22,10 @@ class MEItoVolpiano:
             get_syl_key(element, integer) -> string
             get_volpiano(char, char) -> char
             export_volpiano(dict{syllables: notes}) -> string
-            convert_mei_volpiano(file) -> string 
+            convert_mei_volpiano(file) -> string
 
             ^ convert_mei_volpiano handles all methods in main.
-        
+
         [Debugging]:
             find_clefs(list[elements]) -> list[char]
             find_notes(list[elements]) -> list[char]
@@ -35,7 +35,8 @@ class MEItoVolpiano:
             ^ useful for MEI parsing and testing outputs.
 
     """
-    def get_mei_elements(self, filename:str) -> list:
+
+    def get_mei_elements(self, filename: str) -> list:
         """Returns a list of all elements in the MEI file.
 
         Args:
@@ -69,7 +70,7 @@ class MEItoVolpiano:
                 clefs.append(element.attrib["shape"])
         return clefs
 
-    def find_notes(self, elements) -> list:
+    def find_notes(self, elements: list) -> list:
         """Finds all notes in a given elements list
 
         Args:
@@ -85,7 +86,7 @@ class MEItoVolpiano:
 
         return notes
 
-    def find_syls(self, elements) -> list:
+    def find_syls(self, elements: list) -> list:
         """Finds all syllables in a given elements list
 
         Args:
@@ -101,7 +102,7 @@ class MEItoVolpiano:
                     syls.append(element.text)
         return syls
 
-    def sylb_note_map(self, elements) -> dict:
+    def sylb_note_map(self, elements: list) -> dict:
         """Creates a dictionary map of syllables and their notes (with octaves).
 
         Args:
@@ -141,7 +142,7 @@ class MEItoVolpiano:
         del syl_dict["dummy"]
         return syl_dict
 
-    def sylb_volpiano_map(self, elements) -> dict:
+    def sylb_volpiano_map(self, elements: list) -> dict:
         """Creates a dictionary of syllables and their volpiano values.
 
         Args:
@@ -185,7 +186,7 @@ class MEItoVolpiano:
 
         return syl_note
 
-    def get_syl_key(self, element, bias) -> str:
+    def get_syl_key(self, element: object, bias: int) -> str:
         """Finds the dictionary key of a syllable from their 'syl' and database
         identifier.
 
@@ -204,7 +205,7 @@ class MEItoVolpiano:
             key = "".join(f"{bias}")
         return key
 
-    def get_volpiano(self, note, ocv) -> chr:
+    def get_volpiano(self, note: chr, ocv: chr) -> chr:
         """Finds the volpiano representation of a note given its value and octave.
 
         Args:
@@ -255,7 +256,7 @@ class MEItoVolpiano:
         else:
             return error
 
-    def export_volpiano(self, mapping_dictionary) -> str:
+    def export_volpiano(self, mapping_dictionary: dict) -> str:
         """Creates volpiano string with clef attached.
 
         Args:
@@ -270,7 +271,7 @@ class MEItoVolpiano:
         vol_string = "".join(values)
         return f"{clef}{vol_string}"
 
-    def convert_mei_volpiano(self, filename) -> str:
+    def convert_mei_volpiano(self, filename: str) -> str:
         """All-in-one method for converting MEI file to valid volpiano string.
 
         Args:
