@@ -1,6 +1,4 @@
 # Run with pytest from project checkout.
-import re
-
 import mei2volpiano
 
 
@@ -9,11 +7,11 @@ def test_version():
     Make sure the version in the TOML file and in the __init__.py file are the same.
     """
     with open("pyproject.toml") as f:
-        pattern = f'(?<=version = ")(.*?)(?=")'
-        assert (
-            mei2volpiano.__version__
-            == re.findall(pattern, f.read(), re.DOTALL)[0]
-        )
+        tomllines = f.read().splitlines()
+        tomlversion = set([l for l in tomllines if "version =" in l])
+        initversion = set([f'version = "{mei2volpiano.__version__}"'])
+        # set is there to catch any duplicate/additional entries
+        assert initversion == tomlversion
 
 
 import unittest
