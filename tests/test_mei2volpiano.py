@@ -84,7 +84,8 @@ _W_Coronam_correct_vol = (
     "1---f--g--f--f--f--f--f--f--e--g--h"
 )
 
-listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol, _W_Coronam_correct_vol]
+listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol]
+listWCorrectOutputs = [_W_Coronam_correct_vol]
 
 # 016r.mei
 listClefs_016r = list("CCCCCCCCCCCCCCCCC")
@@ -541,15 +542,25 @@ class TestVolpiano(unittest.TestCase):
         f1 = "./resources/neume_mei/016r_reviewed.mei"
         f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"
         f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
-        f4 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
 
-        files = [f1, f2, f3, f4]
+        files = [f1, f2, f3]
 
         lib = mei2volpiano.MEItoVolpiano()
         for i, element in enumerate(files):
             with open(element, "r") as f:
                 final_string = lib.convert_mei_volpiano(f)
                 self.assertEqual(final_string, listCorrectOutputs[i])
+    
+    def test_volpiano_output_2(self):
+        w1 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
+
+        wfiles = [w1]
+
+        lib = mei2volpiano.MEItoVolpiano()
+        for i, element in enumerate(wfiles):
+            with open(element, "r") as f:
+                final_string = lib.Wconvert_mei_volpiano(f)
+                self.assertEqual(final_string, listWCorrectOutputs[i])
 
     def test_find_clefs(self):
         lib = mei2volpiano.MEItoVolpiano()
