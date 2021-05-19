@@ -41,6 +41,14 @@ where the ".txt" file being passed in must hold the name/relative path of the re
 
 The `-export` tag can be used on any valid input to the program. `-mei` or `-txt` are required flags for the program to identify the file(s) you are attempting to input.
 
+## Western
+
+To convert MEI files written in Western Musical Notation, run 
+
+`mei2vol -W -mei filename1.mei`
+
+The `-W` flag is the only difference in the way you run it, other flags are still valid.
+
 ## Tests
 
 To run the current test suite, execute `pytest`

@@ -83,7 +83,7 @@ def main():
         for mei_file in args["W"]:
             with open(mei_file, "r") as f:
                 f_names.append(mei_file)
-                vol_strings.append(lib.convert_meiW_volpiano(f))
+                vol_strings.append(lib.Wconvert_mei_volpiano(f))
 
     name_vol_pairs = list(zip(f_names, vol_strings))
 
