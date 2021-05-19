@@ -91,7 +91,9 @@ listClefs_003r = list("CFFFCCCCCCCCCCCCC")
 # CDN-Hsmu_M2149.L4_003v.mei
 listClefs_003v = list("CCCCCCCCCCCCCCF")
 
-listCorrectClef = [listClefs_016r, listClefs_003r, listClefs_003v]
+listClefs_W_Coronam = list("G")
+
+listCorrectClef = [listClefs_016r, listClefs_003r, listClefs_003v, listClefs_W_Coronam]
 
 # 016r.mei
 listSyls_016r = [
