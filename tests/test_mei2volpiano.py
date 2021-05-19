@@ -558,7 +558,8 @@ listSyls_W_Tuum = [
     "li-",
     "mus",
     "tri-",
-    "um-" "phum",
+    "um-",
+    "phum",
 ]
 
 listCorrectSyls = [
