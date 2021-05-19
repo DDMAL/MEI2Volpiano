@@ -80,11 +80,14 @@ _003v_correct_vol = (
     "--oprr---r---rrq---p---prrq---orpqpqroomnm---mnp---p"
 )
 
-_W_Coronam_correct_vol = (
-    "1---f--g--f--f--f--f--f--f--e--g--h"
-)
+_W_Coronam_correct_vol = "1---f--g--f--f--f--f--f--f--e--g--h"
 
-listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol]
+listCorrectOutputs = [
+    _016_correct_vol,
+    _003r_correct_vol,
+    _003v_correct_vol
+]
+
 listWCorrectOutputs = [_W_Coronam_correct_vol]
 
 # 016r.mei
@@ -497,7 +500,21 @@ listSyls_003v = [
     "mi",
 ]
 
-listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v]
+listSyls_W_Coronam = [
+    "Co",
+    "ro",
+    "namw",
+    "de",
+    "la",
+    "pi",
+    "de",
+    "pre",
+    "ci",
+    "o",
+    "so",
+]
+
+listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v, listSyls_W_Coronam]
 
 # 016r.mei
 listNotes_016r = list(
