@@ -267,12 +267,3 @@ class MEItoVolpiano:
         mapped_values = self.sylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
         return volpiano
-
-
-def main():
-    lib = MEItoVolpiano()
-    print(lib.get_volpiano("a", "2"))
-
-
-if __name__ == "__main__":
-    main()
