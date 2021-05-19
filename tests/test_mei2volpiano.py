@@ -20,7 +20,7 @@ import sys
 sys.path.insert(0, "../src")
 
 # 016r_reviewed
-correctOutput = (
+_016_correct_vol = (
     "1---g---fg---f---f---f---fffd---"
     "f---gf---ef---d---e---gh---gkhjk---k7---k---jk"
     "---hkghg---fg---gf-fded---d---f---gh-hjkg---g-"
@@ -41,7 +41,7 @@ correctOutput = (
     "--hg---l---lmnml---klkkj---k---lj"
 )
 # CDN-Hsmu_M2149.L4_003r.mei
-co = (
+_003r_correct_vol = (
     "1---nnln-kln---kl---kl---no---n---o-qo-pr--"
     "-q---r---pqpo---q7---q---o-qo-q---on---nopop-o-"
     "nmlnon---op---opo---nopono---on---n---noq7---jh--"
@@ -61,7 +61,7 @@ co = (
     "gh---hg---l-m-n-m-l"
 )
 # CDN-Hsmu_M2149.L4_003v.mei
-co3 = (
+_003v_correct_vol = (
     "1---k-l-k-k-j---k---kl---k---lj---k-l---k-"
     "l---l-m-nm---ml---mlmlk---kj---kl-ml-m-n-m7---"
     "lklml-m---lkj-kj---l-k7---g-h---hg-hggf---f-h---"
@@ -80,7 +80,11 @@ co3 = (
     "--oprr---r---rrq---p---prrq---orpqpqroomnm---mnp---p"
 )
 
-listCorrectOutputs = [correctOutput, co, co3]
+_W_Coronam_correct_vol = (
+    "1---f--g--f--f--f--f--f--f--e--g--h"
+)
+
+listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol, _W_Coronam_correct_vol]
 
 # 016r.mei
 listClefs_016r = list("CCCCCCCCCCCCCCCCC")
