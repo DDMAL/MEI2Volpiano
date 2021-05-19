@@ -496,7 +496,9 @@ listSyls_003v = [
     "mi",
 ]
 
-listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v]
+listSyls_W_Coronam = ['Co','ro','namw', 'de', 'la', 'pi', 'de', 'pre', 'ci', 'o', 'so']
+
+listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v, listSyls_W_Coronam]
 
 # 016r.mei
 listNotes_016r = list(
