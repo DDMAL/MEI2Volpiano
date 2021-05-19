@@ -13,8 +13,17 @@ def main():
     """
     This is the command line application MEI2Volpiano
 
-    usage: mei2vol [-h] (-N N [N ...] | -W W [W ...] | -txt [TXT]) [-export]
-    mei2vol: error: one of the arguments -mei -txt is required
+    usage: driver.py [-h] (-N | -W) -t [T] [--export] mei [mei ...]
+
+    positional arguments:
+    mei         One or multiple MEI, or text file(s) with each relative MEI file/path to be converted per line
+
+    optional arguments:
+    -h, --help  show this help message and exit
+    -N          An MEI neume encoded music file representing neume notation
+    -W          An MEI western encoded music file representing western notation
+    -t [T]      Flag indicating whether the inputs will be mei or txt files
+    --export    flag indicating output to be sent to a .txt file (name corresponding with input mei)
     """
     start = timer()
     parser = argparse.ArgumentParser()
@@ -57,20 +66,20 @@ def main():
         nargs="?",
         required=True,
         type=lambda fname: check_file_validity(fname, ["txt", "mei"]),
-        help="A text file with each MEI file/path to be converted per line",
+        help="Flag indicating whether the inputs will be mei or txt files",
     )
 
     parser.add_argument(
         "mei",
         nargs="+",
         # type=lambda fname: check_file_validity(fname, "txt"),
-        help="One or multiple MEI, or text file with each MEI file/path to be converted per line",
+        help="One or multiple MEI, or text file(s) with each relative MEI file/path to be converted per line",
     )
 
     parser.add_argument(
         "--export",
         action="store_true",
-        help="flag output converted volpiano to a .txt file (name corresponding with input)",
+        help="flag indicating output to be sent to a .txt file (name corresponding with input mei)",
     )
 
     args = vars(parser.parse_args())  # stores each positional input in dict
@@ -78,6 +87,7 @@ def main():
     vol_strings = []
     f_names = []
 
+    # verify each file input matches (no mismatch extensions)
     ftype = None
     for pos_args in args["mei"]:
         if not ftype:
