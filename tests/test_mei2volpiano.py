@@ -82,9 +82,13 @@ _003v_correct_vol = (
 
 _W_Coronam_correct_vol = "1---f--g--f--f--f--f--f--f--e--g--h"
 
+_W_EtConstituisti_vol = "1---c--c--c--c--c--c--d--c--c--c--c--c--c--c--c--c--b--d--e"
+
+_W_Tuum_vol = "1---c--c--c--c--d--c--c--c--c--c--b--d--e"
+
 listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol]
 
-listWCorrectOutputs = [_W_Coronam_correct_vol]
+listWCorrectOutputs = [_W_Coronam_correct_vol, _W_EtConstituisti_vol, _W_Tuum_vol]
 
 # 016r.mei
 listClefs_016r = list("CCCCCCCCCCCCCCCCC")
