@@ -39,6 +39,8 @@ All of the CWMN files processed by this library (so far) come from [this collect
 
 - Every neume is encoded as a quarter note
 - Stemless notes
+- Syllables are preceded by their notes
+- All notes must have syllables after them
 
 The resulting volpiano string will have multiple notes seperated by two hyphens. This seperation is dictated by the syllables, representented by: `<syl>`. The notes themselves are located with the `<note>` tag and represented by the `pname` attribute.
 

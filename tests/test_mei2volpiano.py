@@ -82,12 +82,13 @@ _003v_correct_vol = (
 
 _W_Coronam_correct_vol = "1---f--g--f--f--f--f--f--f--e--g--h"
 
-listCorrectOutputs = [
-    _016_correct_vol,
-    _003r_correct_vol,
-    _003v_correct_vol,
-    _W_Coronam_correct_vol,
-]
+_W_EtConstituisti_vol = "1---c--c--c--c--c--c--d--c--c--c--c--c--c--c--c--c--b--d--e"
+
+_W_Tuum_vol = "1---c--c--c--c--d--c--c--c--c--c--b--d--e"
+
+listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol]
+
+listWCorrectOutputs = [_W_Coronam_correct_vol, _W_EtConstituisti_vol, _W_Tuum_vol]
 
 # 016r.mei
 listClefs_016r = list("CCCCCCCCCCCCCCCCC")
@@ -100,7 +101,18 @@ listClefs_003v = list("CCCCCCCCCCCCCCF")
 
 listClefs_W_Coronam = list("G")
 
-listCorrectClef = [listClefs_016r, listClefs_003r, listClefs_003v, listClefs_W_Coronam]
+listClefs_W_EtConstituisti = list("G")
+
+listClefs_W_Tuum = list("G")
+
+listCorrectClef = [
+    listClefs_016r,
+    listClefs_003r,
+    listClefs_003v,
+    listClefs_W_Coronam,
+    listClefs_W_EtConstituisti,
+    listClefs_W_Tuum,
+]
 
 # 016r.mei
 listSyls_016r = [
@@ -513,7 +525,51 @@ listSyls_W_Coronam = [
     "so",
 ]
 
-listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v, listSyls_W_Coronam]
+listSyls_W_Et = [
+    "Et",
+    "con-",
+    "sti-",
+    "tu-",
+    "is-",
+    "ti",
+    "e-",
+    "um",
+    "su-",
+    "per",
+    "o-",
+    "pe-",
+    "ra",
+    "ma-",
+    "nu-",
+    "um",
+    "tu-",
+    "a-",
+    "rum",
+]
+listSyls_W_Tuum = [
+    "Tu-",
+    "um",
+    "glo",
+    "ri-",
+    "o-",
+    "sum",
+    "re-",
+    "co-",
+    "li-",
+    "mus",
+    "tri-",
+    "um-",
+    "phum",
+]
+
+listCorrectSyls = [
+    listSyls_016r,
+    listSyls_003r,
+    listSyls_003v,
+    listSyls_W_Coronam,
+    listSyls_W_Et,
+    listSyls_W_Tuum,
+]
 
 # 016r.mei
 listNotes_016r = list(
@@ -547,6 +603,10 @@ listNotes_003v = list(
 
 listNotes_Coronam = list("fgffffffega")
 
+listNotes_Et = list("ccccccdcccccccccbde")
+
+listNotes_Tuum = list("ccccdcccccbde")
+
 listNotes = [listNotes_016r, listNotes_003r, listNotes_003v]
 
 
@@ -558,15 +618,27 @@ class TestVolpiano(unittest.TestCase):
         f1 = "./resources/neume_mei/016r_reviewed.mei"
         f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"
         f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
-        f4 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
 
-        files = [f1, f2, f3, f4]
+        files = [f1, f2, f3]
 
         lib = mei2volpiano.MEItoVolpiano()
         for i, element in enumerate(files):
             with open(element, "r") as f:
                 final_string = lib.convert_mei_volpiano(f)
                 self.assertEqual(final_string, listCorrectOutputs[i])
+
+    def test_volpiano_output_2(self):
+        w1 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
+        w2 = "./resources/western_mei/Et_constituisti_eum_super_opera_manuum_tuarum_alleluia.mei"
+        w3 = "./resources/western_mei/Tuum_gloriosum_recolimus_triumphum_alleluia_alleluia_regis_opprobrium.mei"
+
+        wfiles = [w1, w2, w3]
+
+        lib = mei2volpiano.MEItoVolpiano()
+        for i, element in enumerate(wfiles):
+            with open(element, "r") as f:
+                final_string = lib.Wconvert_mei_volpiano(f)
+                self.assertEqual(final_string, listWCorrectOutputs[i])
 
     def test_find_clefs(self):
         lib = mei2volpiano.MEItoVolpiano()
