@@ -46,7 +46,14 @@ def main():
     )
 
     option.add_argument(
-        "-txt",
+        "-Ntxt",
+        nargs="?",
+        type=lambda fname: check_file_validity(fname, "txt"),
+        help="A text file with each MEI file/path to be converted per line",
+    )
+
+    option.add_argument(
+        "-Wtxt",
         nargs="?",
         type=lambda fname: check_file_validity(fname, "txt"),
         help="A text file with each MEI file/path to be converted per line",
@@ -67,11 +74,17 @@ def main():
     # if args["mei"] and args["txt"]:
     #     parser.error('Cannot use both "-mei" and "-txt" simultaneously')
 
-    if args["txt"] is not None:
-        txt_file = open(args["txt"])
+    if args["Ntxt"] is not None:
+        txt_file = open(args["Ntxt"])
         for mei_file in txt_file:
             f_names.append(mei_file.strip())
             vol_strings.append(lib.convert_mei_volpiano(mei_file.strip()))
+    
+    if args["Wtxt"] is not None:
+        txt_file = open(args["Wtxt"])
+        for mei_file in txt_file:
+            f_names.append(mei_file.strip())
+            vol_strings.append(lib.Wconvert_mei_volpiano(mei_file.strip()))
 
     if args["N"] is not None:
         for mei_file in args["N"]:
