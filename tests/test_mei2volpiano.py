@@ -561,7 +561,14 @@ listSyls_W_Tuum = [
     "um-" "phum",
 ]
 
-listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v, listSyls_W_Coronam]
+listCorrectSyls = [
+    listSyls_016r,
+    listSyls_003r,
+    listSyls_003v,
+    listSyls_W_Coronam,
+    listSyls_W_Et,
+    listSyls_W_Tuum,
+]
 
 # 016r.mei
 listNotes_016r = list(
