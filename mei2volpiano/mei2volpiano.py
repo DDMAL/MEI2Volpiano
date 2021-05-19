@@ -26,6 +26,13 @@ class MEItoVolpiano:
 
             ^ convert_mei_volpiano handles all methods in main.
 
+        [Western]:
+            sylbW_volpiano_map(list[elements]) -> dict[str, str]
+            convert_meiW_volpiano(file) -> str
+
+            ^ convert_meiW_volpiano calls methods in Main to give
+            the volpiano string for MEI files written in Western notation.
+
         [Debugging]:
             find_clefs(list[elements]) -> list[str]
             find_notes(list[elements]) -> list[str]
@@ -184,6 +191,19 @@ class MEItoVolpiano:
 
         return syl_note
 
+    def sylbW_volpiano_map(self, elements: list) -> dict:
+        """Western notation - Creates a dictionary of syllables and their volpiano values.
+
+        Args:
+            elements (list): List of elements
+
+        Returns:
+            syl_note (dict): Dictionary {identifier: volpiano notes} of
+            syllables and their unique data base numbers as keys and volpiano
+            notes with correct octaves as values.
+        """
+        pass
+
     def get_syl_key(self, element: object, bias: int) -> str:
         """Finds the dictionary key of a syllable from their 'syl' and database
         identifier.
@@ -265,5 +285,20 @@ class MEItoVolpiano:
         """
         elements = self.get_mei_elements(filename)
         mapped_values = self.sylb_volpiano_map(elements)
+        volpiano = self.export_volpiano(mapped_values)
+        return volpiano
+
+    def convert_meiW_volpiano(self, filename: str) -> str:
+        """All-in-one method for converting MEI in Western notation to volpiano.
+
+        Args:
+            filename (file): Open MEI file you want the volpiano of.
+
+        Returns:
+            volpiano (str): Valid volpiano string representation of the input.
+        """
+
+        elements = self.get_mei_elements(filename)
+        mapped_values = self.sylbW_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
         return volpiano
