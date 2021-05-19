@@ -530,9 +530,9 @@ class TestVolpiano(unittest.TestCase):
     # a generated volpiano sequence
 
     def test_volpiano_output_1(self):
-        f1 = "./resources/016r_reviewed.mei"
-        f2 = "./resources/CDN-Hsmu_M2149.L4_003r.mei"
-        f3 = "./resources/CDN-Hsmu_M2149.L4_003v.mei"
+        f1 = "./resources/neume_mei/016r_reviewed.mei"
+        f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"
+        f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
 
         files = [f1, f2, f3]
 
