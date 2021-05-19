@@ -205,11 +205,15 @@ class MEItoVolpiano:
         syl_note = {"dummy": ""}
         dbase_bias = 0
         last = "dummy"
-
+        num = True
         for element in elements:
             if element.tag == f"{NAMESPACE}syl":
                 key = self.get_syl_key(element, dbase_bias)
-                syl_note[key] = f'{syl_note[last]}{"--"}'
+                if num:
+                    syl_note[key] = f"{syl_note[last]}"
+                    num = False
+                else:
+                    syl_note[key] = f'{"--"}{syl_note[last]}'
                 dbase_bias += 1
                 syl_note["dummy"] = ""
                 last = "dummy"
