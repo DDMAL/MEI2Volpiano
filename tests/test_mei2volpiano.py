@@ -82,11 +82,7 @@ _003v_correct_vol = (
 
 _W_Coronam_correct_vol = "1---f--g--f--f--f--f--f--f--e--g--h"
 
-listCorrectOutputs = [
-    _016_correct_vol,
-    _003r_correct_vol,
-    _003v_correct_vol
-]
+listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol]
 
 listWCorrectOutputs = [_W_Coronam_correct_vol]
 
@@ -567,11 +563,13 @@ class TestVolpiano(unittest.TestCase):
             with open(element, "r") as f:
                 final_string = lib.convert_mei_volpiano(f)
                 self.assertEqual(final_string, listCorrectOutputs[i])
-    
+
     def test_volpiano_output_2(self):
         w1 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
+        w2 = "./resources/western_mei/Et_constituisti_eum_super_opera_manuum_tuarum_alleluia.mei"
+        w3 = "./resources/western_mei/Tuum_gloriosum_recolimus_triumphum_alleluia_alleluia_regis_opprobrium.mei"
 
-        wfiles = [w1]
+        wfiles = [w1, w2, w3]
 
         lib = mei2volpiano.MEItoVolpiano()
         for i, element in enumerate(wfiles):
