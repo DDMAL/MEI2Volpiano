@@ -15,7 +15,7 @@ def main():
     """
     This is the command line application MEI2Volpiano
 
-    usage: mei2vol [-h] (-mei MEI [MEI ...] | -txt [TXT]) [-export]
+    usage: mei2vol [-h] (-N N [N ...] | -W W [W ...] | -txt [TXT]) [-export]
     mei2vol: error: one of the arguments -mei -txt is required
     """
     start = timer()
@@ -32,10 +32,17 @@ def main():
         return fname
 
     option.add_argument(
-        "-mei",
+        "-N",
         type=lambda fname: check_file_validity(fname, "mei"),
         nargs="+",
-        help="An MEI encoded music file",
+        help="An MEI encoded music file representing neume notation",
+    )
+
+    option.add_argument(
+        "-W",
+        nargs="+",
+        type=lambda fname: check_file_validity(fname, "mei"),
+        help="An MEI encoded music file representing western notation",
     )
 
     option.add_argument(
@@ -43,13 +50,6 @@ def main():
         nargs="?",
         type=lambda fname: check_file_validity(fname, "txt"),
         help="A text file with each MEI file/path to be converted per line",
-    )
-
-    option.add_argument(
-        "-W",
-        nargs="+",
-        type=lambda fname: check_file_validity(fname, "mei"),
-        help="An MEI encoded music file",
     )
 
     parser.add_argument(
@@ -73,12 +73,12 @@ def main():
             f_names.append(mei_file.strip())
             vol_strings.append(lib.convert_mei_volpiano(mei_file.strip()))
 
-    if args["mei"] is not None:
-        for mei_file in args["mei"]:
+    if args["N"] is not None:
+        for mei_file in args["N"]:
             with open(mei_file, "r") as f:
                 f_names.append(mei_file)
                 vol_strings.append(lib.convert_mei_volpiano(f))
-    
+
     if args["W"] is not None:
         for mei_file in args["W"]:
             with open(mei_file, "r") as f:
