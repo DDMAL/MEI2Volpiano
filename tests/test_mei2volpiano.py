@@ -97,7 +97,18 @@ listClefs_003v = list("CCCCCCCCCCCCCCF")
 
 listClefs_W_Coronam = list("G")
 
-listCorrectClef = [listClefs_016r, listClefs_003r, listClefs_003v, listClefs_W_Coronam]
+listClefs_W_EtConstituisti = list("G")
+
+listClefs_W_Tuum = list("G")
+
+listCorrectClef = [
+    listClefs_016r,
+    listClefs_003r,
+    listClefs_003v,
+    listClefs_W_Coronam,
+    listClefs_W_EtConstituisti,
+    listClefs_W_Tuum,
+]
 
 # 016r.mei
 listSyls_016r = [
