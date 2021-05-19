@@ -26,7 +26,9 @@ def main():
     def check_file_validity(fname, valid_ext):
         ext = os.path.splitext(fname)[1][1:]
         if ext != valid_ext:
-            parser.error(f'Unexpected file type for the specified flag\nInput Type: {ext} \nExpected Type: {valid_ext}')
+            parser.error(
+                f"Unexpected file type for the specified flag\nInput Type: {ext} \nExpected Type: {valid_ext}"
+            )
         return fname
 
     option.add_argument(
@@ -43,6 +45,13 @@ def main():
         help="A text file with each MEI file/path to be converted per line",
     )
 
+    option.add_argument(
+        "-W",
+        nargs="+",
+        type=lambda fname: check_file_validity(fname, "mei"),
+        help="An MEI encoded music file",
+    )
+
     parser.add_argument(
         "-export",
         action="store_true",
@@ -55,8 +64,8 @@ def main():
     vol_strings = []
     f_names = []
 
-    if args["mei"] and args["txt"]:
-        parser.error('Cannot use both "-mei" and "-txt" simultaneously')
+    # if args["mei"] and args["txt"]:
+    #     parser.error('Cannot use both "-mei" and "-txt" simultaneously')
 
     if args["txt"] is not None:
         txt_file = open(args["txt"])
@@ -69,6 +78,12 @@ def main():
             with open(mei_file, "r") as f:
                 f_names.append(mei_file)
                 vol_strings.append(lib.convert_mei_volpiano(f))
+    
+    if args["W"] is not None:
+        for mei_file in args["W"]:
+            with open(mei_file, "r") as f:
+                f_names.append(mei_file)
+                vol_strings.append(lib.convert_meiW_volpiano(f))
 
     name_vol_pairs = list(zip(f_names, vol_strings))
 
@@ -81,7 +96,7 @@ def main():
                 out.write(pair[1])
 
     for pair in name_vol_pairs:
-        print( f"\nThe corresponding Volpiano string for {pair[0]} is: \n{pair[1]}\n")
+        print(f"\nThe corresponding Volpiano string for {pair[0]} is: \n{pair[1]}\n")
 
     # testing time
     elapsed_time = timer() - start
