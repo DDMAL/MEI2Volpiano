@@ -20,7 +20,7 @@ import sys
 sys.path.insert(0, "../src")
 
 # 016r_reviewed
-correctOutput = (
+_016_correct_vol = (
     "1---g---fg---f---f---f---fffd---"
     "f---gf---ef---d---e---gh---gkhjk---k7---k---jk"
     "---hkghg---fg---gf-fded---d---f---gh-hjkg---g-"
@@ -41,7 +41,7 @@ correctOutput = (
     "--hg---l---lmnml---klkkj---k---lj"
 )
 # CDN-Hsmu_M2149.L4_003r.mei
-co = (
+_003r_correct_vol = (
     "1---nnln-kln---kl---kl---no---n---o-qo-pr--"
     "-q---r---pqpo---q7---q---o-qo-q---on---nopop-o-"
     "nmlnon---op---opo---nopono---on---n---noq7---jh--"
@@ -61,7 +61,7 @@ co = (
     "gh---hg---l-m-n-m-l"
 )
 # CDN-Hsmu_M2149.L4_003v.mei
-co3 = (
+_003v_correct_vol = (
     "1---k-l-k-k-j---k---kl---k---lj---k-l---k-"
     "l---l-m-nm---ml---mlmlk---kj---kl-ml-m-n-m7---"
     "lklml-m---lkj-kj---l-k7---g-h---hg-hggf---f-h---"
@@ -80,7 +80,15 @@ co3 = (
     "--oprr---r---rrq---p---prrq---orpqpqroomnm---mnp---p"
 )
 
-listCorrectOutputs = [correctOutput, co, co3]
+_W_Coronam_correct_vol = "1---f--g--f--f--f--f--f--f--e--g--h"
+
+_W_EtConstituisti_vol = "1---c--c--c--c--c--c--d--c--c--c--c--c--c--c--c--c--b--d--e"
+
+_W_Tuum_vol = "1---c--c--c--c--d--c--c--c--c--c--b--d--e"
+
+listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol]
+
+listWCorrectOutputs = [_W_Coronam_correct_vol, _W_EtConstituisti_vol, _W_Tuum_vol]
 
 # 016r.mei
 listClefs_016r = list("CCCCCCCCCCCCCCCCC")
@@ -91,7 +99,20 @@ listClefs_003r = list("CFFFCCCCCCCCCCCCC")
 # CDN-Hsmu_M2149.L4_003v.mei
 listClefs_003v = list("CCCCCCCCCCCCCCF")
 
-listCorrectClef = [listClefs_016r, listClefs_003r, listClefs_003v]
+listClefs_W_Coronam = list("G")
+
+listClefs_W_EtConstituisti = list("G")
+
+listClefs_W_Tuum = list("G")
+
+listCorrectClef = [
+    listClefs_016r,
+    listClefs_003r,
+    listClefs_003v,
+    listClefs_W_Coronam,
+    listClefs_W_EtConstituisti,
+    listClefs_W_Tuum,
+]
 
 # 016r.mei
 listSyls_016r = [
@@ -490,7 +511,65 @@ listSyls_003v = [
     "mi",
 ]
 
-listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v]
+listSyls_W_Coronam = [
+    "Co",
+    "ro",
+    "namw",
+    "de",
+    "la",
+    "pi",
+    "de",
+    "pre",
+    "ci",
+    "o",
+    "so",
+]
+
+listSyls_W_Et = [
+    "Et",
+    "con-",
+    "sti-",
+    "tu-",
+    "is-",
+    "ti",
+    "e-",
+    "um",
+    "su-",
+    "per",
+    "o-",
+    "pe-",
+    "ra",
+    "ma-",
+    "nu-",
+    "um",
+    "tu-",
+    "a-",
+    "rum",
+]
+listSyls_W_Tuum = [
+    "Tu-",
+    "um",
+    "glo",
+    "ri-",
+    "o-",
+    "sum",
+    "re-",
+    "co-",
+    "li-",
+    "mus",
+    "tri-",
+    "um-",
+    "phum",
+]
+
+listCorrectSyls = [
+    listSyls_016r,
+    listSyls_003r,
+    listSyls_003v,
+    listSyls_W_Coronam,
+    listSyls_W_Et,
+    listSyls_W_Tuum,
+]
 
 # 016r.mei
 listNotes_016r = list(
@@ -522,6 +601,12 @@ listNotes_003v = list(
     "ccbgcababcggefeefaa"
 )
 
+listNotes_Coronam = list("fgffffffega")
+
+listNotes_Et = list("ccccccdcccccccccbde")
+
+listNotes_Tuum = list("ccccdcccccbde")
+
 listNotes = [listNotes_016r, listNotes_003r, listNotes_003v]
 
 
@@ -530,9 +615,9 @@ class TestVolpiano(unittest.TestCase):
     # a generated volpiano sequence
 
     def test_volpiano_output_1(self):
-        f1 = "./resources/016r_reviewed.mei"
-        f2 = "./resources/CDN-Hsmu_M2149.L4_003r.mei"
-        f3 = "./resources/CDN-Hsmu_M2149.L4_003v.mei"
+        f1 = "./resources/neume_mei/016r_reviewed.mei"
+        f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"
+        f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
 
         files = [f1, f2, f3]
 
@@ -541,6 +626,19 @@ class TestVolpiano(unittest.TestCase):
             with open(element, "r") as f:
                 final_string = lib.convert_mei_volpiano(f)
                 self.assertEqual(final_string, listCorrectOutputs[i])
+
+    def test_volpiano_output_2(self):
+        w1 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
+        w2 = "./resources/western_mei/Et_constituisti_eum_super_opera_manuum_tuarum_alleluia.mei"
+        w3 = "./resources/western_mei/Tuum_gloriosum_recolimus_triumphum_alleluia_alleluia_regis_opprobrium.mei"
+
+        wfiles = [w1, w2, w3]
+
+        lib = mei2volpiano.MEItoVolpiano()
+        for i, element in enumerate(wfiles):
+            with open(element, "r") as f:
+                final_string = lib.Wconvert_mei_volpiano(f)
+                self.assertEqual(final_string, listWCorrectOutputs[i])
 
     def test_find_clefs(self):
         lib = mei2volpiano.MEItoVolpiano()

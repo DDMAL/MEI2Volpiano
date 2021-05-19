@@ -26,6 +26,13 @@ class MEItoVolpiano:
 
             ^ convert_mei_volpiano handles all methods in main.
 
+        [Western]:
+            Wsylb_volpiano_map(list[elements]) -> dict[str, str]
+            Wconvert_mei_volpiano(file) -> str
+
+            ^ Wconvert_mei_volpiano calls methods in Main to give
+            the volpiano string for MEI files written in Western notation.
+
         [Debugging]:
             find_clefs(list[elements]) -> list[str]
             find_notes(list[elements]) -> list[str]
@@ -48,10 +55,8 @@ class MEItoVolpiano:
         tree = ET.parse(filename)
         root = tree.getroot()
         mei_element_objects = root.findall(".//")
-        elements = []
-        for mei_element in mei_element_objects:
-            elements.append(mei_element)
-        return elements
+
+        return [mei_element for mei_element in mei_element_objects]
 
     def find_clefs(self, elements: list) -> list:
         """Finds all clefs in a given elements list
@@ -186,6 +191,41 @@ class MEItoVolpiano:
 
         return syl_note
 
+    def Wsylb_volpiano_map(self, elements: list) -> dict:
+        """Western notation - Creates a dictionary of syllables and their volpiano values.
+
+        Args:
+            elements (list): List of elements
+
+        Returns:
+            syl_note (dict): Dictionary {identifier: volpiano notes} of
+            syllables and their unique data base numbers as keys and volpiano
+            notes with correct octaves as values.
+        """
+        syl_note = {"dummy": ""}
+        dbase_bias = 0
+        last = "dummy"
+        num = True
+        for element in elements:
+            if element.tag == f"{NAMESPACE}syl":
+                key = self.get_syl_key(element, dbase_bias)
+                if num:
+                    syl_note[key] = f"{syl_note[last]}"
+                    num = False
+                else:
+                    syl_note[key] = f'{"--"}{syl_note[last]}'
+                dbase_bias += 1
+                syl_note["dummy"] = ""
+                last = "dummy"
+            if element.tag == f"{NAMESPACE}note":
+                note = element.attrib["pname"]
+                ocv = element.attrib["oct"]
+                ocv = int(ocv) - 2
+                ocv = f"{ocv}"
+                volpiano = self.get_volpiano(note, ocv)
+                syl_note[last] = f"{syl_note[last]}{volpiano}"
+        return syl_note
+
     def get_syl_key(self, element: object, bias: int) -> str:
         """Finds the dictionary key of a syllable from their 'syl' and database
         identifier.
@@ -222,39 +262,24 @@ class MEItoVolpiano:
             octave.
 
         """
-        oct1 = {"g": "9", "a": "a", "b": "b"}
-        oct2 = {"c": "c", "d": "d", "e": "e", "f": "f", "g": "g", "a": "h", "b": "j"}
-        oct3 = {"c": "k", "d": "l", "e": "m", "f": "n", "g": "o", "a": "p", "b": "q"}
-        oct4 = {"c": "r", "d": "s"}
+        octs = {
+            "1": {"g": "9", "a": "a", "b": "b"},
+            "2": {"c": "c", "d": "d", "e": "e", "f": "f", "g": "g", "a": "h", "b": "j"},
+            "3": {"c": "k", "d": "l", "e": "m", "f": "n", "g": "o", "a": "p", "b": "q"},
+            "4": {"c": "r", "d": "s"},
+        }
 
-        error = "OCTAVE_ERROR"
+        oct_error = "OCTAVE_RANGE_ERROR"
+        note_error = "NOTE_NOT_IN_OCTAVE"
 
-        if ocv == "1":
-            if note in oct1:
-                return oct1[note]
-            else:
-                error = "NOTE_NOT_IN_OCTAVE"
-                return error
-        elif ocv == "2":
-            if note in oct2:
-                return oct2[note]
-            else:
-                error = "NOTE_NOT_IN_OCTAVE"
-                return error
-        elif ocv == "3":
-            if note in oct3:
-                return oct3[note]
-            else:
-                error = "NOTE_NOT_IN_OCTAVE"
-                return error
-        elif ocv == "4":
-            if note in oct4:
-                return oct4[note]
-            else:
-                error = "NOTE_NOT_IN_OCTAVE"
-                return error
-        else:
-            return error
+        for key in octs:
+            if key == ocv:
+                if note in octs[key]:
+                    return octs[key][note]
+                else:
+                    return note_error
+
+        return oct_error
 
     def export_volpiano(self, mapping_dictionary: dict) -> str:
         """Creates volpiano string with clef attached.
@@ -282,5 +307,20 @@ class MEItoVolpiano:
         """
         elements = self.get_mei_elements(filename)
         mapped_values = self.sylb_volpiano_map(elements)
+        volpiano = self.export_volpiano(mapped_values)
+        return volpiano
+
+    def Wconvert_mei_volpiano(self, filename: str) -> str:
+        """All-in-one method for converting MEI in Western notation to volpiano.
+
+        Args:
+            filename (file): Open MEI file you want the volpiano of.
+
+        Returns:
+            volpiano (str): Valid volpiano string representation of the input.
+        """
+
+        elements = self.get_mei_elements(filename)
+        mapped_values = self.Wsylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
         return volpiano
