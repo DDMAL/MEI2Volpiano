@@ -216,9 +216,9 @@ class MEItoVolpiano:
             if element.tag == f"{NAMESPACE}note":
                 note = element.attrib["pname"]
                 ocv = element.attrib["oct"]
-                print(note, ocv)
+                ocv = int(ocv) - 2
+                ocv = f"{ocv}"
                 volpiano = self.get_volpiano(note, ocv)
-                print(volpiano)
                 syl_note[last] = f"{syl_note[last]}{volpiano}"
         return syl_note
 
