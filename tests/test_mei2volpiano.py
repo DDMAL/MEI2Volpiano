@@ -555,6 +555,10 @@ listNotes_003v = list(
 
 listNotes_Coronam = list("fgffffffega")
 
+listNotes_Et = list("ccccccdcccccccccbde")
+
+listNotes_Tuum = list("ccccdcccccbde")
+
 listNotes = [listNotes_016r, listNotes_003r, listNotes_003v]
 
 
