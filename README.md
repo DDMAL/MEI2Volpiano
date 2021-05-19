@@ -31,9 +31,15 @@ Multiple files can be passed in at once
 
 ### Western
 
-To convert MEI files written in Western Musical Notation, run 
+To convert MEI files written in Common Western Music Notation (CWMN), run
 
 `mei2vol -W filename1.mei`
+
+All of the CWMN files processed by this library (so far) come from [this collection](https://github.com/DDMAL/Andrew-Hughes-Chant/tree/master/file_structure_text_file_MEI_file). Thus, we followed the conventions of those files. Namely:
+
+- Every neume is encoded as a quarter note
+- Stemless notes
+
 
 ### Mutiple MEI File Runs
 
