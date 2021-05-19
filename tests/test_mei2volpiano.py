@@ -533,6 +533,7 @@ class TestVolpiano(unittest.TestCase):
         f1 = "./resources/neume_mei/016r_reviewed.mei"
         f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"
         f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
+        f4 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
 
         files = [f1, f2, f3]
 
