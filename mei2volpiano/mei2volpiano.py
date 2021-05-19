@@ -202,7 +202,25 @@ class MEItoVolpiano:
             syllables and their unique data base numbers as keys and volpiano
             notes with correct octaves as values.
         """
-        pass
+        syl_note = {"dummy": ""}
+        dbase_bias = 0
+        last = "dummy"
+
+        for element in elements:
+            if element.tag == f"{NAMESPACE}syl":
+                key = self.get_syl_key(element, dbase_bias)
+                syl_note[key] = f'{syl_note[last]}{"--"}'
+                dbase_bias += 1
+                syl_note["dummy"] = ""
+                last = "dummy"
+            if element.tag == f"{NAMESPACE}note":
+                note = element.attrib["pname"]
+                ocv = element.attrib["oct"]
+                print(note, ocv)
+                volpiano = self.get_volpiano(note, ocv)
+                print(volpiano)
+                syl_note[last] = f"{syl_note[last]}{volpiano}"
+        return syl_note
 
     def get_syl_key(self, element: object, bias: int) -> str:
         """Finds the dictionary key of a syllable from their 'syl' and database
