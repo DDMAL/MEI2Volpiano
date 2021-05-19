@@ -30,7 +30,7 @@ class MEItoVolpiano:
             Wsylb_volpiano_map(list[elements]) -> dict[str, str]
             Wconvert_mei_volpiano(file) -> str
 
-            ^ convert_meiW_volpiano calls methods in Main to give
+            ^ Wconvert_mei_volpiano calls methods in Main to give
             the volpiano string for MEI files written in Western notation.
 
         [Debugging]:
