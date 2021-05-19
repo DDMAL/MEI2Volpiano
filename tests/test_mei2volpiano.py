@@ -525,6 +525,27 @@ listSyls_W_Coronam = [
     "so",
 ]
 
+listSyls_W_Et = [
+    "Et",
+    "con-",
+    "sti-",
+    "tu-",
+    "is-",
+    "ti",
+    "e-",
+    "um",
+    "su-",
+    "per",
+    "o-",
+    "pe-",
+    "ra",
+    "ma-",
+    "nu-",
+    "um",
+    "tu-",
+    "a-",
+    "rum",
+]
 listCorrectSyls = [listSyls_016r, listSyls_003r, listSyls_003v, listSyls_W_Coronam]
 
 # 016r.mei
