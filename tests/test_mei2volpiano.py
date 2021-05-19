@@ -528,6 +528,8 @@ listNotes_003v = list(
     "ccbgcababcggefeefaa"
 )
 
+listNotes_Coronam = list("fgffffffega")
+
 listNotes = [listNotes_016r, listNotes_003r, listNotes_003v]
 
 
@@ -541,7 +543,7 @@ class TestVolpiano(unittest.TestCase):
         f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
         f4 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
 
-        files = [f1, f2, f3]
+        files = [f1, f2, f3, f4]
 
         lib = mei2volpiano.MEItoVolpiano()
         for i, element in enumerate(files):
