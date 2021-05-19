@@ -19,35 +19,42 @@ MEI2Volpiano requires at least Python 3.6.
 
 As long as you're in the python environment, you can execute `mei2volpiano` or the shorthand `mei2vol` while in your python virtual environment
 
+### Standard Usage (Neume notation)
+
 To output the MEI file's volpiano string to the terminal, run
 
-`mei2vol -mei filename1.mei`
+`mei2vol -N filename1.mei`
 
 Multiple files can be passed in at once
 
-`mei2vol -mei filename1.mei filename2.mei`
+`mei2vol -N filename1.mei filename2.mei`
 
-To output the volpiano string(s) to a text file, use the `-export` flag as such
-
-`mei2vol -mei filename1.mei -export`
-
-and the program will output each mei file's volpiano to a similarly named file as its input.
-
-To make it easier to pass in multiple MEI files, the `-txt` file can be used
-
-`mei2vol -txt filename1.txt`
-
-where the ".txt" file being passed in must hold the name/relative path of the required MEI files on distinct lines.
-
-The `-export` tag can be used on any valid input to the program. `-mei` or `-txt` are required flags for the program to identify the file(s) you are attempting to input.
-
-## Western
+### Western
 
 To convert MEI files written in Western Musical Notation, run 
 
-`mei2vol -W -mei filename1.mei`
+`mei2vol -W filename1.mei`
 
-The `-W` flag is the only difference in the way you run it, other flags are still valid.
+### Mutiple MEI File Runs
+
+To make it easier to pass in multiple MEI files, the `-Ntxt` or `-Wtxt` flags can be used as so
+
+`mei2vol -Ntxt filename1.txt`
+
+where the ".txt" file being passed in must hold the name/relative path of the required MEI files on distinct lines.
+
+**Note: If passing inputs through this method, the formats of the MEI files within the text file must be of the same type** (either neume for `-Ntxt` or western for `-Wtxt`)
+
+### Exporting
+
+The `-export` tag can be used on any valid input to the program. Simply tack it on to the end of your command like so
+
+`mei2vol -N filename1.mei -export`
+
+and the program will output each mei file's volpiano to a similarly named file as its input.
+
+
+
 
 ## Tests
 
