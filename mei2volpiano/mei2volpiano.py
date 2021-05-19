@@ -27,8 +27,8 @@ class MEItoVolpiano:
             ^ convert_mei_volpiano handles all methods in main.
 
         [Western]:
-            sylbW_volpiano_map(list[elements]) -> dict[str, str]
-            convert_meiW_volpiano(file) -> str
+            Wsylb_volpiano_map(list[elements]) -> dict[str, str]
+            Wconvert_mei_volpiano(file) -> str
 
             ^ convert_meiW_volpiano calls methods in Main to give
             the volpiano string for MEI files written in Western notation.
@@ -191,7 +191,7 @@ class MEItoVolpiano:
 
         return syl_note
 
-    def sylbW_volpiano_map(self, elements: list) -> dict:
+    def Wsylb_volpiano_map(self, elements: list) -> dict:
         """Western notation - Creates a dictionary of syllables and their volpiano values.
 
         Args:
@@ -306,7 +306,7 @@ class MEItoVolpiano:
         volpiano = self.export_volpiano(mapped_values)
         return volpiano
 
-    def convert_meiW_volpiano(self, filename: str) -> str:
+    def Wconvert_mei_volpiano(self, filename: str) -> str:
         """All-in-one method for converting MEI in Western notation to volpiano.
 
         Args:
@@ -317,6 +317,6 @@ class MEItoVolpiano:
         """
 
         elements = self.get_mei_elements(filename)
-        mapped_values = self.sylbW_volpiano_map(elements)
+        mapped_values = self.Wsylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
         return volpiano
