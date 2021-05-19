@@ -19,35 +19,49 @@ MEI2Volpiano requires at least Python 3.6.
 
 As long as you're in the python environment, you can execute `mei2volpiano` or the shorthand `mei2vol` while in your python virtual environment
 
+### Standard Usage (Neume notation)
+
 To output the MEI file's volpiano string to the terminal, run
 
-`mei2vol -mei filename1.mei`
+`mei2vol -N filename1.mei`
 
 Multiple files can be passed in at once
 
-`mei2vol -mei filename1.mei filename2.mei`
+`mei2vol -N filename1.mei filename2.mei`
 
-To output the volpiano string(s) to a text file, use the `-export` flag as such
+### Western
 
-`mei2vol -mei filename1.mei -export`
+To convert MEI files written in Common Western Music Notation (CWMN), run
 
-and the program will output each mei file's volpiano to a similarly named file as its input.
+`mei2vol -W filename1.mei`
 
-To make it easier to pass in multiple MEI files, the `-txt` file can be used
+All of the CWMN files processed by this library (so far) come from [this collection](https://github.com/DDMAL/Andrew-Hughes-Chant/tree/master/file_structure_text_file_MEI_file). Thus, we followed the conventions of those files. Namely:
 
-`mei2vol -txt filename1.txt`
+- Every neume is encoded as a quarter note
+- Stemless notes
+
+The resulting volpiano string will have multiple notes seperated by two hyphens. This seperation is dictated by the syllables, representented by: `<syl>`. The notes themselves are located with the `<note>` tag and represented by the `pname` attribute.
+
+### Mutiple MEI File Runs
+
+To make it easier to pass in multiple MEI files, the `-Ntxt` or `-Wtxt` flags can be used as so
+
+`mei2vol -Ntxt filename1.txt`
 
 where the ".txt" file being passed in must hold the name/relative path of the required MEI files on distinct lines.
 
-The `-export` tag can be used on any valid input to the program. `-mei` or `-txt` are required flags for the program to identify the file(s) you are attempting to input.
+**Note: If passing inputs through this method, the formats of the MEI files within the text file must be of the same type** (either neume for `-Ntxt` or western for `-Wtxt`)
 
-## Western
+### Exporting
 
-To convert MEI files written in Western Musical Notation, run 
+The `-export` tag can be used on any valid input to the program. Simply tack it on to the end of your command like so
 
-`mei2vol -W -mei filename1.mei`
+`mei2vol -N filename1.mei -export`
 
-The `-W` flag is the only difference in the way you run it, other flags are still valid.
+and the program will output each mei file's volpiano to a similarly named file as its input.
+
+
+
 
 ## Tests
 

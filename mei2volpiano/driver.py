@@ -35,14 +35,14 @@ def main():
         "-N",
         type=lambda fname: check_file_validity(fname, "mei"),
         nargs="+",
-        help="An MEI encoded music file representing neume notation",
+        help="An MEI neume encoded music file representing neume notation",
     )
 
     option.add_argument(
         "-W",
         nargs="+",
         type=lambda fname: check_file_validity(fname, "mei"),
-        help="An MEI encoded music file representing western notation",
+        help="An MEI western encoded music file representing western notation",
     )
 
     option.add_argument(
