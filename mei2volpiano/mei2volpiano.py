@@ -48,10 +48,8 @@ class MEItoVolpiano:
         tree = ET.parse(filename)
         root = tree.getroot()
         mei_element_objects = root.findall(".//")
-        elements = []
-        for mei_element in mei_element_objects:
-            elements.append(mei_element)
-        return elements
+
+        return [mei_element for mei_element in mei_element_objects]
 
     def find_clefs(self, elements: list) -> list:
         """Finds all clefs in a given elements list
@@ -222,39 +220,24 @@ class MEItoVolpiano:
             octave.
 
         """
-        oct1 = {"g": "9", "a": "a", "b": "b"}
-        oct2 = {"c": "c", "d": "d", "e": "e", "f": "f", "g": "g", "a": "h", "b": "j"}
-        oct3 = {"c": "k", "d": "l", "e": "m", "f": "n", "g": "o", "a": "p", "b": "q"}
-        oct4 = {"c": "r", "d": "s"}
+        octs = {
+            "1": {"g": "9", "a": "a", "b": "b"},
+            "2": {"c": "c", "d": "d", "e": "e", "f": "f", "g": "g", "a": "h", "b": "j"},
+            "3": {"c": "k", "d": "l", "e": "m", "f": "n", "g": "o", "a": "p", "b": "q"},
+            "4": {"c": "r", "d": "s"},
+        }
 
-        error = "OCTAVE_ERROR"
+        oct_error = "OCTAVE_RANGE_ERROR"
+        note_error = "NOTE_NOT_IN_OCTAVE"
 
-        if ocv == "1":
-            if note in oct1:
-                return oct1[note]
-            else:
-                error = "NOTE_NOT_IN_OCTAVE"
-                return error
-        elif ocv == "2":
-            if note in oct2:
-                return oct2[note]
-            else:
-                error = "NOTE_NOT_IN_OCTAVE"
-                return error
-        elif ocv == "3":
-            if note in oct3:
-                return oct3[note]
-            else:
-                error = "NOTE_NOT_IN_OCTAVE"
-                return error
-        elif ocv == "4":
-            if note in oct4:
-                return oct4[note]
-            else:
-                error = "NOTE_NOT_IN_OCTAVE"
-                return error
-        else:
-            return error
+        for key in octs:
+            if key == ocv:
+                if note in octs[key]:
+                    return octs[key][note]
+                else:
+                    return note_error
+
+        return oct_error
 
     def export_volpiano(self, mapping_dictionary: dict) -> str:
         """Creates volpiano string with clef attached.
