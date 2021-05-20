@@ -234,7 +234,7 @@ class MEItoVolpiano:
         if invalid_notes:
             for val in invalid_notes:
                 invalid = "invalid"
-                syl_note["invalid"] = f"{syl_note[invalid]}{val}"
+                syl_note["invalid"] = f"{syl_note[invalid]} {val}"
         return syl_note
 
     def get_syl_key(self, element: object, bias: int) -> str:
@@ -306,9 +306,9 @@ class MEItoVolpiano:
         floating_string = ""
         invalid_string = ""
         if len(invalid_notes) == 1:
-            invalid_string = f"\n\nWe found an invalid note (pname) inside the MEI file: {invalid_notes}"
+            invalid_string = f"\n\nWe found an invalid note (pname) inside the MEI file: {invalid_notes.lstrip()}"
         if len(invalid_notes) > 1:
-            invalid_string = f"\n\nWe found numerous invalid notes (pnames) inside the MEI file: {invalid_notes}"
+            invalid_string = f"\n\nWe found numerous invalid notes (pnames) inside the MEI file: {invalid_notes.lstrip()}"
         if len(floating_notes) == 1:
             floating_string = f"\n\nWe found one syllable-independent note at the end of the MEI file: {floating_notes}"
         elif len(floating_notes) > 1:
