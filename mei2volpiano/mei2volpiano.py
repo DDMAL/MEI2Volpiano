@@ -225,7 +225,7 @@ class MEItoVolpiano:
                 ocv = int(ocv) - octave_converter_weight
                 ocv = f"{ocv}"
                 volpiano = self.get_volpiano(note, ocv)
-                if len(volpiano) > 2:
+                if volpiano == "pname error":
                     invalid_notes.append(note)
                 else:
                     syl_note[last] = f"{syl_note[last]}{volpiano}"
@@ -274,17 +274,13 @@ class MEItoVolpiano:
             "4": {"c": "r", "d": "s"},
         }
 
-        oct_error = "OCTAVE_RANGE_ERROR"
-        note_error = "NOTE_NOT_IN_OCTAVE"
+        error = "pname error"
 
         for key in octs:
             if key == ocv:
                 if note in octs[key]:
                     return octs[key][note]
-                else:
-                    return note_error
-
-        return oct_error
+        return error
 
     def export_volpiano(self, mapping_dictionary: dict) -> str:
         """Creates volpiano string with clef attached.
