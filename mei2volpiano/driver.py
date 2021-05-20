@@ -13,16 +13,16 @@ def main():
     """
     This is the command line application MEI2Volpiano
 
-    usage: driver.py [-h] (-N | -W) -t [T] [--export] mei [mei ...]
+    usage: driver.py [-h] (-N | -W) [--export] [{txt,mei}] mei [mei ...]
 
     positional arguments:
+    {txt,mei}   Choice indicating whether the inputs will be mei or txt files
     mei         One or multiple MEI, or text file(s) with each relative MEI file/path to be converted per line
 
     optional arguments:
     -h, --help  show this help message and exit
     -N          An MEI neume encoded music file representing neume notation
     -W          An MEI western encoded music file representing western notation
-    -t [T]      Flag indicating whether the inputs will be mei or txt files
     --export    flag indicating output to be sent to a .txt file (name corresponding with input mei)
     """
     start = timer()
@@ -69,16 +69,14 @@ def main():
     f_names = []
 
     # verify each file input matches (no mismatch extensions)
-    ftype = None
     for pos_arg in args["mei"]:
         cur_type = os.path.splitext(pos_arg)[1][1:]
-        if not ftype:
-            ftype = cur_type
-        else:
-            if cur_type != ftype:
-                parser.error(
-                    f"Unexpected file type for the specified flag\nInput Type: {cur_type} \nExpected Type: {ftype}"
+
+        if cur_type != args["t"]:
+            parser.error(
+                    f"Unexpected file type for the specified flag\nInput Type: {cur_type} \nExpected Type: {args['t']}"
                 )
+
 
     if args["W"]:
         if args["t"] == "mei":
