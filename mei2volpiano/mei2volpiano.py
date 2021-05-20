@@ -300,17 +300,17 @@ class MEItoVolpiano:
         clef = "1---"
         vol_string = "".join(values)
         floating_notes = mapping_dictionary["dummy"]
+        inv_notes = ""
         if len(invalid_notes):
-            notes = (
+            inv_notes = (
                 f"We found numerous invalid notes inside the MEI file: {invalid_notes}"
             )
-            return f"{clef}{vol_string} \n\n{notes}"
         if len(floating_notes) == 1:
             notes = f"We found one syllable-independent note at the end of the MEI file: {floating_notes}"
-            return f"{clef}{vol_string} \n\n{notes}"
+            return f"{clef}{vol_string} \n\n{notes} \n\n{inv_notes}"
         elif len(floating_notes) > 1:
             notes = f"We found numerous syllable-independent notes at the end of the MEI file: {floating_notes}"
-            return f"{clef}{vol_string} \n\n{notes}"
+            return f"{clef}{vol_string} \n\n{notes} \n\n{inv_notes}"
         else:
             return f"{clef}{vol_string}"
 
