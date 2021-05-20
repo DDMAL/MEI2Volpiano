@@ -296,8 +296,11 @@ class MEItoVolpiano:
         clef = "1---"
         vol_string = "".join(values)
         floating_notes = mapping_dictionary["dummy"]
-        if floating_notes:
-            notes = f"We found one or more syllable-independent notes at the end of the MEI file: {floating_notes}"
+        if len(floating_notes) == 1:
+            notes = f"We found one syllable-independent note at the end of the MEI file: {floating_notes}"
+            return f"{clef}{vol_string} \n\n{notes}"
+        elif len(floating_notes) > 1:
+            notes = f"We found numerous syllable-independent notes at the end of the MEI file: {floating_notes}"
             return f"{clef}{vol_string} \n\n{notes}"
         else:
             return f"{clef}{vol_string}"
