@@ -5,9 +5,9 @@ name: GitHub Actions Volpiano
 on:
 
   push:
-    branches: [ main ]
+    branches: [ dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ dev ]
       
   workflow_dispatch:
 
