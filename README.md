@@ -49,6 +49,8 @@ All of the CWMN files processed by this library (so far) come from [this collect
 - Stemless notes
 - Syllables are preceded by their notes
 - All notes must have syllables after them
+  * If there are notes that are not followed by a syllable, the script will display a message containing these notes. They will not be recorded in the volpiano
+  * This can only happen at the end of an MEI file 
 
 The resulting volpiano string will have multiple notes seperated by two hyphens. This seperation is dictated by the syllables, representented by: `<syl>`. The notes themselves are located with the `<note>` tag and represented by the `pname` attribute.
 
