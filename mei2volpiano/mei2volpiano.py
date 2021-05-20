@@ -204,8 +204,11 @@ class MEItoVolpiano:
         """
         syl_note = {"dummy": ""}
         dbase_bias = 0
-        octave_converter_weight = 2 #C4 in CWMN is octave 2 in volpiano
+        octave_converter_weight = 2  # C4 in CWMN is octave 2 in volpiano
+        invalid_notes = []
+        invalid_notes = set(invalid_notes)
         last = "dummy"
+        syl_note["invalid"] = ""
         num = True
         for element in elements:
             if element.tag == f"{NAMESPACE}syl":
@@ -224,7 +227,14 @@ class MEItoVolpiano:
                 ocv = int(ocv) - octave_converter_weight
                 ocv = f"{ocv}"
                 volpiano = self.get_volpiano(note, ocv)
-                syl_note[last] = f"{syl_note[last]}{volpiano}"
+                if volpiano == "pname error":
+                    invalid_notes.add(note)
+                else:
+                    syl_note[last] = f"{syl_note[last]}{volpiano}"
+        if invalid_notes:
+            for val in invalid_notes:
+                invalid = "invalid"
+                syl_note["invalid"] = f"{syl_note[invalid]} {val}"
         return syl_note
 
     def get_syl_key(self, element: object, bias: int) -> str:
@@ -270,17 +280,13 @@ class MEItoVolpiano:
             "4": {"c": "r", "d": "s"},
         }
 
-        oct_error = "OCTAVE_RANGE_ERROR"
-        note_error = "NOTE_NOT_IN_OCTAVE"
+        error = "pname error"
 
         for key in octs:
             if key == ocv:
                 if note in octs[key]:
                     return octs[key][note]
-                else:
-                    return note_error
-
-        return oct_error
+        return error
 
     def export_volpiano(self, mapping_dictionary: dict) -> str:
         """Creates volpiano string with clef attached.
@@ -292,18 +298,27 @@ class MEItoVolpiano:
         Returns:
             (str): Final, valid volpiano with the clef attached in a single line.
         """
-        values = list(mapping_dictionary.values())[1::]
         clef = "1---"
-        vol_string = "".join(values)
+        starting_index = 1
         floating_notes = mapping_dictionary["dummy"]
+        invalid_notes = ''
+        if "invalid" in mapping_dictionary:
+            starting_index = 2
+            invalid_notes = mapping_dictionary["invalid"]
+        floating_string = ""
+        invalid_string = ""
+        values = list(mapping_dictionary.values())[starting_index::]
+        vol_string = "".join(values)
+        if len(invalid_notes) == 1:
+            invalid_string = f"\n\nWe found an invalid note (pname) inside the MEI file: {invalid_notes.lstrip()}"
+        if len(invalid_notes) > 1:
+            invalid_string = f"\n\nWe found numerous invalid notes (pnames) inside the MEI file: {invalid_notes.lstrip()}"
         if len(floating_notes) == 1:
-            notes = f"We found one syllable-independent note at the end of the MEI file: {floating_notes}"
-            return f"{clef}{vol_string} \n\n{notes}"
+            floating_string = f"\n\nWe found one syllable-independent note at the end of the MEI file: {floating_notes}"
         elif len(floating_notes) > 1:
-            notes = f"We found numerous syllable-independent notes at the end of the MEI file: {floating_notes}"
-            return f"{clef}{vol_string} \n\n{notes}"
-        else:
-            return f"{clef}{vol_string}"
+            floating_string = f"\n\nWe found numerous syllable-independent notes at the end of the MEI file: {floating_notes}"
+
+        return f"{clef}{vol_string}{invalid_string}{floating_string}"
 
     def convert_mei_volpiano(self, filename: str) -> str:
         """All-in-one method for converting MEI file to valid volpiano string.
