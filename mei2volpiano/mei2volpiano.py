@@ -291,10 +291,15 @@ class MEItoVolpiano:
         Returns:
             (str): Final, valid volpiano with the clef attached in a single line.
         """
-        values = list(mapping_dictionary.values())
+        values = list(mapping_dictionary.values())[1::]
         clef = "1---"
         vol_string = "".join(values)
-        return f"{clef}{vol_string}"
+        floating_notes = mapping_dictionary["dummy"]
+        if floating_notes:
+            notes = f"We found one or more syllable-independent notes at the end of the MEI file: {floating_notes}"
+            return f"{clef}{vol_string} \n\n{notes}"
+        else:
+            return f"{clef}{vol_string}"
 
     def convert_mei_volpiano(self, filename: str) -> str:
         """All-in-one method for converting MEI file to valid volpiano string.
