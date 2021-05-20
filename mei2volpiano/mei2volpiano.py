@@ -298,13 +298,17 @@ class MEItoVolpiano:
         Returns:
             (str): Final, valid volpiano with the clef attached in a single line.
         """
-        values = list(mapping_dictionary.values())[2::]
         clef = "1---"
-        vol_string = "".join(values)
+        starting_index = 1
         floating_notes = mapping_dictionary["dummy"]
-        invalid_notes = mapping_dictionary["invalid"]
+        invalid_notes = ''
+        if "invalid" in mapping_dictionary:
+            starting_index = 2
+            invalid_notes = mapping_dictionary["invalid"]
         floating_string = ""
         invalid_string = ""
+        values = list(mapping_dictionary.values())[starting_index::]
+        vol_string = "".join(values)
         if len(invalid_notes) == 1:
             invalid_string = f"\n\nWe found an invalid note (pname) inside the MEI file: {invalid_notes.lstrip()}"
         if len(invalid_notes) > 1:
