@@ -108,10 +108,10 @@ def main():
 
     if args["export"]:
         for pair in name_vol_pairs:
-            basename = os.path.basename(pair[0])
-            out_name = os.path.splitext(basename)[0]
-            with open(f"{out_name}.txt", "a") as out:
-                out.write(out_name + "\n")
+            # basename = os.path.basename(pair[0])
+            # out_name = os.path.splitext(basename)[0]
+            with open(f"{os.path.splitext(pair[0])[0]}.txt", "w") as out:
+                out.write(os.path.splitext(pair[0])[0] + "\n")
                 out.write(pair[1])
 
     for pair in name_vol_pairs:
