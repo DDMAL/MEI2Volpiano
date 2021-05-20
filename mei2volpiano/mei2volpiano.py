@@ -298,7 +298,7 @@ class MEItoVolpiano:
         Returns:
             (str): Final, valid volpiano with the clef attached in a single line.
         """
-        values = list(mapping_dictionary.values())[1::]
+        values = list(mapping_dictionary.values())[2::]
         clef = "1---"
         vol_string = "".join(values)
         floating_notes = mapping_dictionary["dummy"]
