@@ -44,9 +44,6 @@ def main():
 
     parser.add_argument(
         "t",
-        # default="mei",
-        # const="mei",
-        nargs="?",
         choices=["txt", "mei"],
         help="Choice indicating whether the inputs will be mei or txt files",
     )
