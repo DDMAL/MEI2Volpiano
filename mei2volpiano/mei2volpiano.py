@@ -8,7 +8,6 @@ import xml.etree.ElementTree as ET
 
 # namespace for MEI tags
 NAMESPACE = "{http://www.music-encoding.org/ns/mei}"
-invalid_notes = []
 
 
 class MEItoVolpiano:
@@ -206,7 +205,10 @@ class MEItoVolpiano:
         syl_note = {"dummy": ""}
         dbase_bias = 0
         octave_converter_weight = 2  # C4 in CWMN is octave 2 in volpiano
+        invalid_notes = []
+        invalid_notes = set(invalid_notes)
         last = "dummy"
+        syl_note["invalid"] = ""
         num = True
         for element in elements:
             if element.tag == f"{NAMESPACE}syl":
@@ -226,9 +228,13 @@ class MEItoVolpiano:
                 ocv = f"{ocv}"
                 volpiano = self.get_volpiano(note, ocv)
                 if volpiano == "pname error":
-                    invalid_notes.append(note)
+                    invalid_notes.add(note)
                 else:
                     syl_note[last] = f"{syl_note[last]}{volpiano}"
+        if invalid_notes:
+            for val in invalid_notes:
+                invalid = "invalid"
+                syl_note["invalid"] = f"{syl_note[invalid]}{val}"
         return syl_note
 
     def get_syl_key(self, element: object, bias: int) -> str:
@@ -296,19 +302,19 @@ class MEItoVolpiano:
         clef = "1---"
         vol_string = "".join(values)
         floating_notes = mapping_dictionary["dummy"]
-        inv_notes = ""
-        if invalid_notes:
-            inv_notes = (
-                f"We found numerous invalid notes inside the MEI file: {invalid_notes}"
-            )
+        invalid_notes = mapping_dictionary["invalid"]
+        floating_string = ""
+        invalid_string = ""
+        if len(invalid_notes) == 1:
+            invalid_string = f"\n\nWe found an invalid note (pname) inside the MEI file: {invalid_notes}"
+        if len(invalid_notes) > 1:
+            invalid_string = f"\n\nWe found numerous invalid notes (pnames) inside the MEI file: {invalid_notes}"
         if len(floating_notes) == 1:
-            notes = f"We found one syllable-independent note at the end of the MEI file: {floating_notes}"
-            return f"{clef}{vol_string} \n\n{notes} \n\n{inv_notes}"
+            floating_string = f"\n\nWe found one syllable-independent note at the end of the MEI file: {floating_notes}"
         elif len(floating_notes) > 1:
-            notes = f"We found numerous syllable-independent notes at the end of the MEI file: {floating_notes}"
-            return f"{clef}{vol_string} \n\n{notes} \n\n{inv_notes}"
-        else:
-            return f"{clef}{vol_string}"
+            floating_string = f"\n\nWe found numerous syllable-independent notes at the end of the MEI file: {floating_notes}"
+
+        return f"{clef}{vol_string}{invalid_string}{floating_string}"
 
     def convert_mei_volpiano(self, filename: str) -> str:
         """All-in-one method for converting MEI file to valid volpiano string.
