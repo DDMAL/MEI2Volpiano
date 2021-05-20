@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 
 # namespace for MEI tags
 NAMESPACE = "{http://www.music-encoding.org/ns/mei}"
+invalid_notes = []
 
 
 class MEItoVolpiano:
@@ -204,7 +205,7 @@ class MEItoVolpiano:
         """
         syl_note = {"dummy": ""}
         dbase_bias = 0
-        octave_converter_weight = 2 #C4 in CWMN is octave 2 in volpiano
+        octave_converter_weight = 2  # C4 in CWMN is octave 2 in volpiano
         last = "dummy"
         num = True
         for element in elements:
@@ -224,7 +225,10 @@ class MEItoVolpiano:
                 ocv = int(ocv) - octave_converter_weight
                 ocv = f"{ocv}"
                 volpiano = self.get_volpiano(note, ocv)
-                syl_note[last] = f"{syl_note[last]}{volpiano}"
+                if len(volpiano) > 2:
+                    invalid_notes.append(note)
+                else:
+                    syl_note[last] = f"{syl_note[last]}{volpiano}"
         return syl_note
 
     def get_syl_key(self, element: object, bias: int) -> str:
@@ -296,6 +300,11 @@ class MEItoVolpiano:
         clef = "1---"
         vol_string = "".join(values)
         floating_notes = mapping_dictionary["dummy"]
+        if len(invalid_notes):
+            notes = (
+                f"We found numerous invalid notes inside the MEI file: {invalid_notes}"
+            )
+            return f"{clef}{vol_string} \n\n{notes}"
         if len(floating_notes) == 1:
             notes = f"We found one syllable-independent note at the end of the MEI file: {floating_notes}"
             return f"{clef}{vol_string} \n\n{notes}"
