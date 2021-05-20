@@ -297,7 +297,7 @@ class MEItoVolpiano:
         vol_string = "".join(values)
         floating_notes = mapping_dictionary["dummy"]
         inv_notes = ""
-        if len(invalid_notes):
+        if invalid_notes:
             inv_notes = (
                 f"We found numerous invalid notes inside the MEI file: {invalid_notes}"
             )
