@@ -74,9 +74,8 @@ def main():
 
         if cur_type != args["t"]:
             parser.error(
-                    f"Unexpected file type for the specified flag\nInput Type: {cur_type} \nExpected Type: {args['t']}"
-                )
-
+                f"Unexpected file type for the specified flag\nInput Type: {cur_type} \nExpected Type: {args['t']}"
+            )
 
     if args["W"]:
         if args["t"] == "mei":
