@@ -301,7 +301,7 @@ class MEItoVolpiano:
         clef = "1---"
         starting_index = 1
         floating_notes = mapping_dictionary["dummy"]
-        invalid_notes = ''
+        invalid_notes = ""
         if "invalid" in mapping_dictionary:
             starting_index = 2
             invalid_notes = mapping_dictionary["invalid"]
@@ -309,9 +309,9 @@ class MEItoVolpiano:
         invalid_string = ""
         values = list(mapping_dictionary.values())[starting_index::]
         vol_string = "".join(values)
-        if len(invalid_notes) == 1:
+        if len(invalid_notes) == 2:
             invalid_string = f"\n\nWe found an invalid note (pname) inside the MEI file: {invalid_notes.lstrip()}"
-        if len(invalid_notes) > 1:
+        if len(invalid_notes) > 2:
             invalid_string = f"\n\nWe found numerous invalid notes (pnames) inside the MEI file: {invalid_notes.lstrip()}"
         if len(floating_notes) == 1:
             floating_string = f"\n\nWe found one syllable-independent note at the end of the MEI file: {floating_notes}"
