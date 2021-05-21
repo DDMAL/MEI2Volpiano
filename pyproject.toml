@@ -4,6 +4,7 @@ version = "0.7.1"
 description = ""
 authors = ["DDMAL"]
 readme = "README.md"
+repository = "https://github.com/DDMAL/MEI2Volpiano"
 
 [tool.poetry.dependencies]
 python = "^3.6"
