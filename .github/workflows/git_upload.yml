@@ -1,17 +1,17 @@
-name: Python package
+name: Publish
+
 on:
   release:
-    tags:
-      - '*.*.*'
+    types:
+      - created
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-python@v2
-        - uses: casperdcl/deploy-pypi@v2
-          with:
-            password: ${{ secrets.PYPI_API_TOKEN }}
-            pip: wheel -w dist/ --no-deps .
-            # only upload if a tag is pushed (otherwise just build & check)
-            upload: ${{startsWith(github.event.ref, 'refs/tags')}}
+      - uses: actions/checkout@v2
+      - name: Publish
+        env:
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          poetry publish --build $PYPI_API_TOKEN
