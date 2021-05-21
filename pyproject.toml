@@ -3,6 +3,7 @@ name = "MEI2Volpiano"
 version = "0.7.1"
 description = ""
 authors = ["DDMAL"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.6"
