@@ -38,6 +38,7 @@ class MEItoVolpiano:
             find_notes(list[elements]) -> list[str]
             find_syls(list[elements]) -> list[str]
             sylb_note_map(list[elements]) -> dict[str, str]
+            compare_volpiano(str, file, bool = False) -> bool
 
             ^ useful for MEI parsing and testing outputs.
 
@@ -348,3 +349,41 @@ class MEItoVolpiano:
         mapped_values = self.Wsylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
         return volpiano
+
+    def compare_volpiano(
+        self, volpiano: str, filename: str, western: bool = False
+    ) -> bool:
+        """Compares the notes in a given volpiano and MEI file.
+
+        Args:
+            volpiano (str): The volpiano string you want to test.
+            filename (file): The MEI file you want to compare the volpiano to.
+            western (bool): Optional flag to test CWMN.
+
+        Returns:
+            bool: True if all the notes match, in order. False otherwise.
+
+        """
+        file_output = None
+        if western:
+            file_output = MEItoVolpiano.Wconvert_mei_volpiano(filename)
+        else:
+            file_output = MEItoVolpiano.convert_mei_volpiano(filename)
+        clean_output = "".join(filter(str.isalpha, file_output))
+        clean_volpiano = "".join(filter(str.isalpha, volpiano))
+
+        if volpiano == file_output:
+            print(
+                "Input volpiano is identical to the string output for the given MEI file."
+            )
+            return True
+        elif clean_volpiano == clean_output:
+            print(
+                "Notes in the input volpiano are identical and in the same order compared to the output of the MEI file."
+            )
+            return True
+        else:
+            print(
+                "Input volpiano has different notes when compared to the output from the MEI file."
+            )
+            return False
