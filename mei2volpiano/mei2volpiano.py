@@ -84,12 +84,11 @@ class MEItoVolpiano:
         Returns:
             notes (list): char list of all notes found, in order.
         """
-        notes = []
-        for element in elements:
-            if element.tag == f"{NAMESPACE}nc":
-                notes.append(element.attrib["pname"])
-
-        return notes
+        return [
+            element.attrib["pname"]
+            for element in elements
+            if element.tag == f"{NAMESPACE}nc"
+        ]
 
     def find_syls(self, elements: list) -> list:
         """Finds all syllables in a given elements list
@@ -100,12 +99,11 @@ class MEItoVolpiano:
         Returns:
             syls (list): string list of all syllables found, in order.
         """
-        syls = []
-        for element in elements:
-            if element.tag == f"{NAMESPACE}syl":
-                if element.text:
-                    syls.append(element.text)
-        return syls
+        return [
+            element.text
+            for element in elements
+            if element.tag == f"{NAMESPACE}syl" and element.text
+        ]
 
     def sylb_note_map(self, elements: list) -> dict:
         """Creates a dictionary map of syllables and their notes (with octaves).
