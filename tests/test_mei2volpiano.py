@@ -80,11 +80,59 @@ _003v_correct_vol = (
     "--oprr---r---rrq---p---prrq---orpqpqroomnm---mnp---p"
 )
 
+_16_std = (
+    "1---g-fg-f-f-f-fffd-f-gf-ef-d-e-gh-gkhjk-k7-k-jk"
+    "-hkghg-fg-gf-fded-d-f-gh-hjkg-g-gfgff-fd-fgfef7-fe7-k-klkk"
+    "-hjkj-hhg-hg-h-k-jlkk-kj-hg-hk-k7-k-k-k-klkkjh-jkj-hg-ghk"
+    "-kjjhjhgh-hg-d-e-gh7-k-kh-k-kj-j-jlkj-kjhjh-kj-k-l-kjkk"
+    "-k7-jkmlk-lml-jlkk-jk-h-mh-m-lnml-mkkj-k-k-k-k-k-jklkj7"
+    "-l-lmlmlk-jkljk-jh-hg-k-lml-mklm-m-mnlk-lml-jlkk-kj7-m"
+    "-m-m-lm-lk-lmlml-jkj-l-lk-lm-lk-jklk-kj-k-kh7-k-k"
+    "-jklkj-l-lmlmlk-jkljk-jh-h-mh-m7-l-j-ln7-l-jkj"
+    "-jk-l-k-jh-ghkhj-hg-j-glj-lm-l-l-l-klmnmlm7-ml"
+    "-lk-klm-lmlkjk-kj-jk-l-k-kj-h-hklkjklkl-lk7-k-k-jklkjh"
+    "-hkjh-hjghgh7-hg-l-lmnml-klkkj-k-lj"
+    )
+
+_003r_std = (
+    "1---nnln-kln-kl-kl-no-n-o-qo-pr-q-r-pqpo-q7-q-o-qo-q-on"
+    "-nopop-o-nmlnon-op-opo-nopono-on-n-noq7-jh-jhghg-hjkl-k"
+    "-k-k-k-k-kl-k-k-k-j-h7-j-ghg-fegh-gf-c-d-f-fg-f-f-ghf-"
+    "fe7-fgj-jg-h-j-h-g-g-h-g-f-g-f-f-g-hg-h7-g-h-g-g-gh7-g-gkh"
+    "-klkkj-k-lmlm-ml-kj-kl-lj-kl-kl-lkkj-j-h-g7-ghkg-hggf-h-k-"
+    "kj-kh-gfghgfg-g-hg-g-gh-g-g7-g-lg-lk-lnlmlklk-l-l-nm-no-oq"
+    "-l-nm-l-o-o-nml7-ml-kl-lml-ljkj-jk-l-ml-mnm-l-kkj-hg-ghkhj"
+    "-hg-g-g7-h-g-h-g-f-g-kh-kj-kh-hghjhj-jh-l-k7-j-lmlm-kl-lj"
+    "-l-kj-kl-hg-ghkg-hggf-f-hk-kj-l-kkjh-kl7-m-nm-n-m-l-m-l-"
+    "lk-l-lkl-hk-j-klkjh-jkjh-g-ghjh-gh-hg-l-m-n-m-l"
+    )
+
+_003v_std = (
+    "1---k-l-k-k-j-k-kl-k-lj-k-l-k-l-l-m-nm-ml-mlmlk-kj-kl-ml"
+    "-m-n-m7-lklml-m-lkj-kj-l-k7-g-h-hg-hggf-f-h-hklkj-kl7-jl"
+    "-lk-k-k-j-k-l-k-j-lkjkj-j-h-g-hg-kk-kh-jklkj-h-jkjh-gh7-j"
+    "-h-g-h-h-g-g-g-lg-lk-lnlmlklk-l-nm-n-o-o-p-l7-lnnm-n-o-n-"
+    "mnm-l-ml-ljkj-jk-lmlm-n-m-kh-klm-lk-j-ljkj-kjh-g-hg7-g-gl"
+    "-lk-lkh-k-jlkk-k-j-g-g-h-hgggf-h-f-hk7-kj-lk-kjh-kl-m-nm"
+    "-nmlml-l-lk-kh-k-kjkl-h-g-ghkg-hggf7-kk-hk-jklkjh-jkjh-"
+    "ghjhgh-h-g7-l-mnml-kj-klkkj-k-k7-k-l-k-k-k-k-k-lj-kl-kl-"
+    "lmnm-m-l7-klkkj-kl-lm-l-l-l-mlmlk-kj-k-lmlm-n-m-l-j-l-nl"
+    "-m7-l-kjkj-g-g-lg7-o-o-oprr-r-rrq-p-prrq-orpqpqroomnm-mnp-p"
+    )
+
+n_standard = [_16_std, _003r_std, _003v_std]
+
 _W_Coronam_correct_vol = "1---f--g--f--f--f--f--f--f--e--g--h"
 
 _W_EtConstituisti_vol = "1---c--c--c--c--c--c--d--c--c--c--c--c--c--c--c--c--b--d--e"
 
 _W_Tuum_vol = "1---c--c--c--c--d--c--c--c--c--c--b--d--e"
+
+coronam_std = "1---f-g-f-f-f-f-f-f-e-g-h"
+etconstituisti_std = "1---c-c-c-c-c-c-d-c-c-c-c-c-c-c-c-c-b-d-e"
+tuum_std = "1---c-c-c-c-d-c-c-c-c-c-b-d-e"
+
+w_standard = [coronam_std, etconstituisti_std, tuum_std]
 
 listCorrectOutputs = [_016_correct_vol, _003r_correct_vol, _003v_correct_vol]
 
@@ -693,6 +741,32 @@ class TestVolpiano(unittest.TestCase):
         self.assertTrue(lib.compare_volpiano(_W_Coronam_correct_vol, w1, True))
         self.assertTrue(lib.compare_volpiano(w2_stringVolpiano, w2, True))
         self.assertFalse(lib.compare_volpiano(w3_stringVolpiano_false, w3, True))
+
+    def test_standardize_volpianoW(self):
+        lib = mei2volpiano.MEItoVolpiano()
+        w1 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
+        w2 = "./resources/western_mei/Et_constituisti_eum_super_opera_manuum_tuarum_alleluia.mei"
+        w3 = "./resources/western_mei/Tuum_gloriosum_recolimus_triumphum_alleluia_alleluia_regis_opprobrium.mei"
+
+        files = [w1, w2, w3]
+
+        for i, element in enumerate(w_standard):
+            func = lib.convert_mei_volpiano(files[i], True)
+            func = lib.standardize_volpiano(func)
+            self.assertTrue(func, w_standard[i])
+    
+    def test_standardize_volpianoN(self):
+        lib = mei2volpiano.MEItoVolpiano()
+        f1 = "./resources/neume_mei/016r_reviewed.mei"
+        f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"
+        f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
+
+        files = [f1, f2, f3]
+
+        for i, element in enumerate(n_standard):
+            func = lib.convert_mei_volpiano(files[i])
+            func = lib.standardize_volpiano(func) 
+            self.assertTrue(func, w_standard[i])
 
 
 if __name__ == "__main__":

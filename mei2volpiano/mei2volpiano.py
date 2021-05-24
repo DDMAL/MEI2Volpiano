@@ -27,7 +27,7 @@ class MEItoVolpiano:
             ^ convert_mei_volpiano handles all methods in Main.
 
         [Western]:
-            Wsylb_volpiano_map(list[elements]) -> dict[str, str]
+            sylb_volpiano_map_w(list[elements]) -> dict[str, str]
 
             ^ convert_mei_volpiano(self, filename, True) calls methods in Main to give
             the volpiano string for MEI files written in Western notation.
@@ -38,6 +38,7 @@ class MEItoVolpiano:
             find_syls(list[elements]) -> list[str]
             sylb_note_map(list[elements]) -> dict[str, str]
             compare_volpiano(str, file, bool = False) -> bool
+            standardize_volpiano(str) -> str
 
             ^ useful for MEI parsing and testing outputs.
 
@@ -189,7 +190,7 @@ class MEItoVolpiano:
 
         return syl_note
 
-    def Wsylb_volpiano_map(self, elements: list) -> dict:
+    def sylb_volpiano_map_w(self, elements: list) -> dict:
         """Western notation - Creates a dictionary of syllables and their volpiano values.
 
         Args:
@@ -297,11 +298,11 @@ class MEItoVolpiano:
             (str): Final, valid volpiano with the clef attached in a single line.
         """
         clef = "1---"
-        starting_index = 1
+        starting_index = 1  # To avoid adding syllable-independent notes at the start.
         floating_notes = mapping_dictionary["dummy"]
         invalid_notes = ""
         if "invalid" in mapping_dictionary:
-            starting_index = 2
+            starting_index = 2  # To avoid adding unknown symbols at the start.
             invalid_notes = mapping_dictionary["invalid"]
         floating_string = ""
         invalid_string = ""
@@ -331,10 +332,11 @@ class MEItoVolpiano:
         elements = self.get_mei_elements(filename)
         mapped_values = {}
         if western:
-            mapped_values = self.Wsylb_volpiano_map(elements)
+            mapped_values = self.sylb_volpiano_map_w(elements)
         else:
             mapped_values = self.sylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
+        print(self.standardize_volpiano(volpiano))
         return volpiano
 
     def compare_volpiano(
@@ -366,7 +368,8 @@ class MEItoVolpiano:
             return True
         elif clean_volpiano == clean_output:
             print(
-                "Notes in the input volpiano are identical and in the same order compared to the output of the MEI file."
+                "Notes in the input volpiano are identical and in the same order compared to"
+                + "the output of the MEI file. However, the hyphens don't match up."
             )
             return True
         else:
@@ -374,3 +377,17 @@ class MEItoVolpiano:
                 "Input volpiano has different notes when compared to the output from the MEI file."
             )
             return False
+
+    def standardize_volpiano(self, volpiano: str) -> str:
+        """Standardizes volpiano with only single hyphens, except the clef one.
+
+        Args:
+            volpiano(str): The volpiano string you want to standardize.
+
+        Returns:
+            str: Standardized volpiano.
+        """
+        clef = "1---"
+        volpiano = volpiano[4:]
+        volpiano = volpiano.replace("---", "-").replace("--", "-")
+        return f"{clef}{volpiano}"
