@@ -726,9 +726,9 @@ class TestVolpiano(unittest.TestCase):
 
         trueN3 = str(listNotes[2]).translate(str.maketrans("", "", "-"))
 
-        self.assertTrue(lib.compare_volpiano(listCorrectOutputs[0], f1))
-        self.assertFalse(lib.compare_volpiano(str(listNotes[1]), f2))
-        self.assertFalse(lib.compare_volpiano(trueN3, f3))
+        self.assertTrue(lib.compare_volpiano_file(listCorrectOutputs[0], f1))
+        self.assertFalse(lib.compare_volpiano_file(str(listNotes[1]), f2))
+        self.assertFalse(lib.compare_volpiano_file(trueN3, f3))
 
     def test_compare_volpianoW(self):
         lib = mei2volpiano.MEItoVolpiano()
@@ -738,9 +738,22 @@ class TestVolpiano(unittest.TestCase):
         w2_stringVolpiano = "1ccccccdcccccccccbde"  # Taken from listNotes_Et
         w3_stringVolpiano_false = "1ccccdcccccbdef"
 
-        self.assertTrue(lib.compare_volpiano(_W_Coronam_correct_vol, w1, True))
-        self.assertTrue(lib.compare_volpiano(w2_stringVolpiano, w2, True))
-        self.assertFalse(lib.compare_volpiano(w3_stringVolpiano_false, w3, True))
+        self.assertTrue(lib.compare_volpiano_file(_W_Coronam_correct_vol, w1, True))
+        self.assertTrue(lib.compare_volpiano_file(w2_stringVolpiano, w2, True))
+        self.assertFalse(lib.compare_volpiano_file(w3_stringVolpiano_false, w3, True))
+    
+    def test_compare_volpiano_volpiano(self):
+        lib = mei2volpiano.MEItoVolpiano()
+
+        for i, element in enumerate(listWCorrectOutputs):
+            self.assertTrue(lib.compare_volpiano_volpiano(listWCorrectOutputs[i], w_standard[i]))
+            self.assertTrue(lib.compare_volpiano_volpiano(listWCorrectOutputs[i], lib.secure_volpiano(listWCorrectOutputs[i])))
+            
+        
+        for i, element in enumerate(listCorrectOutputs):
+            self.assertTrue(lib.compare_volpiano_volpiano(listCorrectOutputs[i], n_standard[i]))
+            self.assertTrue(lib.compare_volpiano_volpiano(listCorrectOutputs[i], lib.secure_volpiano(listCorrectOutputs[i])))
+
 
     def test_standardize_volpianoW(self):
         lib = mei2volpiano.MEItoVolpiano()

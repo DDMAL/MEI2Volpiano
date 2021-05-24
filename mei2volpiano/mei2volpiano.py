@@ -37,7 +37,8 @@ class MEItoVolpiano:
             find_notes(list[elements]) -> list[str]
             find_syls(list[elements]) -> list[str]
             sylb_note_map(list[elements]) -> dict[str, str]
-            compare_volpiano(str, file, bool = False) -> bool
+            compare_volpiano_file(str, file, bool = False) -> bool
+            compare_volpiano_volpiano(str, str) -> bool
             standardize_volpiano(str) -> str
             compare_standard(str, file, bool = False) -> bool
             secure_volpiano(str) -> str
@@ -341,7 +342,7 @@ class MEItoVolpiano:
         print(self.secure_volpiano(volpiano))
         return volpiano
 
-    def compare_volpiano(
+    def compare_volpiano_file(
         self, volpiano: str, filename: str, western: bool = False
     ) -> bool:
         """Compares the notes in a given volpiano and MEI file.
@@ -379,6 +380,19 @@ class MEItoVolpiano:
                 "Input volpiano has different notes when compared to the output from the MEI file."
             )
             return False
+    
+    def compare_volpiano_volpiano(self, vol1: str, vol2: str) -> bool:
+        """Compares two volpianos. Equality is based solely on notes and their order.
+
+        Args:
+            vol1 (str): First volpiano string.
+            vol2 (str): Second volpiano string.
+        
+        Returns:
+            bool: Equality based on notes and their order.
+        """
+
+        return self.secure_volpiano(vol1) == self.secure_volpiano(vol2)
 
     def standardize_volpiano(self, volpiano: str) -> str:
         """Standardizes volpiano with only single hyphens, except the clef one.
