@@ -756,6 +756,9 @@ class TestVolpiano(unittest.TestCase):
             self.assertTrue(func, w_standard[i])
     
     def test_standardize_volpianoN(self):
+        """This also covers compare_standard since the tesing method and the 
+        implementation of the actual method are the same.
+        """
         lib = mei2volpiano.MEItoVolpiano()
         f1 = "./resources/neume_mei/016r_reviewed.mei"
         f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"

@@ -39,6 +39,7 @@ class MEItoVolpiano:
             sylb_note_map(list[elements]) -> dict[str, str]
             compare_volpiano(str, file, bool = False) -> bool
             standardize_volpiano(str) -> str
+            compare_standard(str, file, bool = False) -> bool
 
             ^ useful for MEI parsing and testing outputs.
 
@@ -391,3 +392,31 @@ class MEItoVolpiano:
         volpiano = volpiano[4:]
         volpiano = volpiano.replace("---", "-").replace("--", "-")
         return f"{clef}{volpiano}"
+
+    def compare_standard(
+        self, volpiano: str, filename: str, western: bool = False
+    ) -> bool:
+        """Standardizes a given volpiano and compare it to the standardized output of an MEI.
+
+        Args:
+            volpiano (str): The volpiano string you want to test.
+            filename (file): The MEI file you want to compare the volpiano to.
+            western (bool): Optional flag to test CWMN.
+
+        Returns:
+            bool: True if all the notes match, in order. False otherwise.
+        """
+
+        file_output = ""
+        standard_volpiano = self.standardize_volpiano(volpiano)
+        if western:
+            standard_volpiano = self.convert_mei_volpiano(filename, True)
+        else:
+            standard_volpiano = self.convert_mei_volpiano(filename)
+
+        if file_output == standard_volpiano:
+            print("Standardized volpianos are the same.\n")
+            return True
+        else:
+            print("Standardized volpianos are different.\n")
+            return False
