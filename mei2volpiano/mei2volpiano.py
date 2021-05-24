@@ -22,7 +22,7 @@ class MEItoVolpiano:
             get_syl_key(element, integer) -> str
             get_volpiano(str, str) -> str
             export_volpiano(dict[str, str]) -> str
-            convert_mei_volpiano(file, bool) -> str
+            convert_mei_volpiano(file, bool = False) -> str
 
             ^ convert_mei_volpiano handles all methods in Main.
 
@@ -323,7 +323,7 @@ class MEItoVolpiano:
 
         Args:
             filename (file): Open MEI file you want the volpiano of.
-            western (bool): MEI file types. False is Neueme and True is CWMN
+            western (bool): MEI file types. False (default) is Neueme and True is CWMN
 
         Returns:
             volpiano (str): Valid volpiano string representation of the input.
