@@ -670,6 +670,30 @@ class TestVolpiano(unittest.TestCase):
                 self.assertEqual(listS, listCorrectSyls[ind - 1])
             ind += 1
 
+    def test_compare_volpianoN(self):
+        lib = mei2volpiano.MEItoVolpiano()
+        f1 = "./resources/neume_mei/016r_reviewed.mei"
+        f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"
+        f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
+
+        trueN3 = str(listNotes[2]).translate(str.maketrans("", "", "-"))
+
+        self.assertTrue(lib.compare_volpiano(listCorrectOutputs[0], f1))
+        self.assertFalse(lib.compare_volpiano(str(listNotes[1]), f2))
+        self.assertFalse(lib.compare_volpiano(trueN3, f3))
+
+    def test_compare_volpianoW(self):
+        lib = mei2volpiano.MEItoVolpiano()
+        w1 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
+        w2 = "./resources/western_mei/Et_constituisti_eum_super_opera_manuum_tuarum_alleluia.mei"
+        w3 = "./resources/western_mei/Tuum_gloriosum_recolimus_triumphum_alleluia_alleluia_regis_opprobrium.mei"
+        w2_stringVolpiano = "1ccccccdcccccccccbde"  # Taken from listNotes_Et
+        w3_stringVolpiano_false = "1ccccdcccccbdef"
+
+        self.assertTrue(lib.compare_volpiano(_W_Coronam_correct_vol, w1, True))
+        self.assertTrue(lib.compare_volpiano(w2_stringVolpiano, w2, True))
+        self.assertFalse(lib.compare_volpiano(w3_stringVolpiano_false, w3, True))
+
 
 if __name__ == "__main__":
     unittest.main(argv=["first-arg-is-ignored"], exit=False)

@@ -366,11 +366,11 @@ class MEItoVolpiano:
         """
         file_output = None
         if western:
-            file_output = MEItoVolpiano.Wconvert_mei_volpiano(filename)
+            file_output = self.Wconvert_mei_volpiano(filename)
         else:
-            file_output = MEItoVolpiano.convert_mei_volpiano(filename)
-        clean_output = "".join(filter(str.isalpha, file_output))
-        clean_volpiano = "".join(filter(str.isalpha, volpiano))
+            file_output = self.convert_mei_volpiano(filename)
+        clean_output = file_output.translate(str.maketrans('', '', '-'))
+        clean_volpiano = volpiano.translate(str.maketrans('', '', '-'))
 
         if volpiano == file_output:
             print(
