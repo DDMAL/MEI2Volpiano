@@ -40,6 +40,7 @@ class MEItoVolpiano:
             compare_volpiano(str, file, bool = False) -> bool
             standardize_volpiano(str) -> str
             compare_standard(str, file, bool = False) -> bool
+            secure_volpiano(str) -> str
 
             ^ useful for MEI parsing and testing outputs.
 
@@ -337,7 +338,7 @@ class MEItoVolpiano:
         else:
             mapped_values = self.sylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
-        print(self.standardize_volpiano(volpiano))
+        print(self.secure_volpiano(volpiano))
         return volpiano
 
     def compare_volpiano(
@@ -420,3 +421,26 @@ class MEItoVolpiano:
         else:
             print("Standardized volpianos are different.\n")
             return False
+
+    def secure_volpiano(self, volpiano: str) -> str:
+        """Create the secure version of a given volpiano.
+
+        Args:
+            volpiano (str): Volpiano string
+
+        Returns:
+            str: Secure volpiano string.
+        """
+
+        notes = [letter for letter in volpiano if letter.isalpha()]
+        secure_vol = ''
+
+        for note in notes:
+            secure_vol = f"{secure_vol}{note}-"
+        
+        secure_vol = secure_vol[:-1]
+
+        clef = "1---"
+
+        return f"{clef}{secure_vol}"
+
