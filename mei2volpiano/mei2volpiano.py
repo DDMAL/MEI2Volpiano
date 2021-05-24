@@ -117,15 +117,15 @@ class MEItoVolpiano:
         """
 
         syl_dict = {"dummy": ""}
-        dbase_bias = 0
+        dbase_id = 0
         last = "dummy"
 
         for element in elements:
 
             if element.tag == f"{NAMESPACE}syl":
-                key = self.get_syl_key(element, dbase_bias)
+                key = self.get_syl_key(element, dbase_id)
                 syl_dict[key] = syl_dict[last]
-                dbase_bias += 1
+                dbase_id += 1
                 syl_dict["dummy"] = ""
                 last = key
 
@@ -157,14 +157,14 @@ class MEItoVolpiano:
             notes with correct octaves as values.
         """
         syl_note = {"dummy": ""}
-        dbase_bias = 0
+        dbase_id = 0
         last = "dummy"
         for element in elements:
 
             if element.tag == f"{NAMESPACE}syl":
-                key = self.get_syl_key(element, dbase_bias)
+                key = self.get_syl_key(element, dbase_id)
                 syl_note[key] = syl_note[last]
-                dbase_bias += 1
+                dbase_id += 1
                 syl_note["dummy"] = ""
                 last = key
 
@@ -197,11 +197,11 @@ class MEItoVolpiano:
 
         Returns:
             syl_note (dict): Dictionary {identifier: volpiano notes} of
-            syllables and their unique data base numbers as keys and volpiano
+            syllables and their unique database ids as keys and volpiano
             notes with correct octaves as values.
         """
         syl_note = {"dummy": ""}
-        dbase_bias = 0
+        dbase_id = 0
         octave_converter_weight = 2  # C4 in CWMN is octave 2 in volpiano
         invalid_notes = []
         invalid_notes = set(invalid_notes)
@@ -210,13 +210,13 @@ class MEItoVolpiano:
         num = True
         for element in elements:
             if element.tag == f"{NAMESPACE}syl":
-                key = self.get_syl_key(element, dbase_bias)
+                key = self.get_syl_key(element, dbase_id)
                 if num:
                     syl_note[key] = f"{syl_note[last]}"
                     num = False
                 else:
                     syl_note[key] = f'{"--"}{syl_note[last]}'
-                dbase_bias += 1
+                dbase_id += 1
                 syl_note["dummy"] = ""
                 last = "dummy"
             if element.tag == f"{NAMESPACE}note":
@@ -235,23 +235,23 @@ class MEItoVolpiano:
                 syl_note["invalid"] = f"{syl_note[invalid]} {val}"
         return syl_note
 
-    def get_syl_key(self, element: object, bias: int) -> str:
+    def get_syl_key(self, element: object, dbase_id: int) -> str:
         """Finds the dictionary key of a syllable from their 'syl' and database
         identifier.
 
         Args:
             element (element): A single element representing a syllable (syl)
-            bias (int): The database identifier.
+            id (int): The database identifier.
 
         Returns:
             key (str): The dictionary key for the given syllable.
         """
         key = -1
         if element.text:
-            key = "".join(f"{bias}_")
+            key = "".join(f"{dbase_id}_")
             key = f"{key}{element.text}"
         else:
-            key = "".join(f"{bias}")
+            key = "".join(f"{dbase_id}")
         return key
 
     def get_volpiano(self, note: str, ocv: str) -> str:
