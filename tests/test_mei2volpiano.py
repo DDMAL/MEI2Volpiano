@@ -601,7 +601,7 @@ listNotes_003v = list(
     "ccbgcababcggefeefaa"
 )
 
-listNotes_Coronam = list("fgffffffega")
+listNotes_Coronam = list("fgffffffegh")
 
 listNotes_Et = list("ccccccdcccccccccbde")
 
@@ -637,7 +637,7 @@ class TestVolpiano(unittest.TestCase):
         lib = mei2volpiano.MEItoVolpiano()
         for i, element in enumerate(wfiles):
             with open(element, "r") as f:
-                final_string = lib.Wconvert_mei_volpiano(f)
+                final_string = lib.convert_mei_volpiano(f, True)
                 self.assertEqual(final_string, listWCorrectOutputs[i])
 
     def test_find_clefs(self):

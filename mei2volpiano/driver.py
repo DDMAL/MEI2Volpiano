@@ -79,13 +79,13 @@ def main():
             for mei_file in args["mei"]:
                 with open(mei_file, "r") as f:
                     f_names.append(mei_file)
-                    vol_strings.append(lib.Wconvert_mei_volpiano(f))
+                    vol_strings.append(lib.convert_mei_volpiano(f, True))
         if args["t"] == "txt":
             for txt_file in args["mei"]:
                 txt_file = open(txt_file, "r")
                 for mei_file in txt_file:
                     f_names.append(mei_file.strip())
-                    vol_strings.append(lib.Wconvert_mei_volpiano(mei_file.strip()))
+                    vol_strings.append(lib.convert_mei_volpiano(mei_file.strip(), True))
 
     if args["N"]:
         if args["t"] == "mei":

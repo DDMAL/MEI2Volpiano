@@ -22,15 +22,14 @@ class MEItoVolpiano:
             get_syl_key(element, integer) -> str
             get_volpiano(str, str) -> str
             export_volpiano(dict[str, str]) -> str
-            convert_mei_volpiano(file) -> str
+            convert_mei_volpiano(file, bool) -> str
 
-            ^ convert_mei_volpiano handles all methods in main.
+            ^ convert_mei_volpiano handles all methods in Main.
 
         [Western]:
             Wsylb_volpiano_map(list[elements]) -> dict[str, str]
-            Wconvert_mei_volpiano(file) -> str
 
-            ^ Wconvert_mei_volpiano calls methods in Main to give
+            ^ convert_mei_volpiano(self, filename, True) calls methods in Main to give
             the volpiano string for MEI files written in Western notation.
 
         [Debugging]:
@@ -321,32 +320,22 @@ class MEItoVolpiano:
 
         return f"{clef}{vol_string}{invalid_string}{floating_string}"
 
-    def convert_mei_volpiano(self, filename: str) -> str:
+    def convert_mei_volpiano(self, filename: str, western: bool = False) -> str:
         """All-in-one method for converting MEI file to valid volpiano string.
 
         Args:
             filename (file): Open MEI file you want the volpiano of.
+            western (bool): MEI file types. False is Neueme and True is CWMN
 
         Returns:
             volpiano (str): Valid volpiano string representation of the input.
         """
         elements = self.get_mei_elements(filename)
-        mapped_values = self.sylb_volpiano_map(elements)
-        volpiano = self.export_volpiano(mapped_values)
-        return volpiano
-
-    def Wconvert_mei_volpiano(self, filename: str) -> str:
-        """All-in-one method for converting MEI in Western notation to volpiano.
-
-        Args:
-            filename (file): Open MEI file you want the volpiano of.
-
-        Returns:
-            volpiano (str): Valid volpiano string representation of the input.
-        """
-
-        elements = self.get_mei_elements(filename)
-        mapped_values = self.Wsylb_volpiano_map(elements)
+        mapped_values = {}
+        if western:
+            mapped_values = self.Wsylb_volpiano_map(elements)
+        else:
+            mapped_values = self.sylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
         return volpiano
 
@@ -366,7 +355,7 @@ class MEItoVolpiano:
         """
         file_output = None
         if western:
-            file_output = self.Wconvert_mei_volpiano(filename)
+            file_output = self.convert_mei_volpiano(filename, True)
         else:
             file_output = self.convert_mei_volpiano(filename)
         clean_output = file_output.translate(str.maketrans("", "", "-"))
