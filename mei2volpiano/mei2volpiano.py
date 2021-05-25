@@ -361,8 +361,8 @@ class MEItoVolpiano:
             file_output = self.convert_mei_volpiano(filename, True)
         else:
             file_output = self.convert_mei_volpiano(filename)
-        clean_output = file_output.translate(str.maketrans("", "", "-"))
-        clean_volpiano = volpiano.translate(str.maketrans("", "", "-"))
+        clean_output = self.secure_volpiano(file_output)
+        clean_volpiano = self.secure_volpiano(volpiano)
 
         if volpiano == file_output:
             print(
