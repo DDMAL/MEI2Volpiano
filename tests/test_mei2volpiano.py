@@ -724,7 +724,7 @@ class TestVolpiano(unittest.TestCase):
         f2 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003r.mei"
         f3 = "./resources/neume_mei/CDN-Hsmu_M2149.L4_003v.mei"
 
-        trueN3 = str(listNotes[2]).translate(str.maketrans("", "", "-"))
+        trueN3 = lib.secure_volpiano(str(listNotes[2]))
 
         self.assertTrue(lib.compare_volpiano_file(listCorrectOutputs[0], f1))
         self.assertFalse(lib.compare_volpiano_file(str(listNotes[1]), f2))
@@ -735,8 +735,9 @@ class TestVolpiano(unittest.TestCase):
         w1 = "./resources/western_mei/Coronam_de_lapide_precioso_eius_alleluia_alleluia_alleluia.mei"
         w2 = "./resources/western_mei/Et_constituisti_eum_super_opera_manuum_tuarum_alleluia.mei"
         w3 = "./resources/western_mei/Tuum_gloriosum_recolimus_triumphum_alleluia_alleluia_regis_opprobrium.mei"
-        w2_stringVolpiano = "1ccccccdcccccccccbde"  # Taken from listNotes_Et
-        w3_stringVolpiano_false = "1ccccdcccccbdef"
+        w2_stringVolpiano = lib.secure_volpiano(str(listNotes_Et))  # Taken from listNotes_Et
+        w3_stringVolpiano_false = lib.secure_volpiano(str(listNotes_Tuum))
+        w3_stringVolpiano_false = f"{w3_stringVolpiano_false}aba"
 
         self.assertTrue(lib.compare_volpiano_file(_W_Coronam_correct_vol, w1, True))
         self.assertTrue(lib.compare_volpiano_file(w2_stringVolpiano, w2, True))
