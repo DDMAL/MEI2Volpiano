@@ -446,7 +446,11 @@ class MEItoVolpiano:
             str: Secure volpiano string.
         """
 
-        notes = [letter for letter in volpiano if letter.isalpha() or 8 or 9]
+        notes = [
+            letter
+            for letter in volpiano
+            if letter.isalpha() or letter == 8 or letter == 9
+        ]
         secure_vol = ""
 
         for note in notes:
