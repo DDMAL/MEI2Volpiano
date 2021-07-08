@@ -1,5 +1,5 @@
 # MEI2Volpiano
-MEI2Volpiano is a Python library developed for the purpose of converting Neume MEI files to a Volpiano string.
+MEI2Volpiano is a Python library developed for the purpose of converting Neume and CWMN MEI files to Volpiano strings.
 
 ## Licence
 MEI2Volpiano is released under the MIT license.
