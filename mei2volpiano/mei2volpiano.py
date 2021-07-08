@@ -339,7 +339,6 @@ class MEItoVolpiano:
         else:
             mapped_values = self.sylb_volpiano_map(elements)
         volpiano = self.export_volpiano(mapped_values)
-        print(self.secure_volpiano(volpiano))
         return volpiano
 
     def compare_volpiano_file(
