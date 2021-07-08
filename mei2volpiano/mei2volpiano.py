@@ -380,14 +380,14 @@ class MEItoVolpiano:
                 "Input volpiano has different notes when compared to the output from the MEI file."
             )
             return False
-    
+
     def compare_volpiano_volpiano(self, vol1: str, vol2: str) -> bool:
         """Compares two volpianos. Equality is based solely on notes and their order.
 
         Args:
             vol1 (str): First volpiano string.
             vol2 (str): Second volpiano string.
-        
+
         Returns:
             bool: Equality based on notes and their order.
         """
@@ -446,15 +446,14 @@ class MEItoVolpiano:
             str: Secure volpiano string.
         """
 
-        notes = [letter for letter in volpiano if letter.isalpha()]
-        secure_vol = ''
+        notes = [letter for letter in volpiano if letter.isalpha() or 8 or 9]
+        secure_vol = ""
 
         for note in notes:
             secure_vol = f"{secure_vol}{note}-"
-        
+
         secure_vol = secure_vol[:-1]
 
         clef = "1---"
 
         return f"{clef}{secure_vol}"
-
