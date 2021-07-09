@@ -75,4 +75,4 @@ and the program will output each mei file's volpiano to a similarly named file a
 
 ## Tests
 
-To run the current test suite, execute `pytest`
+To run the current test suite, execute `pytest`.
